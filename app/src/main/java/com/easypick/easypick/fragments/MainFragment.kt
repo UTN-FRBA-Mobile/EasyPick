@@ -1,12 +1,14 @@
 package com.easypick.easypick.fragments
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.easypick.easypick.R
+import com.easypick.easypick.RegisterActivity
 import kotlinx.android.synthetic.main.main_fragment.view.*
 
 class MainFragment: Fragment() {
@@ -21,7 +23,7 @@ class MainFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.changeScreenButton.setOnClickListener {
-            listener?.showFragment(RegistrationFragment())
+            startActivity(Intent(activity, RegisterActivity::class.java))
         }
     }
 

@@ -4,10 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.easypick.easypick.fragments.MainFragment
-import com.easypick.easypick.fragments.RegistrationFragment
 
-class MainActivity : AppCompatActivity(), MainFragment.OnFragmentInteractionListener,
-    RegistrationFragment.OnFragmentInteractionListener{
+class MainActivity : AppCompatActivity(), MainFragment.OnFragmentInteractionListener{
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

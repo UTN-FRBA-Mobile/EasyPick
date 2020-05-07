@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "399864222370",
+    "firebase_url": "https://easypick-54580.firebaseio.com",
+    "project_id": "easypick-54580",
+    "storage_bucket": "easypick-54580.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:399864222370:android:fcec6c1967b4c3056a3dfb",
+        "android_client_info": {
+          "package_name": "com.easypick.easypick"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "399864222370-nv5svt6gsa8uu99fme2l06c5j0ed85pj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwrZVp1iyZIHFVSn-7W2WtV9K_LBnFdlQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "399864222370-nv5svt6gsa8uu99fme2l06c5j0ed85pj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
