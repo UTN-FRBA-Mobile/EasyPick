@@ -1,15 +1,13 @@
 package com.easypick.easypick.fragments
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.easypick.easypick.R
-import com.easypick.easypick.RegisterActivity
-import kotlinx.android.synthetic.main.main_fragment.view.*
+import kotlinx.android.synthetic.main.fragment_main.view.*
 
 class MainFragment: Fragment() {
     private var listener: OnFragmentInteractionListener? = null
@@ -17,13 +15,14 @@ class MainFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.main_fragment, container, false)
+        return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.changeScreenButton.setOnClickListener {
-            startActivity(Intent(activity, RegisterActivity::class.java))
+            listener?.showFragment(AuthFragment())
+            // startActivity(Intent(activity, RegisterActivity::class.java))
         }
     }
 
