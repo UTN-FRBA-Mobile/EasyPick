@@ -18,10 +18,10 @@ class MainFragment: Fragment() {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        view.changeScreenButton.setOnClickListener {
-//            listener?.showFragment(RegistrationFragment()) // Ejemplo, poner el fragment necesario
+//   override fun onviewcreated(view: view, savedinstancestate: bundle?) {
+//        super.onviewcreated(view, savedinstancestate)
+//        view.changescreenbutton.setonclicklistener {
+//            listener?.showfragment(registrationfragment()) // ejemplo, poner el fragment necesario
 //        }
 //    }
 
