@@ -28,6 +28,13 @@
     <string name="home_second">Home Second</string>
     <string name="usuario">Jose Perez</string>
     <string name="mail">jose.perez@gmail.com</string>
+    <string name="pedido_menu">Pedidos</string>
+    <string name="Pagos">Pagos</string>
+    <string name="Config_menu">Configuración</string>
+    <string name="nav_alert">Avisos</string>
+    <string name="nav_session">Cerrar Sesión</string>
+    <string name="cam_texto">Escaneé el código QR</string>
+    <string name="cam_locales">Buscar locales cercanos</string>
 
 
 </resources>
