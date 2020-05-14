@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 
 
 class MainActivity : AppCompatActivity(){

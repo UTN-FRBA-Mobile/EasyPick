@@ -35,6 +35,11 @@
     <string name="nav_session">Cerrar Sesión</string>
     <string name="cam_texto">Escaneé el código QR</string>
     <string name="cam_locales">Buscar locales cercanos</string>
+    <string name="pagar">Confirmar Pago</string>
+    <string name="nombre">Nombre y Apellido Del titular</string>
+    <string name="numero_tarjeta">Número de tarjeta</string>
+    <string name="cod_seguridad">Cód. de Seguridad</string>
+    <string name="fecha_vencimiento">Fecha de Vencimiento</string>
 
 
 </resources>
