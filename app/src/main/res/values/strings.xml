@@ -40,6 +40,7 @@
     <string name="numero_tarjeta">Número de tarjeta</string>
     <string name="cod_seguridad">Cód. de Seguridad</string>
     <string name="fecha_vencimiento">Fecha de Vencimiento</string>
+    <string name="btn_next">Siguiente</string>
 
 
 </resources>

@@ -1,5 +1,6 @@
 package com.easypick.easypick.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -58,4 +59,7 @@ class FragmentHome : Fragment() {
                 }
             }
     }
+
+
+
 }

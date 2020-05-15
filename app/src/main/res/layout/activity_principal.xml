@@ -11,22 +11,37 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
         <fragment
             android:id="@+id/frag_menu"
             android:name="com.easypick.easypick.fragments.FragmentMenu"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             tools:layout="@layout/fragment_menu" />
 
-        <fragment
-            android:id="@+id/frag_home"
-            android:name="com.easypick.easypick.fragments.FragmentHome"
+
+        <FrameLayout
+            android:id="@+id/frag_container_principal"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            tools:layout="@layout/fragment_home" />
+
+            android:layout_height="634dp"
+            android:layout_weight="1">
+
+
+            <fragment
+                android:id="@+id/frag_home"
+                android:name="com.easypick.easypick.fragments.FragmentHome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                tools:layout="@layout/fragment_home" />
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/btn_next" />
 
     </LinearLayout>
 
