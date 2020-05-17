@@ -4,8 +4,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 
 
 class MainActivity : AppCompatActivity(){
@@ -17,9 +15,7 @@ class MainActivity : AppCompatActivity(){
 
         btn_inicio.setOnClickListener {
             val intent = Intent(this, Principal::class.java)
-            startActivity(intent)}
-
+            startActivity(intent)
+        }
     }
-
-
 }

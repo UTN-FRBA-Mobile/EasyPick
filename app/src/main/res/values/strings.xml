@@ -43,4 +43,10 @@
     <string name="btn_next">Siguiente</string>
 
 
+    <string name="facebook_app_id">859561854518896</string>
+    <string name="fb_login_protocol_scheme">fb859561854518896</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="loading">Cargando</string>
+    <string name="signed_out">Deslogueado</string>
+    <string name="facebook_title_text">Facebook</string>
 </resources>
