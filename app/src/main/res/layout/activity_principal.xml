@@ -1,49 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <fragment
+    <fragment
             android:id="@+id/frag_menu"
             android:name="com.easypick.easypick.fragments.FragmentMenu"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             tools:layout="@layout/fragment_menu" />
-
-
-        <FrameLayout
+    <FrameLayout
             android:id="@+id/frag_container_principal"
             android:layout_width="match_parent"
-
-            android:layout_height="634dp"
+            android:layout_height="0dp"
             android:layout_weight="1">
-
-
-            <fragment
-                android:id="@+id/frag_home"
-                android:name="com.easypick.easypick.fragments.FragmentHome"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                tools:layout="@layout/fragment_home" />
         </FrameLayout>
-
-        <Button
+    <Button
             android:id="@+id/btn_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btn_next" />
-
-    </LinearLayout>
-
-
-</FrameLayout>
+</LinearLayout>
