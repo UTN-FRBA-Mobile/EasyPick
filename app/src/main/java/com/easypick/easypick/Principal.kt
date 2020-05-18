@@ -14,6 +14,7 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
         btn_next.setOnClickListener { showFragment(PagoFragment()) }
+        btn_store.setOnClickListener { showFragment(FragmentLocal()) }
         showFragment(FragmentHome())
 
     }
