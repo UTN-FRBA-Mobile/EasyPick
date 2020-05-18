@@ -13,7 +13,6 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
-        // replaceFragment(FragmentHome())
         btn_next.setOnClickListener { showFragment(PagoFragment()) }
         showFragment(FragmentHome())
 
