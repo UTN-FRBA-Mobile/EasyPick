@@ -101,14 +101,12 @@ class AuthFragment: BaseFragment() {
     private fun updateUI(user: FirebaseUser?) {
         hideProgressDialog()
         if (user != null) {
-            status.text = user.displayName
-            detail.text = user.uid
+            status.text = getString(R.string.conectado_como, user.displayName);
 
             buttonContinueWithFacebook.visibility = View.GONE
             buttonSignOut.visibility = View.VISIBLE
         } else {
             status.setText(R.string.signed_out)
-            detail.text = null
 
             buttonContinueWithFacebook.visibility = View.VISIBLE
             buttonSignOut.visibility = View.GONE
