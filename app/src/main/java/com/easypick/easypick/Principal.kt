@@ -19,13 +19,6 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
 
     }
 
-//    private fun replaceFragment(fragment: Fragment){
-//        val fragmentTransaction = supportFragmentManager.beginTransaction()
-//        fragmentTransaction.replace(R.id.frag_container_principal, fragment)
-//        fragmentTransaction.addToBackStack(null)
-//        fragmentTransaction.commit()
-//    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Unit {
         super.onActivityResult(requestCode, resultCode, data)
         for (fragment in supportFragmentManager.fragments) {
