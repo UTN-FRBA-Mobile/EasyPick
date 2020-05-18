@@ -28,7 +28,6 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
 
     override fun showFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
-            .addToBackStack(null)
             .replace(R.id.frag_container_principal, fragment)
             .commit()
     }
