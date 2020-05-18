@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.easypick.easypick.R
+import com.easypick.easypick.adapters.CategoryAdapter
 import com.easypick.easypick.model.Category
 import kotlinx.android.synthetic.main.fragment_local.*
 
@@ -50,7 +51,7 @@ class FragmentLocal : Fragment() {
             // RecyclerView behavior
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
-//            adapter = ListAdapter(mNicolasCageMovies)
+            adapter = CategoryAdapter(categoriesMock)
         }
     }
 
