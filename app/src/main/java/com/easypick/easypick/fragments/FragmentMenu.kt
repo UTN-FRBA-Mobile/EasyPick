@@ -49,6 +49,7 @@ class FragmentMenu : Fragment() {
         tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position!!) {
+                    0 -> { listener?.showFragment(FragmentHome()) }
                     3 -> { listener?.showFragment(AuthFragment()) }
                 }
             }
@@ -57,6 +58,10 @@ class FragmentMenu : Fragment() {
             }
 
             override fun onTabReselected(tab: TabLayout.Tab?) {
+                when(tab?.position!!) {
+                    0 -> { listener?.showFragment(FragmentHome()) }
+                    3 -> { listener?.showFragment(AuthFragment()) }
+                }
             }
         })
     }
