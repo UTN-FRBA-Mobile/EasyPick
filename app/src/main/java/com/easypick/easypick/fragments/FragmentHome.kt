@@ -42,13 +42,6 @@ class FragmentHome : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        view.settings_tab.setOnClickListener {
-//            listener?.showFragment(AuthFragment())
-//        }
-//    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {

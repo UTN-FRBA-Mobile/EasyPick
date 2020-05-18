@@ -48,5 +48,6 @@
     <string name="sign_out">Sign Out</string>
     <string name="loading">Cargando</string>
     <string name="signed_out">Deslogueado</string>
-    <string name="facebook_title_text">Facebook</string>
+    <string name="profile_title_text">Perfil</string>
+    <string name="conectado_como">Conectado como %1s</string>
 </resources>
