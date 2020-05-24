@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.easypick.easypick.fragments.*
-import kotlinx.android.synthetic.main.activity_principal.*
 
 
 class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
@@ -13,7 +12,6 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
-        btn_next.setOnClickListener { showFragment(PagoFragment()) }
         showFragment(FragmentHome())
 
     }
