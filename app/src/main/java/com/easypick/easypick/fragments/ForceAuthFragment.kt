@@ -12,48 +12,48 @@ import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.fragment_settings.*
+import kotlinx.android.synthetic.main.fragment_auth.*
 
-class SettingsFragment: BaseFragment() {
+class ForceAuthFragment: BaseAuthFragment() {
     private var listener: FragmentHome.OnFragmentInteractionListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_auth, container, false)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val currentUser = auth.currentUser
+        updateUI(currentUser, buttonContinueWithFacebook, null)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        buttonLoginWithFacebook.fragment = this
-        buttonLoginWithFacebook.setReadPermissions("email", "public_profile")
+        buttonContinueWithFacebook.fragment = this
+        buttonContinueWithFacebook.setReadPermissions("email", "public_profile")
 
-        buttonLoginWithFacebook.registerCallback(callbackManager, object :
+        buttonContinueWithFacebook.registerCallback(callbackManager, object :
             FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
-                handleFacebookAccessToken(loginResult.accessToken, buttonLoginWithFacebook,
-                    buttonSignOut)
+                handleFacebookAccessToken(loginResult.accessToken, buttonContinueWithFacebook, null)
             }
 
             override fun onCancel() {
-                updateUI(null, buttonLoginWithFacebook, buttonSignOut)
+                updateUI(null, buttonContinueWithFacebook, null)
             }
 
             override fun onError(error: FacebookException) {
-                updateUI(null, buttonLoginWithFacebook, buttonSignOut)
+                updateUI(null, buttonContinueWithFacebook, null)
             }
         })
-
-        buttonSignOut.setOnClickListener {
-            signOut()
-        }
-
-        updateUI(auth.currentUser, buttonLoginWithFacebook, buttonSignOut)
     }
 
     override fun updateUI(user: FirebaseUser?, signInButton: Button, signOutButton: Button?) {
         super.updateUI(user, signInButton, signOutButton)
         if (user != null){
-            status.text = getString(R.string.conectado_como, user.displayName, user.email)
+            listener?.showFragment(FragmentPago())
         }
     }
 
@@ -89,8 +89,8 @@ class SettingsFragment: BaseFragment() {
          * @return A new instance of fragment StatusUpdate.
          */
         @JvmStatic
-        fun newInstance() = SettingsFragment()
+        fun newInstance() = ForceAuthFragment()
 
-        private const val TAG = "SettingsFragment"
+        private const val TAG = "SocialAuth"
     }
 }

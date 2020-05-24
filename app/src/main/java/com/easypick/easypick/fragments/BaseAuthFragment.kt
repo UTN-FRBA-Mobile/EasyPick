@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.fragment_settings.*
 
-open class BaseFragment: Fragment() {
+open class BaseAuthFragment: Fragment() {
     lateinit var auth: FirebaseAuth
     lateinit var callbackManager: CallbackManager
 

@@ -7,7 +7,7 @@ import com.easypick.easypick.fragments.*
 
 
 class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
-    AuthFragment.OnFragmentInteractionListener  {
+    ForceAuthFragment.OnFragmentInteractionListener  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

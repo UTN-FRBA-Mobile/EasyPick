@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.easypick.easypick.fragments.AuthFragment">
+    tools:context="com.easypick.easypick.fragments.ForceAuthFragment">
     <ImageView
         android:id="@+id/loginLanding"
         android:layout_width="match_parent"

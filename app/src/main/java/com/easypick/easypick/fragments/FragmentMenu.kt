@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import com.easypick.easypick.R
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_menu.*
-import kotlinx.android.synthetic.main.fragment_menu.view.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -50,8 +49,8 @@ class FragmentMenu : Fragment() {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position!!) {
                     0 -> { listener?.showFragment(FragmentHome()) }
-                    3 -> { listener?.showFragment(AuthFragment()) }
-                    4 -> { listener?.showFragment(SettingsFragment())}
+                    3 -> { listener?.showFragment(ForceAuthFragment()) }
+                    4 -> { listener?.showFragment(ProfileFragment())}
                 }
             }
 
@@ -61,8 +60,8 @@ class FragmentMenu : Fragment() {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 when(tab?.position!!) {
                     0 -> { listener?.showFragment(FragmentHome()) }
-                    3 -> { listener?.showFragment(AuthFragment()) }
-                    4 -> { listener?.showFragment(SettingsFragment())}
+                    3 -> { listener?.showFragment(ForceAuthFragment()) }
+                    4 -> { listener?.showFragment(ProfileFragment())}
                 }
             }
         })
