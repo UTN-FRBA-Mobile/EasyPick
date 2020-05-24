@@ -67,10 +67,13 @@ open class BaseFragment: Fragment() {
             if (signOutButton != null) {
                 signOutButton.visibility = View.GONE
             }
+            if (status != null){
+                status.text = getString(R.string.signed_out)
+            }
         }
     }
 
-    fun handleFacebookAccessToken(token: AccessToken) {
+    fun handleFacebookAccessToken(token: AccessToken, signInButton: Button, signOutButton: Button?) {
         showProgressDialog()
 
         val credential = FacebookAuthProvider.getCredential(token.token)
@@ -78,11 +81,11 @@ open class BaseFragment: Fragment() {
             .addOnCompleteListener(activity!!) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    updateUI(user, buttonLoginWithFacebook, buttonSignOut)
+                    updateUI(user, signInButton, signOutButton)
                 } else {
                     Toast.makeText(context, "Authentication failed.", Toast.LENGTH_SHORT).
                         show()
-                    updateUI(null, buttonLoginWithFacebook, buttonSignOut)
+                    updateUI(null, signInButton, signOutButton)
                 }
                 hideProgressDialog()
             }

@@ -35,22 +35,14 @@
         android:layout_below="@id/loginInfo"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/conexion"
+            android:id="@+id/status"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_gravity="start"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/fragment_subtitle"
+            android:textSize="@dimen/fragment_info"
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
-            android:fontFamily="@font/montserratregular"
-            android:text="@string/conexiones" />
-        <TextView
-            android:id="@+id/status"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/fragment_info"
             android:fontFamily="@font/montserratregular"
             android:text="@string/signed_out" />
         <com.facebook.login.widget.LoginButton
@@ -65,7 +57,14 @@
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
             android:layout_gravity="center_horizontal"
+            android:background="@drawable/rounded_corners"
+            android:drawableStart="@drawable/facebook_icon"
+            android:drawablePadding="8dp"
+            android:padding="8dp"
             android:text="@string/sign_out"
-            android:visibility="gone"/>
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 </RelativeLayout>

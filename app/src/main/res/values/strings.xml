@@ -49,8 +49,7 @@
     <string name="loading">Cargando</string>
     <string name="signed_out">Deslogueado</string>
     <string name="profile_title_text">Perfil</string>
-    <string name="conectado_como">Conectado como %1s</string>
+    <string name="conectado_como">Conectado como %1s (%2s)</string>
     <string name="comida">comida</string>
     <string name="auth_text">Estas a un paso de tu comida</string>
-    <string name="conexiones">Conexiones</string>
 </resources>

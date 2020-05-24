@@ -30,7 +30,8 @@ class SettingsFragment: BaseFragment() {
         buttonLoginWithFacebook.registerCallback(callbackManager, object :
             FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
-                handleFacebookAccessToken(loginResult.accessToken)
+                handleFacebookAccessToken(loginResult.accessToken, buttonLoginWithFacebook,
+                    buttonSignOut)
             }
 
             override fun onCancel() {
@@ -52,7 +53,7 @@ class SettingsFragment: BaseFragment() {
     override fun updateUI(user: FirebaseUser?, signInButton: Button, signOutButton: Button?) {
         super.updateUI(user, signInButton, signOutButton)
         if (user != null){
-            status.text = "Conectado como " + user.email
+            status.text = getString(R.string.conectado_como, user.displayName, user.email)
         }
     }
 

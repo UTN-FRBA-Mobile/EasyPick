@@ -37,7 +37,7 @@ class AuthFragment: BaseFragment() {
         buttonContinueWithFacebook.registerCallback(callbackManager, object :
             FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
-                handleFacebookAccessToken(loginResult.accessToken)
+                handleFacebookAccessToken(loginResult.accessToken, buttonContinueWithFacebook, null)
             }
 
             override fun onCancel() {
