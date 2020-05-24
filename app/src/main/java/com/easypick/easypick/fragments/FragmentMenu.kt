@@ -51,6 +51,7 @@ class FragmentMenu : Fragment() {
                 when(tab?.position!!) {
                     0 -> { listener?.showFragment(FragmentHome()) }
                     3 -> { listener?.showFragment(AuthFragment()) }
+                    4 -> { listener?.showFragment(SettingsFragment())}
                 }
             }
 
@@ -61,6 +62,7 @@ class FragmentMenu : Fragment() {
                 when(tab?.position!!) {
                     0 -> { listener?.showFragment(FragmentHome()) }
                     3 -> { listener?.showFragment(AuthFragment()) }
+                    4 -> { listener?.showFragment(SettingsFragment())}
                 }
             }
         })
