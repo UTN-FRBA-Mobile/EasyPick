@@ -34,17 +34,12 @@
             android:textSize="@dimen/fragment_info"
             android:text="@string/auth_text" />
         <com.facebook.login.widget.LoginButton
+            xmlns:facebook="http://schemas.android.com/apk/res-auto"
+            facebook:com_facebook_login_text="@string/continuar_fb"
             android:id="@+id/buttonContinueWithFacebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="40dp"
             android:layout_gravity="center_horizontal"/>
-<!--        <Button-->
-<!--            android:id="@+id/buttonSignOut"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center_horizontal"-->
-<!--            android:text="@string/sign_out"-->
-<!--            android:visibility="gone"/>-->
     </LinearLayout>
 </LinearLayout>

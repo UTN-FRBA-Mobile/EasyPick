@@ -12,7 +12,7 @@ import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
 import com.google.firebase.auth.FirebaseUser
-import kotlinx.android.synthetic.main.fragment_auth.*
+import kotlinx.android.synthetic.main.fragment_force_auth.*
 
 class ForceAuthFragment: BaseAuthFragment() {
     private var listener: FragmentHome.OnFragmentInteractionListener? = null
@@ -20,7 +20,7 @@ class ForceAuthFragment: BaseAuthFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_auth, container, false)
+        return inflater.inflate(R.layout.fragment_force_auth, container, false)
     }
 
     override fun onStart() {

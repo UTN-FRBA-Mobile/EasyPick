@@ -46,6 +46,8 @@
             android:fontFamily="@font/montserratregular"
             android:text="@string/signed_out" />
         <com.facebook.login.widget.LoginButton
+            xmlns:facebook="http://schemas.android.com/apk/res-auto"
+            facebook:com_facebook_login_text="@string/continuar_fb"
             android:id="@+id/buttonLoginWithFacebook"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

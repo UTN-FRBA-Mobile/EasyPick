@@ -45,9 +45,10 @@
 
     <string name="facebook_app_id">859561854518896</string>
     <string name="fb_login_protocol_scheme">fb859561854518896</string>
+    <string name="continuar_fb">Continuar con Facebook</string>
     <string name="sign_out">Cerrar sesion</string>
     <string name="loading">Cargando</string>
-    <string name="signed_out">Deslogueado</string>
+    <string name="signed_out">Desconectado</string>
     <string name="profile_title_text">Perfil</string>
     <string name="conectado_como">Conectado como %1s (%2s)</string>
     <string name="comida">comida</string>
