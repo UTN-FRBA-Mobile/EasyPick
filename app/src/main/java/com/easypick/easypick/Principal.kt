@@ -8,12 +8,11 @@ import kotlinx.android.synthetic.main.activity_principal.*
 
 
 class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
-    AuthFragment.OnFragmentInteractionListener  {
+    ForceAuthFragment.OnFragmentInteractionListener  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
-        btn_next.setOnClickListener { showFragment(PagoFragment()) }
         btn_store.setOnClickListener { showFragment(FragmentLocal()) }
         showFragment(FragmentHome())
 
