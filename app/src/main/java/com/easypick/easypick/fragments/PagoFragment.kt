@@ -1,6 +1,7 @@
 package com.easypick.easypick.fragments
 
 import android.app.Activity.RESULT_CANCELED
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -27,6 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 class PagoFragment : Fragment() {
+    private var listener: FragmentHome.OnFragmentInteractionListener? = null
     private val REQUEST_CODE = 1
     private val ACCESS_TOKEN = "TEST-4265074321617597-052423-80520673faae8bec8c7feb07b23ea749-84367971"
 
@@ -52,23 +54,20 @@ class PagoFragment : Fragment() {
             .build()
             .create(MercadoPagoService::class.java)
 
-        val listReposCall = order?.let { service.createPreferences(it, ACCESS_TOKEN) }
-        if (listReposCall != null) {
-            listReposCall.enqueue(object: Callback<ResponseBody> {
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                    print("Error")
-                }
+        order?.let { service.createPreferences(it, ACCESS_TOKEN) }?.enqueue(object: Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                print("Error")
+            }
 
-                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                    val json = JSONObject(response.body()!!.string())
-                    val checkoutPreferenceId = json.getString("id")
-                    context?.let {
-                        Builder(getString(R.string.mp_public_key), checkoutPreferenceId).build().startPayment(
-                            it, REQUEST_CODE)
-                    }
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                val json = JSONObject(response.body()!!.string())
+                val checkoutPreferenceId = json.getString("id")
+                context?.let {
+                    Builder(getString(R.string.mp_public_key), checkoutPreferenceId).build().startPayment(
+                        it, REQUEST_CODE)
                 }
-            })
-        }
+            }
+        })
     }
 
     override fun onActivityResult(
@@ -80,6 +79,7 @@ class PagoFragment : Fragment() {
             if (resultCode == MercadoPagoCheckout.PAYMENT_RESULT_CODE) {
                 val payment =
                     data!!.getSerializableExtra(MercadoPagoCheckout.EXTRA_PAYMENT_RESULT) as Payment
+                listener?.showFragment(OrdenFragment())
                 //Done!
             } else if (resultCode == RESULT_CANCELED) {
                 if (data != null && data.extras != null && data.extras!!.containsKey(
@@ -92,5 +92,29 @@ class PagoFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is FragmentHome.OnFragmentInteractionListener) {
+            listener = context
+        } else {
+            throw RuntimeException("$context must implement OnFragmentInteractionListener")
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        listener = null
+    }
+
+    interface OnFragmentInteractionListener {
+        fun showFragment(fragment: Fragment)
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = PagoFragment()
+        private const val TAG = "PagoFragment"
     }
 }
