@@ -54,4 +54,5 @@
     <string name="conectado_como">Conectado como %1s (%2s)</string>
     <string name="comida">comida</string>
     <string name="auth_text">Estas a un paso de tu comida</string>
+    <string name="resumen_de_la_orden">Resumen de la orden</string>
 </resources>

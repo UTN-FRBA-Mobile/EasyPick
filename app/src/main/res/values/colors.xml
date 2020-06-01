@@ -7,4 +7,6 @@
     <color name="letterColor">#cdc7bb</color>
     <color name="button_color">#FF8800</color>
     <color name="facebookBlue">#1778F2</color>
+    <color name="materialGrey500">#9E9E9E</color>
+    <color name="toolbarRed">#F44336</color>
 </resources>
