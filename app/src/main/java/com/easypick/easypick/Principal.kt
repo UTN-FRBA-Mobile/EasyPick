@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_principal.*
 
 
 class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
-    ForceAuthFragment.OnFragmentInteractionListener  {
+    ForceAuthFragment.OnFragmentInteractionListener, FragmentLocal.OnFragmentInteractionListener , FragmentProducto.OnFragmentInteractionListener  {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
