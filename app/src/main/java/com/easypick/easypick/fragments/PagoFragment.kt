@@ -29,6 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class PagoFragment : Fragment() {
     private var listener: FragmentHome.OnFragmentInteractionListener? = null
+    private lateinit var order: Order
     private val REQUEST_CODE = 1
     private val ACCESS_TOKEN = "TEST-4265074321617597-052423-80520673faae8bec8c7feb07b23ea749-84367971"
 
@@ -45,16 +46,17 @@ class PagoFragment : Fragment() {
         val user = firebaseUser?.email?.let {
             firebaseUser.displayName?.let { it1 -> User(it, it1) } }
         val item1 = Item("Test item", "Un item de prueba", 1,
-            unit_price = 100.0)
+            unit_price = 150.0)
         val items = listOf<Item>(item1)
-        val order = user?.let { Order(user, items) }
+        val id = 123456
+        order = user?.let { Order(user, items, costo = 150.0, id=123456)}!!
         val service = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://api.mercadopago.com/")
             .build()
             .create(MercadoPagoService::class.java)
 
-        order?.let { service.createPreferences(it, ACCESS_TOKEN) }?.enqueue(object: Callback<ResponseBody> {
+        order.let { service.createPreferences(it, ACCESS_TOKEN) }.enqueue(object: Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 print("Error")
             }
@@ -79,7 +81,7 @@ class PagoFragment : Fragment() {
             if (resultCode == MercadoPagoCheckout.PAYMENT_RESULT_CODE) {
                 val payment =
                     data!!.getSerializableExtra(MercadoPagoCheckout.EXTRA_PAYMENT_RESULT) as Payment
-                listener?.showFragment(OrdenFragment())
+                listener?.showFragment(OrdenFragment.newInstance(order))
                 //Done!
             } else if (resultCode == RESULT_CANCELED) {
                 if (data != null && data.extras != null && data.extras!!.containsKey(
