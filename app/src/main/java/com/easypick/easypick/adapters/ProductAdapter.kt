@@ -38,23 +38,23 @@ class ProductAdapter(var items: List<Producto>, var listener: ClickListener): Re
         var foto:ImageView?= null
         var descripcion: TextView?= null
         var precio: TextView?= null
-        var boton: Button?= null
+        //var boton: Button?= null
         var listener:ClickListener?= null
 
         init {
             foto= vista.findViewById(R.id.iProducto)
             descripcion = vista.findViewById(R.id.descripcion)
             precio = vista.findViewById(R.id.precio)
-            boton = vista.findViewById(R.id.agregar)
+           // boton = vista.findViewById(R.id.agregar)
             this.listener = listener
 
             vista.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
-            boton?.setOnClickListener{
+           /* boton?.setOnClickListener{
                 this.listener?.onCLick(v!!, adapterPosition)
-            }
+            }*/
             this.listener?.onCLick(v!!, adapterPosition)
         }
 

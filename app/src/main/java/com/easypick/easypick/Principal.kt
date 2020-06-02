@@ -13,7 +13,7 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_principal)
-        btn_store.setOnClickListener { showFragment(FragmentLocal()) }
+        //btn_store.setOnClickListener { showFragment(FragmentLocal()) }
         showFragment(FragmentHome())
 
     }

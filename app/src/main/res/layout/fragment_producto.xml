@@ -72,7 +72,24 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listaProductos"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="545dp">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="6"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_carrito"
+            android:layout_width="413dp"
+            android:layout_height="match_parent"
+            android:text="Ir al carrito"
+            android:textAlignment="center" />
     </LinearLayout>
 
 </LinearLayout>

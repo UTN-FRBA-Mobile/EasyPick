@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.easypick.easypick.Interfaz.ClickListener
@@ -42,8 +44,8 @@ class FragmentProducto : Fragment() {
         Producto("Hamburguesa LYT", 250.0, R.drawable.hamburguesa2, "" ),
         Producto("Hamburguesa de Pollo", 200.0, R.drawable.hamburguesapollo, ""),
         Producto("Hamburguesa con fritas", 350.0, R.drawable.hamb_fritas, ""),
-        Producto("Hamburguesa Gourmet", 350.0, R.drawable.hamb_gourmet, ""),
-        Producto("Hamburguesa con panceta", 300.0, R.drawable.hamb_panceta, ""),
+        Producto("Hamburguesa Gourmet", 350.0, R.drawable.hamb_gourmet, "")
+        Producto("Hamburguesa con panceta", 300.0, R.drawable.hamb_panceta, "")
         Producto("Hamburguesa de Sushi", 450.0, R.drawable.hamb_sushi, "")
     )*/
 
@@ -72,10 +74,14 @@ class FragmentProducto : Fragment() {
             categoria = view.findViewById(R.id.categoria)
             categoria?.text = viewModel.categoria
             catSeleccionada = viewModel.categoria
+            btn_carrito.setOnClickListener {
+                listener?.showFragment(FragmentOrden())
+            }
             productos = descargarproductos(catSeleccionada)
             adapter = ProductAdapter(productos, object :ClickListener{
                 override fun onCLick(vista: View, index: Int) {
-                    val fragmento: Fragment
+                    Toast.makeText(activity, "Se ha agregado ${productos.get(index).descripcion} al carrito", Toast.LENGTH_SHORT).show()
+                    /*val fragmento: Fragment
                     if(productos.get(index).descripcion == "Hamburguesa Completa"){
                         fragmento = FragmentLocal()
                     }else if(productos.get(index).descripcion == "Hamburguesa LYT"){
@@ -83,9 +89,8 @@ class FragmentProducto : Fragment() {
                     }else{
                         fragmento = FragmentPago()
                     }
-                    listener?.showFragment(fragmento)
+                    listener?.showFragment(fragmento)*/
                 }
-
             })
         }
     }
@@ -112,9 +117,9 @@ class FragmentProducto : Fragment() {
             prods.add(Producto("Hamburguesa LYT", 250.0, R.drawable.hamburguesa2, "" ))
             prods.add(Producto("Hamburguesa de Pollo", 200.0, R.drawable.hamburguesapollo, ""))
             prods.add(Producto("Hamburguesa con fritas", 350.0, R.drawable.hamb_fritas, ""))
-            prods.add(Producto("Ensalada Cesar", 200.0, R.drawable.hamb_panceta, ""))
-            prods.add(Producto("Ensalada Gourmet", 200.0, R.drawable.resto3, ""))
-            prods.add(Producto("Ensalada Mixta",100.0, R.drawable.hamb_gourmet,""))
+            prods.add(Producto("Hamburguesa Gourmet", 350.0, R.drawable.hamb_gourmet, ""))
+            prods.add(Producto("Hamburguesa con panceta", 300.0, R.drawable.hamb_panceta, ""))
+            prods.add(Producto("Hamburguesa de Sushi", 450.0, R.drawable.hamb_sushi, ""))
         }else if(cat == "Ensaladas"){
             prods.add(Producto("Ensalada Cesar", 250.0, R.drawable.ensaladacesar, ""))
             prods.add(Producto("Ensalada de mar", 400.0, R.drawable.demar, ""))
