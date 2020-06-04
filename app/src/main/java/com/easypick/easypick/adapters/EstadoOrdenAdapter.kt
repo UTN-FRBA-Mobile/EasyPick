@@ -9,11 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import com.easypick.easypick.R
 import com.easypick.easypick.model.OrderStatus
-import com.easypick.easypick.model.TimeLineModel
+import com.easypick.easypick.model.OrderEvent
 import com.github.vipulasri.timelineview.TimelineView
 import kotlinx.android.synthetic.main.item_orden_status.view.*
 
-class EstadoOrdenAdapter(private val mFeedList: List<TimeLineModel>) :
+class EstadoOrdenAdapter(private val mFeedList: List<OrderEvent>) :
     RecyclerView.Adapter<EstadoOrdenAdapter.TimeLineViewHolder>() {
 
     private lateinit var mLayoutInflater: LayoutInflater

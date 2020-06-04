@@ -11,8 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.easypick.easypick.R
 import com.easypick.easypick.adapters.EstadoOrdenAdapter
 import com.easypick.easypick.model.Order
-import com.easypick.easypick.model.OrderStatus
-import com.easypick.easypick.model.TimeLineModel
+import com.easypick.easypick.model.OrderEvent
 import kotlinx.android.synthetic.main.fragment_orden.*
 import kotlinx.android.synthetic.main.fragment_orden.view.*
 
@@ -20,7 +19,7 @@ class OrdenFragment: Fragment() {
     private lateinit var order: Order
     private var listener: FragmentHome.OnFragmentInteractionListener? = null
     private lateinit var mAdapter: EstadoOrdenAdapter
-    private val mDataList = ArrayList<TimeLineModel>()
+    private var mDataList = ArrayList<OrderEvent>()
     private lateinit var mLayoutManager: LinearLayoutManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,21 +39,19 @@ class OrdenFragment: Fragment() {
         view.costo.text = getString(R.string.costo, order.costo.toString())
         view.order_id.text = getString(R.string.orden_id, order.id)
 
-        setDataListItems()
+        setDataListItems(order)
         initRecyclerView()
     }
 
-    private fun setDataListItems() {
-        mDataList.add(TimeLineModel("Orden retirada", "", OrderStatus.INACTIVE))
-        mDataList.add(TimeLineModel("Orden lista para retirar", "", OrderStatus.INACTIVE))
-        mDataList.add(TimeLineModel("Tu orden estara lista en breve", "2017-02-11 08:00", OrderStatus.INACTIVE))
-        mDataList.add(TimeLineModel("Tu orden esta siendo preparada", "2017-02-10 15:00", OrderStatus.ACTIVE))
-        mDataList.add(TimeLineModel("Orden creada", "2017-02-10 14:00", OrderStatus.COMPLETED))
+    private fun setDataListItems(order: Order) {
+        for (event: OrderEvent in order.events){
+            mDataList.add(event)
+        }
     }
 
     private fun initRecyclerView() {
         mLayoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        mAdapter = EstadoOrdenAdapter(mDataList)
+        mAdapter = EstadoOrdenAdapter(order.events)
         estadoOrden.layoutManager = mLayoutManager
         estadoOrden.adapter = mAdapter
     }

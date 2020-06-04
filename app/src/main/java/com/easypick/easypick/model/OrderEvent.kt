@@ -4,8 +4,8 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class TimeLineModel(
+class OrderEvent(
     var message: String,
-    var date: String,
-    var status: OrderStatus
+    var date: String = "",
+    var status: OrderStatus = OrderStatus.INACTIVE
 ) : Parcelable
