@@ -1,4 +1,4 @@
 package com.easypick.easypick.model
 
-class Producto (val descripcion: String, val precio: Double, val foto: Int, val comentarios: String){
+class Producto (var descripcion: String, var precio: Double, var foto: Int, var comentarios: String){
 }

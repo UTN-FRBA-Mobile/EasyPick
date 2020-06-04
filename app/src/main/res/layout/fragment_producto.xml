@@ -34,12 +34,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="Williams"
-                android:textStyle="bold"
-                android:textSize="32dp"
                 android:textColor="@android:color/background_light"
-                android:gravity="center">
-            </TextView>
+                android:textSize="18sp"
+                android:textStyle="bold"></TextView>
 
             <TextView
                 android:layout_width="match_parent"
@@ -72,7 +71,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listaProductos"
             android:layout_width="match_parent"
-            android:layout_height="545dp">
+            android:layout_height="484dp">
 
         </androidx.recyclerview.widget.RecyclerView>
 

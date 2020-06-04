@@ -39,15 +39,8 @@ class FragmentProducto : Fragment() {
     private lateinit var viewModel: LocalViewModel
     var categoria: TextView?= null
     private var catSeleccionada: String? = null
-    /*private val productos = listOf<Producto>(
-        Producto("Hamburguesa Completa", 300.0, R.drawable.hamburguesa, ""),
-        Producto("Hamburguesa LYT", 250.0, R.drawable.hamburguesa2, "" ),
-        Producto("Hamburguesa de Pollo", 200.0, R.drawable.hamburguesapollo, ""),
-        Producto("Hamburguesa con fritas", 350.0, R.drawable.hamb_fritas, ""),
-        Producto("Hamburguesa Gourmet", 350.0, R.drawable.hamb_gourmet, "")
-        Producto("Hamburguesa con panceta", 300.0, R.drawable.hamb_panceta, "")
-        Producto("Hamburguesa de Sushi", 450.0, R.drawable.hamb_sushi, "")
-    )*/
+    private lateinit var fragmentProducto: Fragment
+    private lateinit var fragmentOrden: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,6 +61,8 @@ class FragmentProducto : Fragment() {
         listaProductos.apply {
             // set a LinearLayoutManager to handle Android
             // RecyclerView behavior
+            fragmentOrden = FragmentOrden()
+            fragmentProducto = FragmentProducto()
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
             viewModel = ViewModelProvider(activity!!).get(LocalViewModel::class.java)
@@ -75,21 +70,16 @@ class FragmentProducto : Fragment() {
             categoria?.text = viewModel.categoria
             catSeleccionada = viewModel.categoria
             btn_carrito.setOnClickListener {
-                listener?.showFragment(FragmentOrden())
+                listener?.showFragment(fragmentOrden)
             }
+            var importeTotal: Double = viewModel.precioTotal
             productos = descargarproductos(catSeleccionada)
             adapter = ProductAdapter(productos, object :ClickListener{
                 override fun onCLick(vista: View, index: Int) {
+                    importeTotal += productos.get(index).precio
+                    viewModel.precioTotal = importeTotal
+                    viewModel.productosSeleccionados.add(Producto(productos.get(index).descripcion, productos.get(index).precio, productos.get(index).foto, productos.get(index).comentarios))
                     Toast.makeText(activity, "Se ha agregado ${productos.get(index).descripcion} al carrito", Toast.LENGTH_SHORT).show()
-                    /*val fragmento: Fragment
-                    if(productos.get(index).descripcion == "Hamburguesa Completa"){
-                        fragmento = FragmentLocal()
-                    }else if(productos.get(index).descripcion == "Hamburguesa LYT"){
-                        fragmento = FragmentHome()
-                    }else{
-                        fragmento = FragmentPago()
-                    }
-                    listener?.showFragment(fragmento)*/
                 }
             })
         }
