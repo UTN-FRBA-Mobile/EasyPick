@@ -38,7 +38,7 @@ class OrdenFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.costo.text = getString(R.string.costo, order.costo.toString())
-        view.order_id.text = getString(R.string.orden_id, order.id.toString())
+        view.order_id.text = getString(R.string.orden_id, order.id)
 
         setDataListItems()
         initRecyclerView()

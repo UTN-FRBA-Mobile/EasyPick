@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.easypick.easypick.API.DatabaseAPI
 import com.easypick.easypick.R
 import com.easypick.easypick.interfaces.MercadoPagoService
 import com.easypick.easypick.model.Item
@@ -25,6 +26,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 
 class PagoFragment : Fragment() {
@@ -44,12 +46,12 @@ class PagoFragment : Fragment() {
         val firebaseAuth = FirebaseAuth.getInstance()
         val firebaseUser = firebaseAuth.currentUser
         val user = firebaseUser?.email?.let {
-            firebaseUser.displayName?.let { it1 -> User(it, it1) } }
-        val item1 = Item("Test item", "Un item de prueba", 1,
-            unit_price = 150.0)
+            firebaseUser.displayName?.let { it1 -> User(it, it1, firebaseUser.uid) } }
+        val item1 = Item("Test item", "Primer orden completa", 1,
+            unit_price = 250.0)
         val items = listOf<Item>(item1)
-        val id = 123456
-        order = user?.let { Order(user, items, costo = 150.0, id=123456)}!!
+        val orderId = UUID.randomUUID().toString().toUpperCase();
+        order = user?.let { Order(user, items, costo = 150.0, id=orderId)}!!
         val service = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://api.mercadopago.com/")
@@ -81,6 +83,7 @@ class PagoFragment : Fragment() {
             if (resultCode == MercadoPagoCheckout.PAYMENT_RESULT_CODE) {
                 val payment =
                     data!!.getSerializableExtra(MercadoPagoCheckout.EXTRA_PAYMENT_RESULT) as Payment
+                DatabaseAPI().addOrder(order)
                 listener?.showFragment(OrdenFragment.newInstance(order))
                 //Done!
             } else if (resultCode == RESULT_CANCELED) {

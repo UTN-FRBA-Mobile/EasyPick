@@ -6,5 +6,5 @@ import kotlinx.android.parcel.Parcelize
 import java.time.LocalDateTime
 
 @Parcelize
-data class Order (val payer: User, val items: List<Item>, val costo: Double, val id: Int) :
+data class Order (val payer: User, val items: List<Item>, val costo: Double, var id: String="00000") :
     Parcelable
