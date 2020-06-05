@@ -2,14 +2,13 @@ package com.easypick.easypick
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.easypick.easypick.fragments.*
-import kotlinx.android.synthetic.main.activity_principal.*
 
 
 class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
-    ForceAuthFragment.OnFragmentInteractionListener, FragmentLocal.OnFragmentInteractionListener , FragmentProducto.OnFragmentInteractionListener, FragmentOrden.OnFragmentInteractionListener  {
+    ForceAuthFragment.OnFragmentInteractionListener, FragmentLocal.OnFragmentInteractionListener , FragmentProducto.OnFragmentInteractionListener, FragmentOrden.OnFragmentInteractionListener, FragmentOrdenEliminacion.OnFragmentInteractionListener  {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,5 +32,6 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
             .replace(R.id.frag_container_principal, fragment).addToBackStack(null)
             .commit()
     }
+
 }
 

@@ -5,11 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
-    app:cardBackgroundColor="@color/design_default_color_primary">
+    app:cardBackgroundColor="@color/design_default_color_primary"
+    android:clickable="true"
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground">
 
         <ImageView
             android:id="@+id/iProducto"

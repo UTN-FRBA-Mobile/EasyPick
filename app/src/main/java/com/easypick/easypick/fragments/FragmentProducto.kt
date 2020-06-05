@@ -79,7 +79,7 @@ class FragmentProducto : Fragment() {
                     importeTotal += productos.get(index).precio
                     viewModel.precioTotal = importeTotal
                     viewModel.productosSeleccionados.add(Producto(productos.get(index).descripcion, productos.get(index).precio, productos.get(index).foto, productos.get(index).comentarios))
-                    Toast.makeText(activity, "Se ha agregado ${productos.get(index).descripcion} al carrito", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Se ha agregado ${productos.get(index).descripcion} al pedido", Toast.LENGTH_SHORT).show()
                 }
             })
         }
