@@ -51,7 +51,7 @@ class PagoFragment : Fragment() {
             unit_price = 250.0)
         val items = listOf<Item>(item1)
         val orderId = UUID.randomUUID().toString().toUpperCase();
-        order = user?.let { Order(user, items, costo = 150.0, id=orderId)}!!
+        order = user?.let { Order(user, items, costo = 150.0, id =orderId)}!!
         val service = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://api.mercadopago.com/")
