@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/resumenOrden"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserratsemibold"
+        android:text="@string/resumen_de_la_orden"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/fragment_title_smaller"
+        android:layout_marginStart="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/fecha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fecha"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/montserratlight"
+        android:text="Sab, 30 May"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/fragment_title_smaller"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/resumenOrden" />
+
+    <TextView
+        android:id="@+id/order_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserratlight"
+        android:text="ID de orden: 123456"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/fragment_title_smaller"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/costo"
+        app:layout_constraintTop_toBottomOf="@+id/fecha" />
+
+    <TextView
+        android:id="@+id/costo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserratsemibold"
+        android:text="Costo: $200"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/fragment_title_smaller"
+        android:paddingStart="20dp"
+        app:layout_constraintStart_toEndOf="@+id/order_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fecha" />
+
+    <TextView
+        android:id="@+id/estimado"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/montserratsemibold"
+        android:text="Tiempo estimado: 15 min"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/fragment_title_smaller"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/order_id"
+        app:layout_constraintBottom_toTopOf="@+id/estadoOrden"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/estadoOrden"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/px_white"
+        tools:listitem="@layout/item_orden_status"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/estimado"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

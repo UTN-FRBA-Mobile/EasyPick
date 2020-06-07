@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.easypick.easypick.R
+import com.easypick.easypick.firebase.FirebaseToken
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
@@ -38,6 +39,7 @@ class ForceAuthFragment: BaseAuthFragment() {
             FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
                 handleFacebookAccessToken(loginResult.accessToken, buttonContinueWithFacebook, null)
+                this@ForceAuthFragment.context?.let { FirebaseToken.storeToken(it) }
             }
 
             override fun onCancel() {
@@ -53,7 +55,7 @@ class ForceAuthFragment: BaseAuthFragment() {
     override fun updateUI(user: FirebaseUser?, signInButton: Button, signOutButton: Button?) {
         super.updateUI(user, signInButton, signOutButton)
         if (user != null){
-            listener?.showFragment(FragmentPago())
+            listener?.showFragment(PagoFragment())
         }
     }
 

@@ -45,7 +45,6 @@ class AdaptadorLocales(var list: List<Locales>): RecyclerView.Adapter<AdaptadorL
             Glide.with(itemView.context).load(data.foto).into(foto)
             itemView.setOnClickListener{
                 Toast.makeText(itemView.context, "Resto de ${data.titulo}", Toast.LENGTH_LONG).show()
-
             }
 
         }

@@ -45,12 +45,16 @@
 
     <string name="facebook_app_id">859561854518896</string>
     <string name="fb_login_protocol_scheme">fb859561854518896</string>
+    <string name="mp_public_key">TEST-21b07bb4-b9db-4bc9-beb9-0660b96b97a7</string>
     <string name="continuar_fb">Continuar con Facebook</string>
     <string name="sign_out">Cerrar sesion</string>
     <string name="loading">Cargando</string>
     <string name="signed_out">Desconectado</string>
     <string name="profile_title_text">Perfil</string>
     <string name="conectado_como">Conectado como %1s (%2s)</string>
+    <string name="costo">Costo: $%1s</string>
+    <string name="orden_id">N° de orden: %1s</string>
     <string name="comida">comida</string>
     <string name="auth_text">Estas a un paso de tu comida</string>
+    <string name="resumen_de_la_orden">Resumen de la orden</string>
 </resources>
