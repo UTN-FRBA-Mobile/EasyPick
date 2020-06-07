@@ -4,6 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
+import com.easypick.easypick.API.DatabaseAPI
+import com.easypick.easypick.firebase.FirebaseToken
+import com.easypick.easypick.fragments.ForceAuthFragment
+import com.easypick.easypick.fragments.FragmentHome
+import com.easypick.easypick.fragments.FragmentLocal
+import com.easypick.easypick.fragments.ResumenOrdenFragment
+import com.easypick.easypick.model.Order
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentSnapshot
+import kotlinx.android.synthetic.main.activity_principal.*
 import com.easypick.easypick.fragments.*
 
 
@@ -13,6 +23,12 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val extras: Bundle? = intent?.extras
+        if (extras != null) {
+            if (extras.containsKey("fragment") and extras.containsKey("ordenId")){
+                onNewIntent(intent)
+            }
+        }
         setContentView(R.layout.activity_principal)
         if (savedInstanceState == null) {
             //btn_store.setOnClickListener { showFragment(FragmentLocal()) }
@@ -31,6 +47,25 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
         supportFragmentManager.beginTransaction()
             .replace(R.id.frag_container_principal, fragment).addToBackStack(null)
             .commit()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        FirebaseToken.storeToken(this.applicationContext)
+    }
+
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        val extras: Bundle? = intent?.extras
+        if (extras != null){
+            if (extras.containsKey("fragment") and extras.containsKey("ordenId")) {
+                val getOrder: Task<DocumentSnapshot> = DatabaseAPI().getOrder(extras["ordenId"] as String)
+                getOrder.addOnSuccessListener { documentSnapshot ->
+                    val order = documentSnapshot.toObject(Order::class.java)
+                    order?.let { ResumenOrdenFragment.newInstance(it) }?.let { showFragment(it) }
+                }
+            }
+        }
     }
 
 }

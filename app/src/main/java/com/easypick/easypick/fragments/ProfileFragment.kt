@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.easypick.easypick.R
+import com.easypick.easypick.firebase.FirebaseToken
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
@@ -32,6 +33,7 @@ class ProfileFragment: BaseAuthFragment() {
             override fun onSuccess(loginResult: LoginResult) {
                 handleFacebookAccessToken(loginResult.accessToken, buttonLoginWithFacebook,
                     buttonSignOut)
+                this@ProfileFragment.context?.let { FirebaseToken.storeToken(it) }
             }
 
             override fun onCancel() {
