@@ -9,6 +9,8 @@ import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.easypick.easypick.R
 import com.easypick.easypick.firebase.FirebaseToken
+import com.easypick.easypick.model.Order
+import com.easypick.easypick.model.User
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginResult
@@ -17,11 +19,18 @@ import kotlinx.android.synthetic.main.fragment_force_auth.*
 
 class ForceAuthFragment: BaseAuthFragment() {
     private var listener: FragmentHome.OnFragmentInteractionListener? = null
+    private var order: Order? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_force_auth, container, false)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            order = it.getParcelable("orden")!!
+        }
     }
 
     override fun onStart() {
@@ -55,7 +64,16 @@ class ForceAuthFragment: BaseAuthFragment() {
     override fun updateUI(user: FirebaseUser?, signInButton: Button, signOutButton: Button?) {
         super.updateUI(user, signInButton, signOutButton)
         if (user != null){
-            listener?.showFragment(PagoFragment())
+            if(order != null){
+                if (order!!.payer == null){
+                    order!!.payer = user?.email?.let {
+                        user.displayName?.let { it1 -> User(it, it1, user.uid) } }
+                }
+                listener?.showFragment(PagoFragment.newInstance(order!!))
+            }
+            else {
+                listener?.showFragment(FragmentOrden())
+            }
         }
     }
 
@@ -91,7 +109,12 @@ class ForceAuthFragment: BaseAuthFragment() {
          * @return A new instance of fragment StatusUpdate.
          */
         @JvmStatic
-        fun newInstance() = ForceAuthFragment()
+        fun newInstance(orden: Order) =
+            ForceAuthFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable("orden", orden)
+                }
+            }
 
         private const val TAG = "SocialAuth"
     }

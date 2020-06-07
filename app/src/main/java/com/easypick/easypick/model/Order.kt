@@ -8,7 +8,7 @@ import java.util.*
 
 @Parcelize
 data class Order(
-    val payer: User? = null,
+    var payer: User? = null,
     val items: List<Item>? = null,
     val costo: Double = 0.0,
     var id: String = "0",
