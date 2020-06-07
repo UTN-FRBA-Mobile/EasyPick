@@ -1,6 +1,7 @@
 package com.easypick.easypick.viewModels
 
 import android.view.LayoutInflater
+import android.view.OrientationEventListener
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -12,11 +13,12 @@ class CategoryViewModel(inflater: LayoutInflater, parent: ViewGroup) :
     private var mNameView: TextView? = null
     private var mDescriptionView: TextView? = null
 
-
     init {
         mNameView = itemView.findViewById(R.id.name)
         mDescriptionView = itemView.findViewById(R.id.description)
     }
+
+
 
     fun bind(category: Category) {
         mNameView?.text = category.name

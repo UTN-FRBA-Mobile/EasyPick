@@ -78,7 +78,7 @@ dependencies {
 
     implementation 'com.facebook.android:facebook-login:5.15.3'
 
-   // libreria glide
+    // libreria glide
     implementation 'com.github.bumptech.glide:glide:4.11.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
