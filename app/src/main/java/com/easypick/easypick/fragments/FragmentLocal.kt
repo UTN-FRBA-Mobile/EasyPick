@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 
 import com.easypick.easypick.R
@@ -52,7 +53,19 @@ class FragmentLocal : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
             adapter = CategoryAdapter(categoriesMock)
+
+            initializeStore(view, "Burgertify", "Hamburguesas enserio");
+
         }
+    }
+
+
+    private fun initializeStore(view: View, name: String, description: String){
+        var storeName: TextView? = view.findViewById(R.id.storeName)
+        storeName?.text = name;
+
+        var storeDescription: TextView? = view.findViewById(R.id.storeDescription)
+        storeDescription?.text = description;
     }
 
     companion object {
