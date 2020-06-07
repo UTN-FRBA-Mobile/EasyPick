@@ -12,12 +12,14 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.easypick.easypick.Interfaz.ClickListener
-
 import com.easypick.easypick.R
+
+
 import com.easypick.easypick.adapters.ProductAdapter
 import com.easypick.easypick.model.Producto
 import com.easypick.easypick.viewModels.LocalViewModel
 import kotlinx.android.synthetic.main.fragment_producto.*
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

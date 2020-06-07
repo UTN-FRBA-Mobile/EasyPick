@@ -20,7 +20,7 @@
             android:layout_marginEnd="24dp"
             android:layout_marginBottom="8dp"
             android:contentDescription="@string/logo"
-            android:src="@drawable/ic_menu_camera"
+            android:src="@drawable/qr_"
             app:layout_constraintBottom_toTopOf="@+id/text_bucarlocales"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"

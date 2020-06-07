@@ -6,7 +6,8 @@
     tools:context=".fragments.FragmentLocal"
     android:weightSum="7"
     android:clickable="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:focusable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,11 +18,11 @@
         android:weightSum="5">
 
         <ImageView
+            android:id="@+id/fragProducto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:src="@drawable/fb">
-        </ImageView>
+            android:src="@drawable/fb"></ImageView>
 
         <LinearLayout
             android:layout_width="match_parent"
