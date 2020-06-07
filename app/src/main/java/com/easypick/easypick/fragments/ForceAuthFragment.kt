@@ -55,7 +55,7 @@ class ForceAuthFragment: BaseAuthFragment() {
     override fun updateUI(user: FirebaseUser?, signInButton: Button, signOutButton: Button?) {
         super.updateUI(user, signInButton, signOutButton)
         if (user != null){
-            listener?.showFragment(PagoFragment())
+            listener?.showFragment(FragmentOrden())
         }
     }
 

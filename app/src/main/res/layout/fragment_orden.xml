@@ -113,7 +113,7 @@
             app:layout_constraintVertical_bias="0.538" />
 
         <Button
-            android:id="@+id/button8"
+            android:id="@+id/generarOrden"
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="121dp"
             android:layout_height="37dp"

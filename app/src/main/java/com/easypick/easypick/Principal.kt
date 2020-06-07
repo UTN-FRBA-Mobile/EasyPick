@@ -2,7 +2,6 @@ package com.easypick.easypick
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.view.ActionMode
 import androidx.fragment.app.Fragment
 import com.easypick.easypick.API.DatabaseAPI
 import com.easypick.easypick.firebase.FirebaseToken
@@ -13,7 +12,6 @@ import com.easypick.easypick.fragments.ResumenOrdenFragment
 import com.easypick.easypick.model.Order
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
-import kotlinx.android.synthetic.main.activity_principal.*
 import com.easypick.easypick.fragments.*
 
 
@@ -31,7 +29,6 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
         }
         setContentView(R.layout.activity_principal)
         if (savedInstanceState == null) {
-            //btn_store.setOnClickListener { showFragment(FragmentLocal()) }
             showFragment(FragmentHome())
         }
     }
