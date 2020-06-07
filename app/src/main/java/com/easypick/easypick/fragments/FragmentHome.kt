@@ -24,13 +24,13 @@ class FragmentHome : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
 
     private val locales = listOf(
-    Locales(titulo = "Pizzeria", detalle = "Pizzeria Vegana", foto = drawable.resto1) ,
-    Locales(titulo = "Sarkis", detalle = "Comida armenia", foto = drawable.resto2) ,
-    Locales(titulo = "Don Julio", detalle = "Asado criollo", foto = drawable.resto3) ,
-    Locales(titulo = "Zakura", detalle = "Comida japonesa", foto = drawable.resto4),
-    Locales(titulo = "Blur", detalle = "Cerveza Artenal", foto = drawable.resto5),
-    Locales(titulo = "MilaPlus", detalle = "Milanesas de lujo", foto = drawable.resto6),
-    Locales(titulo = "Cocu", detalle = "Panaderia francesa", foto = drawable.resto7)  )
+    Locales(titulo = "Pizzeria", detalle = "Pizzeria Vegana, más de 14 sabores", foto = drawable.resto1) ,
+    Locales(titulo = "Sarkis", detalle = "Comida armenia hecha por nosotros", foto = drawable.resto2) ,
+    Locales(titulo = "Don Julio", detalle = "El mejor asado criollo de buenos aires", foto = drawable.resto3) ,
+    Locales(titulo = "Zakura", detalle = "Comida japonesa, más de 8 platos orientales", foto = drawable.resto4),
+    Locales(titulo = "Blur", detalle = "Cerveza Artenal, contamos con 14 tipos de cervezas tiradas", foto = drawable.resto5),
+    Locales(titulo = "MilaPlus", detalle = "Milanesas de lujo, carne, pollo, cerdo, cordero y mucho más", foto = drawable.resto6),
+    Locales(titulo = "Cocu", detalle = "Panaderia francesa, los mejores panes y pastas de francia", foto = drawable.resto7)  )
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
