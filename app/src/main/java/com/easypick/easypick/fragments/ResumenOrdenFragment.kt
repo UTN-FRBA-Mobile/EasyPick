@@ -12,10 +12,10 @@ import com.easypick.easypick.R
 import com.easypick.easypick.adapters.EstadoOrdenAdapter
 import com.easypick.easypick.model.Order
 import com.easypick.easypick.model.OrderEvent
-import kotlinx.android.synthetic.main.fragment_orden.*
-import kotlinx.android.synthetic.main.fragment_orden.view.*
+import kotlinx.android.synthetic.main.fragment_resumen_orden.*
+import kotlinx.android.synthetic.main.fragment_resumen_orden.view.*
 
-class OrdenFragment: Fragment() {
+class ResumenOrdenFragment: Fragment() {
     private lateinit var order: Order
     private var listener: FragmentHome.OnFragmentInteractionListener? = null
     private lateinit var mAdapter: EstadoOrdenAdapter
@@ -31,7 +31,7 @@ class OrdenFragment: Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_orden, container, false)
+        return inflater.inflate(R.layout.fragment_resumen_orden, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -77,7 +77,7 @@ class OrdenFragment: Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(orden: Order) =
-            OrdenFragment().apply {
+            ResumenOrdenFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable("orden", orden)
                 }

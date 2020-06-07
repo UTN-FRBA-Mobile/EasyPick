@@ -8,7 +8,7 @@ import com.easypick.easypick.firebase.FirebaseToken
 import com.easypick.easypick.fragments.ForceAuthFragment
 import com.easypick.easypick.fragments.FragmentHome
 import com.easypick.easypick.fragments.FragmentLocal
-import com.easypick.easypick.fragments.OrdenFragment
+import com.easypick.easypick.fragments.ResumenOrdenFragment
 import com.easypick.easypick.model.Order
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
@@ -58,7 +58,7 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
                 val getOrder: Task<DocumentSnapshot> = DatabaseAPI().getOrder(extras["ordenId"] as String)
                 getOrder.addOnSuccessListener { documentSnapshot ->
                     val order = documentSnapshot.toObject(Order::class.java)
-                    order?.let { OrdenFragment.newInstance(it) }?.let { showFragment(it) }
+                    order?.let { ResumenOrdenFragment.newInstance(it) }?.let { showFragment(it) }
                 }
             }
         }

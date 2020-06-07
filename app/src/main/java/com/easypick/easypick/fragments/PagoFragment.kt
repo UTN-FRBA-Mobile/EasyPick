@@ -84,7 +84,7 @@ class PagoFragment : Fragment() {
                 val payment =
                     data!!.getSerializableExtra(MercadoPagoCheckout.EXTRA_PAYMENT_RESULT) as Payment
                 DatabaseAPI().addOrder(order)
-                listener?.showFragment(OrdenFragment.newInstance(order))
+                listener?.showFragment(ResumenOrdenFragment.newInstance(order))
                 //Done!
             } else if (resultCode == RESULT_CANCELED) {
                 if (data != null && data.extras != null && data.extras!!.containsKey(
