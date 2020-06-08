@@ -11,10 +11,7 @@ import androidx.fragment.app.Fragment
 import com.easypick.easypick.API.DatabaseAPI
 import com.easypick.easypick.R
 import com.easypick.easypick.interfaces.MercadoPagoService
-import com.easypick.easypick.model.Item
 import com.easypick.easypick.model.Order
-import com.easypick.easypick.model.User
-import com.google.firebase.auth.FirebaseAuth
 import com.mercadopago.android.px.core.MercadoPagoCheckout
 import com.mercadopago.android.px.core.MercadoPagoCheckout.Builder
 import com.mercadopago.android.px.model.Payment
@@ -35,6 +32,13 @@ class PagoFragment : Fragment() {
     private val REQUEST_CODE = 1
     private val ACCESS_TOKEN = "TEST-4265074321617597-052423-80520673faae8bec8c7feb07b23ea749-84367971"
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            order = it.getParcelable("orden")!!
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -43,15 +47,7 @@ class PagoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val firebaseAuth = FirebaseAuth.getInstance()
-        val firebaseUser = firebaseAuth.currentUser
-        val user = firebaseUser?.email?.let {
-            firebaseUser.displayName?.let { it1 -> User(it, it1, firebaseUser.uid) } }
-        val item1 = Item("Test item", "Primer orden completa", 1,
-            unit_price = 250.0)
-        val items = listOf<Item>(item1)
-        val orderId = UUID.randomUUID().toString().toUpperCase();
-        order = user?.let { Order(user, items, costo = 150.0, id =orderId)}!!
+        order.id = UUID.randomUUID().toString().toUpperCase();
         val service = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl("https://api.mercadopago.com/")
@@ -119,7 +115,12 @@ class PagoFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance() = PagoFragment()
+        fun newInstance(orden: Order) =
+            PagoFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable("orden", orden)
+                }
+            }
         private const val TAG = "PagoFragment"
     }
 }

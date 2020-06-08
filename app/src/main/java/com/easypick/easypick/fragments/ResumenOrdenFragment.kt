@@ -82,7 +82,7 @@ class ResumenOrdenFragment: Fragment() {
                     putParcelable("orden", orden)
                 }
             }
-        private const val TAG = "PagoFragment"
+        private const val TAG = "ResumenOrdenFragment"
     }
 
 }
