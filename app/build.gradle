@@ -96,4 +96,7 @@ dependencies {
     implementation "com.google.firebase:firebase-auth:${firebaseAuthVersion}"
     implementation 'com.google.firebase:firebase-messaging:20.2.0'
 
+    //Para hacer los imagenes circulares
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }

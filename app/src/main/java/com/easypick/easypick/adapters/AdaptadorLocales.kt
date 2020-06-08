@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.easypick.easypick.Locales
 import com.easypick.easypick.R
-import kotlinx.android.synthetic.main.card_locales.view.*
 
 class AdaptadorLocales(var list: List<Locales>): RecyclerView.Adapter<AdaptadorLocales.ViewHolder>(){
 
@@ -37,7 +36,7 @@ class AdaptadorLocales(var list: List<Locales>): RecyclerView.Adapter<AdaptadorL
         fun bindItems(data: Locales) {
             val titulo: TextView = itemView.findViewById(R.id.tituloLocal)
             val detalle: TextView = itemView.findViewById(R.id.detalleLocal)
-            val foto: ImageView = itemView.findViewById(R.id.imagelocal)
+            val foto: ImageView = itemView.findViewById(R.id.categoryImage)
 
             titulo.text = data.titulo
             detalle.text = data.detalle
