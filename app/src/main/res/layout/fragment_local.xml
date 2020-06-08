@@ -19,9 +19,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="3"
-            android:src="@drawable/fb">
+            android:src="@drawable/fb"
+            android:id="@+id/storeImage">
 
         </ImageView>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,6 +41,7 @@
                 android:textStyle="bold"
                 android:textSize="32sp"
                 android:textColor="@android:color/background_light"
+                android:text="TextView"
                 android:gravity="center">
 
 
@@ -46,11 +49,10 @@
 
             <TextView
                 android:id="@+id/storeDescription"
-
+                android:text="TextView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:text="Las mejores hamburguesas"
                 android:textSize="10dp"
                 android:textColor="@android:color/background_light"
                 android:gravity="center">

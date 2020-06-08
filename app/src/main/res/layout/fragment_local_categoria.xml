@@ -15,20 +15,8 @@ android:elevation="4dp">
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/btnLocal"
-        style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
-        android:layout_width="33dp"
-        android:layout_height="38dp"
-        android:background="@android:drawable/ic_menu_set_as"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.963"
-        app:layout_constraintStart_toEndOf="@+id/detalleLocal"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/categoryName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -39,28 +27,33 @@ android:elevation="4dp">
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/imagelocal"
+        app:layout_constraintStart_toEndOf="@+id/categoryImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/description"
+        android:id="@+id/categoryDescription"
         android:layout_width="wrap_content"
         android:layout_height="19dp"
         android:layout_marginStart="8dp"
         android:layout_marginBottom="2dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imagelocal"
+        app:layout_constraintStart_toEndOf="@+id/categoryImage"
         app:layout_constraintTop_toBottomOf="@+id/tituloLocal" />
 
-    <ImageView
-        android:id="@+id/imagelocal"
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/categoryImage"
         android:layout_width="120dp"
         android:layout_height="80dp"
         android:layout_marginStart="2dp"
+        android:src="@drawable/fb"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/fb" />
+        app:civ_border_width="1dp"
+        app:civ_border_color="#FFFFFF"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>
