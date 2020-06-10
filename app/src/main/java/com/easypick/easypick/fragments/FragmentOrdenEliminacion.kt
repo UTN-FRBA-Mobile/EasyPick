@@ -10,11 +10,15 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.easypick.easypick.Interfaz.LongClickListener
+import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.R
 import com.easypick.easypick.adapters.CarritoAdapter
+import com.easypick.easypick.model.Item
+import com.easypick.easypick.model.Order
 import com.easypick.easypick.model.Producto
+import com.easypick.easypick.model.User
 import com.easypick.easypick.viewModels.LocalViewModel
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_orden.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -52,6 +56,7 @@ class FragmentOrdenEliminacion : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        bandera = false
         listaProductosCarrito.apply {
             layoutManager = LinearLayoutManager(activity)
             viewModel = ViewModelProvider(activity!!).get(LocalViewModel::class.java)
@@ -59,8 +64,8 @@ class FragmentOrdenEliminacion : Fragment() {
             importeTotal = view.findViewById(R.id.precioTotal)
             importeTotal?.text = viewModel.precioTotal.toString()
             var importeApagar: Double = viewModel.precioTotal
-            adapter = CarritoAdapter(productosSeleccionados, object: LongClickListener {
-                override fun longClick(vista: View, index: Int) {
+            adapter = CarritoAdapter(productosSeleccionados, object : ClickListener{
+                override fun onCLick(v: View, index: Int) {
                     bandera = true
                     importeApagar -= productosSeleccionados.get(index).precio
                     viewModel.precioTotal -= productosSeleccionados.get(index).precio
@@ -74,7 +79,12 @@ class FragmentOrdenEliminacion : Fragment() {
                         Toast.makeText(activity, "PEDIDO VACIO", Toast.LENGTH_LONG).show()
                     }
                 }
-            } )
+            })
+
+            generarOrden.setOnClickListener {
+                bandera = true
+                crearOrden()
+            }
         }
     }
 
@@ -97,6 +107,18 @@ class FragmentOrdenEliminacion : Fragment() {
     override fun onDetach() {
         super.onDetach()
         listener = null
+    }
+
+    private fun crearOrden(){
+        val items: ArrayList<Item> = ArrayList<Item>()
+        for (producto: Producto in productosSeleccionados){
+            items.add(Item(title=producto.descripcion, quantity=1, unit_price=producto.precio))
+        }
+        val firebaseUser = FirebaseAuth.getInstance().currentUser
+        val user = firebaseUser?.email?.let {
+            firebaseUser.displayName?.let { it1 -> User(it, it1, firebaseUser.uid) } }
+        val order = Order(payer=user, items=items, costo=viewModel.precioTotal)
+        listener?.showFragment(ForceAuthFragment.newInstance(order))
     }
 
     companion object {

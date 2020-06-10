@@ -19,6 +19,7 @@ import com.easypick.easypick.adapters.ProductAdapter
 import com.easypick.easypick.model.Producto
 import com.easypick.easypick.viewModels.LocalViewModel
 import kotlinx.android.synthetic.main.fragment_producto.*
+import kotlinx.android.synthetic.main.template_producto.view.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -84,6 +85,9 @@ class FragmentProducto : Fragment() {
                     Toast.makeText(activity, "Se ha agregado ${productos.get(index).descripcion} al pedido", Toast.LENGTH_SHORT).show()
                 }
             })
+            /*btn_agregar.setOnClickListener{
+                listener?.showFragment(fragmentOrden)
+            }*/
         }
     }
 

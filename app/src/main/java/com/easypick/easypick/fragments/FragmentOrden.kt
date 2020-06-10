@@ -8,7 +8,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.easypick.easypick.Interfaz.LongClickListener
+import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.R
 import com.easypick.easypick.adapters.CarritoAdapter
 import com.easypick.easypick.model.Item
@@ -47,8 +47,8 @@ class FragmentOrden : Fragment() {
             importeTotal = view.findViewById(R.id.precioTotal)
             importeTotal?.text = viewModel.precioTotal.toString()
             var importeApagar: Double = viewModel.precioTotal
-            adapter = CarritoAdapter(productosSeleccionados, object: LongClickListener{
-                override fun longClick(vista: View, index: Int) {
+            adapter = CarritoAdapter(productosSeleccionados, object : ClickListener{
+                override fun onCLick(v: View, index: Int) {
                     importeApagar -= productosSeleccionados.get(index).precio
                     viewModel.precioTotal = importeApagar
                     importeTotal?.text = viewModel.precioTotal.toString()
@@ -58,7 +58,8 @@ class FragmentOrden : Fragment() {
                     viewModel.productosSeleccionados.remove(p)
                     listener?.showFragment(FragmentOrdenEliminacion())
                 }
-            } )
+            })
+
             generarOrden.setOnClickListener {
                 crearOrden()
             }

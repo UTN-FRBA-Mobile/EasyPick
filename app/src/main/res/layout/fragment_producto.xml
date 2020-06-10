@@ -89,10 +89,14 @@
 
         <Button
             android:id="@+id/btn_carrito"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="413dp"
             android:layout_height="match_parent"
-            android:text="Ir al carrito"
-            android:textAlignment="center" />
+            android:background="@color/toolbarRed"
+            android:text="Ver mi pedido"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+            android:textColor="@color/background" />
     </LinearLayout>
 
 </LinearLayout>
