@@ -91,6 +91,7 @@ class FragmentLocal : Fragment() {
         if(!flag){
             viewModel.productosSeleccionados.clear()
             viewModel.precioTotal = 0.0
+            listener?.showFragment(FragmentHome())
         }
     }
 

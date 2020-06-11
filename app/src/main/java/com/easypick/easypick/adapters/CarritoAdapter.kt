@@ -10,10 +10,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.R
+import com.easypick.easypick.model.ItemOrder
 import com.easypick.easypick.model.Producto
 
-class CarritoAdapter(var items: List<Producto>, var ClickListener: ClickListener): RecyclerView.Adapter<CarritoAdapter.ViewHolder>() {
-    var seleccion = false
+class CarritoAdapter(var items: List<ItemOrder>, var ClickListener: ClickListener): RecyclerView.Adapter<CarritoAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val vista =
             LayoutInflater.from(parent?.context).inflate(R.layout.template_producto_carrito, parent, false)
@@ -29,7 +29,8 @@ class CarritoAdapter(var items: List<Producto>, var ClickListener: ClickListener
         val item = items?.get(position)
         holder.foto?.setImageResource(item?.foto!!)
         holder.descripcion?.text =item?.descripcion
-        holder.precio?.text = item?.precio.toString()
+        holder.importe?.text = item?.importe.toString()
+        holder.cantidad?.text = item?.cantidad.toString()
     }
 
 
@@ -37,13 +38,15 @@ class CarritoAdapter(var items: List<Producto>, var ClickListener: ClickListener
         var vista = vista
         var foto: ImageView?= null
         var descripcion: TextView?= null
-        var precio: TextView?= null
+        var importe: TextView?= null
+        var cantidad: TextView?= null
         var boton: Button?= null
         var listener: ClickListener?= null
         init{
             foto = vista.findViewById(R.id.iProductocarrito)
             descripcion = vista.findViewById(R.id.descripcioncarrito)
-            precio = vista.findViewById(R.id.preciocarrito)
+            importe = vista.findViewById(R.id.preciocarrito)
+            cantidad = vista.findViewById(R.id.cantidad)
             boton = vista.findViewById(R.id.btn_quitar)
 
             this.listener = listener

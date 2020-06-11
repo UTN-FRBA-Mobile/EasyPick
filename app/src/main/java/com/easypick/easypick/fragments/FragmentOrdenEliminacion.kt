@@ -13,10 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.R
 import com.easypick.easypick.adapters.CarritoAdapter
-import com.easypick.easypick.model.Item
-import com.easypick.easypick.model.Order
-import com.easypick.easypick.model.Producto
-import com.easypick.easypick.model.User
+import com.easypick.easypick.model.*
 import com.easypick.easypick.viewModels.LocalViewModel
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_orden.*
@@ -36,7 +33,7 @@ class FragmentOrdenEliminacion : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var listener: FragmentOrdenEliminacion.OnFragmentInteractionListener? = null
-    private var productosSeleccionados = ArrayList<Producto>()
+    private var productosSeleccionados = ArrayList<ItemOrder>()
     private lateinit var viewModel: LocalViewModel
     var importeTotal: TextView?= null
     var bandera: Boolean = false
@@ -67,13 +64,19 @@ class FragmentOrdenEliminacion : Fragment() {
             adapter = CarritoAdapter(productosSeleccionados, object : ClickListener{
                 override fun onCLick(v: View, index: Int) {
                     bandera = true
-                    importeApagar -= productosSeleccionados.get(index).precio
-                    viewModel.precioTotal -= productosSeleccionados.get(index).precio
+                    importeApagar -= productosSeleccionados.get(index).precioUnitario
+                    viewModel.precioTotal -= productosSeleccionados.get(index).precioUnitario
                     importeTotal?.text = viewModel.precioTotal.toString()
-                    val p : Producto
-                    p = productosSeleccionados.get(index)
-                    Toast.makeText(activity, "Se ha eliminado ${productosSeleccionados.get(index).descripcion} del pedido", Toast.LENGTH_SHORT).show()
-                    viewModel.productosSeleccionados.remove(p)
+                    if(productosSeleccionados.get(index).cantidad >1){
+                        productosSeleccionados.get(index).cantidad -= 1
+                        productosSeleccionados.get(index).importe -= productosSeleccionados.get(index).precioUnitario
+                        Toast.makeText(activity, "Quedan ${productosSeleccionados.get(index).cantidad} de ${productosSeleccionados.get(index).descripcion} en la orden", Toast.LENGTH_SHORT).show()
+                    } else {
+                        val i : ItemOrder
+                        i = productosSeleccionados.get(index)
+                        Toast.makeText(activity, "Se ha eliminado ${productosSeleccionados.get(index).descripcion} de la orden", Toast.LENGTH_SHORT).show()
+                        viewModel.productosSeleccionados.remove(i)
+                    }
                     listener?.showFragment(FragmentOrdenEliminacion())
                     if(productosSeleccionados.size == 0){
                         Toast.makeText(activity, "PEDIDO VACIO", Toast.LENGTH_LONG).show()
@@ -111,8 +114,8 @@ class FragmentOrdenEliminacion : Fragment() {
 
     private fun crearOrden(){
         val items: ArrayList<Item> = ArrayList<Item>()
-        for (producto: Producto in productosSeleccionados){
-            items.add(Item(title=producto.descripcion, quantity=1, unit_price=producto.precio))
+        for (producto: ItemOrder in productosSeleccionados){
+            items.add(Item(title=producto.descripcion, quantity=1, unit_price=producto.importe))
         }
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         val user = firebaseUser?.email?.let {
