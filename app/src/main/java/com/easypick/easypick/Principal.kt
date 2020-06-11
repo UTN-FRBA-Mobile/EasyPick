@@ -65,5 +65,15 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
         }
     }
 
+    override fun onBackPressed() {
+        if (supportFragmentManager.backStackEntryCount == 1){
+            finish()
+        }
+        else{
+            super.onBackPressed()
+        }
+
+    }
+
 }
 
