@@ -2,6 +2,8 @@ package com.easypick.easypick
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.easypick.easypick.API.DatabaseAPI
 import com.easypick.easypick.firebase.FirebaseToken
@@ -13,6 +15,7 @@ import com.easypick.easypick.model.Order
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 import com.easypick.easypick.fragments.*
+import kotlinx.android.synthetic.main.activity_principal.*
 
 
 class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
@@ -56,9 +59,17 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
         val extras: Bundle? = intent?.extras
         if (extras != null){
             if (extras.containsKey("fragment") and extras.containsKey("ordenId")) {
+                Handler().post {
+                    frag_container_principal.visibility = View.GONE
+                    loadingFragment.visibility = View.VISIBLE
+                }
                 val getOrder: Task<DocumentSnapshot> = DatabaseAPI().getOrder(extras["ordenId"] as String)
                 getOrder.addOnSuccessListener { documentSnapshot ->
                     val order = documentSnapshot.toObject(Order::class.java)
+                    Handler().post {
+                        loadingFragment.visibility = View.GONE
+                        frag_container_principal.visibility = View.VISIBLE
+                    }
                     order?.let { ResumenOrdenFragment.newInstance(it) }?.let { showFragment(it) }
                 }
             }
