@@ -42,12 +42,12 @@ class ResumenOrdenFragment: Fragment() {
         view.costo.text = getString(R.string.costo, order.costo.toString())
         view.order_id.text = getString(R.string.orden_id, order.id)
         if (order.timestamp == null){
-            view.fecha.text = DateFormat.getDateInstance(DateFormat.LONG).format(
-                Calendar.getInstance().time)
+            view.fecha.text = DateFormat.getDateInstance(DateFormat.LONG,
+                Locale("es", "ES")).format(Calendar.getInstance().time)
         }
         else{
-            view.fecha.text = DateFormat.getDateInstance(DateFormat.LONG).
-                format(order.timestamp!!)
+            view.fecha.text = DateFormat.getDateInstance(DateFormat.LONG,
+                Locale("es", "ES")).format(order.timestamp!!)
         }
         setDataListItems(order)
         initRecyclerView()
