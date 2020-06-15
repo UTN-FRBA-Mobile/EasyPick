@@ -9,20 +9,13 @@ if (process.env.NODE_ENV === 'development') {
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  response.send("Hello from Firebase!");
-});
-
-exports.avanzarOrden = functions.https.onRequest((request, response) => {
-
-})
 
 exports.notificate = functions.firestore.document('/orders/{orderId}').onUpdate((change, context) => {
     const oldOrder = change.before.data();
     const updatedOrder = change.after.data();
     const oldEvents = oldOrder.events;
     const updatedEvents = updatedOrder.events;
-    const newActiveEvent = updatedEvents.filter(ev => !oldEvents.includes(ev) && ev.status === "ACTIVE")[0];
+    const newActiveEvent = updatedEvents.filter(ev => ev.status === "ACTIVE")[0];
     console.log("Old order: ", oldOrder);
     console.log("New order: ", updatedOrder);
     console.log("User id: ", updatedOrder.payer.id);
@@ -38,11 +31,14 @@ exports.notificate = functions.firestore.document('/orders/{orderId}').onUpdate(
 
         const payload = {
             notification: {
+                icon: "ic_notification",
                 title: "Easypick",
-                body: updatedOrder.events[0].message,
+                body: newActiveEvent.message,
+                click_action: "ABRIR_ORDEN"
             },
             data: {
-              ordenId: context.params.orderId
+              ordenId: context.params.orderId,
+              fragment: "OrdenFragment"
             }
         };
 

@@ -8,4 +8,6 @@
     <dimen name="fragment_title">35sp</dimen>
     <dimen name="fragment_title_smaller">20sp</dimen>
     <dimen name="fragment_info">20sp</dimen>
+    <dimen name="event_time">16sp</dimen>
+    <dimen name="event_content">18sp</dimen>
 </resources>

@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/fecha_actualizacion"
-                android:textSize="12sp"
+                android:textSize="@dimen/event_time"
                 tools:text="24 JAN"/>
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -48,6 +48,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:id="@+id/mensaje_actualizacion"
+                android:textSize="@dimen/event_content"
                 android:textColor="@android:color/black"
                 tools:text="Order Successfully Completed"/>
 
