@@ -16,9 +16,11 @@ import com.easypick.easypick.R
 
 
 import com.easypick.easypick.adapters.ProductAdapter
+import com.easypick.easypick.model.ItemOrder
 import com.easypick.easypick.model.Producto
 import com.easypick.easypick.viewModels.LocalViewModel
 import kotlinx.android.synthetic.main.fragment_producto.*
+import kotlinx.android.synthetic.main.template_producto.view.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -80,10 +82,27 @@ class FragmentProducto : Fragment() {
                 override fun onCLick(vista: View, index: Int) {
                     importeTotal += productos.get(index).precio
                     viewModel.precioTotal = importeTotal
-                    viewModel.productosSeleccionados.add(Producto(productos.get(index).descripcion, productos.get(index).precio, productos.get(index).foto, productos.get(index).comentarios))
+                    var find: Boolean = false
+                    if(viewModel.productosSeleccionados.size > 0) {
+                        for (i in viewModel.productosSeleccionados) {
+                            if (i.descripcion == productos.get(index).descripcion) {
+                                find = true
+                                i.cantidad += 1
+                                i.importe = productos.get(index).precio * i.cantidad
+                            }
+                        }
+                    }
+                    if(!find){
+                        viewModel.productosSeleccionados.add((ItemOrder(productos.get(index).descripcion, productos.get(index).precio, productos.get(index).foto, productos.get(index).precio, 1)))
+                     }
+
+                    //viewModel.productosSeleccionados.add(Producto(productos.get(index).descripcion, productos.get(index).precio, productos.get(index).foto, productos.get(index).comentarios))
                     Toast.makeText(activity, "Se ha agregado ${productos.get(index).descripcion} al pedido", Toast.LENGTH_SHORT).show()
                 }
             })
+            /*btn_agregar.setOnClickListener{
+                listener?.showFragment(fragmentOrden)
+            }*/
         }
     }
 

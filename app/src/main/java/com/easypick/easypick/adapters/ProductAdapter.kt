@@ -38,51 +38,21 @@ class ProductAdapter(var items: List<Producto>, var listener: ClickListener): Re
         var foto:ImageView?= null
         var descripcion: TextView?= null
         var precio: TextView?= null
-        //var boton: Button?= null
+        var boton: Button?= null
         var listener:ClickListener?= null
 
         init {
             foto= vista.findViewById(R.id.iProducto)
             descripcion = vista.findViewById(R.id.descripcion)
             precio = vista.findViewById(R.id.precio)
-           // boton = vista.findViewById(R.id.agregar)
+            boton = vista.findViewById(R.id.btn_agregar)
             this.listener = listener
 
-            vista.setOnClickListener(this)
+            boton?.setOnClickListener(this)
         }
 
         override fun onClick(v: View?) {
-           /* boton?.setOnClickListener{
-                this.listener?.onCLick(v!!, adapterPosition)
-            }*/
             this.listener?.onCLick(v!!, adapterPosition)
         }
-
-       /* fun bindItems(data: Producto) {
-            val descripcion: TextView = itemView.findViewById(R.id.descripcion)
-            val precio: TextView = itemView.findViewById(R.id.precio)
-            val foto: ImageView = itemView.findViewById((R.id.iProducto))
-            val boton: Button = itemView.findViewById(R.id.agregar)
-
-
-            descripcion.text = data.descripcion
-            precio.text = data.precio.toString()
-
-            foto.setImageResource(data.foto!!)
-            itemView.setOnClickListener {
-                Toast.makeText(
-                    itemView.context,
-                    "Has Para agregar ${data.descripcion} al carrito pulse Agregar",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-            boton.setOnClickListener{
-                Toast.makeText(
-                    itemView.context,
-                    "Has agregado ${data.descripcion} al carrito",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        }*/
     }
 }

@@ -16,6 +16,7 @@ import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.R
 import com.easypick.easypick.adapters.CategoryAdapter
 import com.easypick.easypick.model.Category
+import com.easypick.easypick.model.Producto
 import com.easypick.easypick.viewModels.LocalViewModel
 import kotlinx.android.synthetic.main.fragment_local.*
 import java.util.ArrayList
@@ -33,6 +34,8 @@ class FragmentLocal : Fragment() {
     private var param2: String? = null
 
     private lateinit var viewModel: LocalViewModel
+
+    var flag: Boolean = false
 
     private val categoriesMock = listOf(
         Category("Ensaladas", "Las mas ricas de CABA", R.drawable.hamburguesa),
@@ -63,6 +66,7 @@ class FragmentLocal : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        flag = false
         // RecyclerView node initialized here
         recyclerViewCategories.apply {
             // set a LinearLayoutManager to handle Android
@@ -72,6 +76,7 @@ class FragmentLocal : Fragment() {
             viewModel = ViewModelProvider(activity!!).get(LocalViewModel::class.java)
             adapter = CategoryAdapter(categoriesMock, object : ClickListener {
                 override fun onCLick(vista: View, index: Int) {
+                    flag = true
                     viewModel.categoria = categoriesMock?.get(index).name
                     listener?.showFragment(FragmentProducto())
                 }
@@ -98,6 +103,16 @@ class FragmentLocal : Fragment() {
             listener = context
         } else {
             throw RuntimeException("$context must implement OnFragmentInteractionListener")
+        }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(!flag){
+            viewModel.precioTotal = 0.0
+            viewModel.productosSeleccionados.clear()
+            listener?.showFragment(FragmentHome())
         }
     }
 
