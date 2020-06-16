@@ -86,15 +86,6 @@ class FragmentLocal : Fragment() {
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        if(!flag){
-            viewModel.productosSeleccionados.clear()
-            viewModel.precioTotal = 0.0
-            listener?.showFragment(FragmentHome())
-        }
-    }
-
     private fun initializeStore(view: View, name: String, description: String, image: Int) {
         val storeName: TextView? = view.findViewById(R.id.storeName)
         storeName?.text = name;
@@ -112,6 +103,16 @@ class FragmentLocal : Fragment() {
             listener = context
         } else {
             throw RuntimeException("$context must implement OnFragmentInteractionListener")
+        }
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(!flag){
+            viewModel.precioTotal = 0.0
+            viewModel.productosSeleccionados.clear()
+            listener?.showFragment(FragmentHome())
         }
     }
 

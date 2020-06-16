@@ -23,6 +23,8 @@ class FragmentOrden : Fragment() {
     private lateinit var viewModel: LocalViewModel
     var importeTotal: TextView?= null
 
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
@@ -51,7 +53,7 @@ class FragmentOrden : Fragment() {
                     importeTotal?.text = viewModel.precioTotal.toString()
                     if(productosSeleccionados.get(index).cantidad >1){
                         productosSeleccionados.get(index).cantidad -= 1
-                        productosSeleccionados.get(index).importe -= productosSeleccionados.get(index).precioUnitario
+                        productosSeleccionados.get(index).importe = productosSeleccionados.get(index).precioUnitario * productosSeleccionados.get(index).cantidad
                         Toast.makeText(activity, "Quedan ${productosSeleccionados.get(index).cantidad} de ${productosSeleccionados.get(index).descripcion} en la orden", Toast.LENGTH_SHORT).show()
                     } else {
                         val i : ItemOrder
@@ -68,6 +70,7 @@ class FragmentOrden : Fragment() {
             }
         }
     }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

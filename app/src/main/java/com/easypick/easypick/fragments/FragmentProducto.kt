@@ -87,8 +87,8 @@ class FragmentProducto : Fragment() {
                         for (i in viewModel.productosSeleccionados) {
                             if (i.descripcion == productos.get(index).descripcion) {
                                 find = true
-                                i.importe += productos.get(index).precio
                                 i.cantidad += 1
+                                i.importe = productos.get(index).precio * i.cantidad
                             }
                         }
                     }

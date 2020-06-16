@@ -80,6 +80,7 @@
             style="@style/Widget.AppCompat.AutoCompleteTextView"
             android:layout_width="27dp"
             android:layout_height="46dp"
+            android:editable="false"
             android:ems="10"
             android:inputType="number"
             android:text="2"
