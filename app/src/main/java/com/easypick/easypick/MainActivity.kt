@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.easypick.easypick.adapters.AdaptadorLocales
 import kotlinx.android.synthetic.main.activity_inicio.*
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.concurrent.thread
 import kotlin.time.seconds
 
@@ -60,7 +62,6 @@ class MainActivity : AppCompatActivity(){
 
 
     }
-
 
 
 

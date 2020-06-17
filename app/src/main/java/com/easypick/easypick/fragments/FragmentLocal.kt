@@ -17,9 +17,10 @@ import com.easypick.easypick.Locales
 import com.easypick.easypick.R
 import com.easypick.easypick.adapters.CategoryAdapter
 import com.easypick.easypick.model.Category
+import com.easypick.easypick.retroFit.Gateway
+import com.easypick.easypick.retroFit.RetroFitApiConsume
 import com.easypick.easypick.viewModels.LocalViewModel
 import kotlinx.android.synthetic.main.fragment_local.*
-import java.util.ArrayList
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -43,11 +44,8 @@ class FragmentLocal () : Fragment() {
         Category("Postres", "Para compartir",R.drawable.helado)
     )
 
-    public var store: Locales = Locales("Williamsburg","Hamburguesas Americanas",R.drawable.resto1);
+    public var store: Locales = Locales("Williamsburg","Hamburguesas Americanas",R.drawable.resto1, id = 10);
 
-
-
-    //var categoria: TextView?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
