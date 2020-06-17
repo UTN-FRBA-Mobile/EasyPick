@@ -11,23 +11,6 @@
         android:layout_height="match_parent"
         tools:context=".Principal">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="128dp"
-            android:layout_height="88dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="8dp"
-            android:contentDescription="@string/logo"
-            android:src="@drawable/qr_"
-            app:layout_constraintBottom_toTopOf="@+id/text_bucarlocales"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.497"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_scanner"
-            tools:srcCompat="@drawable/qr" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/RecyLocales"
             android:layout_width="366dp"
@@ -45,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:text="@string/cam_texto"
             android:textAlignment="center"
@@ -60,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="33dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="18dp"
             android:layout_marginEnd="8dp"
             android:text="@string/cam_locales"
             android:textAlignment="center"
@@ -68,7 +51,26 @@
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+            app:layout_constraintTop_toBottomOf="@+id/btn_cam" />
+
+
+        <ImageButton
+            android:id="@+id/btn_cam"
+            android:layout_width="200dp"
+            android:layout_height="178dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/qr"
+            app:layout_constraintBottom_toTopOf="@+id/text_bucarlocales"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_scanner"
+            tools:src="@drawable/qr_">
+
+        </ImageButton>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -1,47 +1,35 @@
 package com.easypick.easypick.fragments
 
-import android.Manifest.*
-import android.annotation.SuppressLint
-import android.content.ContentResolver
-import android.content.ContentValues
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
-import android.icu.lang.UCharacter
 import android.net.Uri
-import android.os.Build
-import android.os.Build.VERSION
 import android.os.Bundle
-import android.provider.MediaStore
-import android.provider.SyncStateContract.Helpers.insert
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import androidx.core.content.ContextCompat.checkSelfPermission
-
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.easypick.easypick.Locales
-
-import com.easypick.easypick.R.*
-
+import com.easypick.easypick.R.drawable
+import com.easypick.easypick.R.layout
 import com.easypick.easypick.adapters.AdaptadorLocales
-import kotlinx.android.synthetic.main.activity_principal.*
+import com.google.zxing.Result
+import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_producto.*
-import java.security.Permission
-import java.security.Permissions
-import java.util.jar.Manifest
+import me.dm7.barcodescanner.zxing.ZXingScannerView
+import me.dm7.barcodescanner.zxing.ZXingScannerView.ResultHandler
+import java.io.File
 
 
-class FragmentHome : Fragment() {
+class FragmentHome : Fragment(){
     private var listener: OnFragmentInteractionListener? = null
-    private val PERMISION_CODE:Int =1000
-    private val IMAGE_CAPTURE_CODE:Int=1001
-    var image_rui: Uri?= null
-
+    private var scannerView: ZXingScannerView?=null;
+    private var REQUEST_CAMERA=1
+    private var PERMISSION_CODE=1000
+    var imageUri: Uri? = null
+    var imageFile: File?= null
 
     private val locales = listOf(
     Locales(titulo = "Pizzeria", detalle = "Pizzeria Vegana, más de 14 sabores", foto = drawable.resto1) ,
@@ -51,14 +39,6 @@ class FragmentHome : Fragment() {
     Locales(titulo = "Blur", detalle = "Cerveza Artenal, contamos con 14 tipos de cervezas.", foto = drawable.resto5),
     Locales(titulo = "MilaPlus", detalle = "Milanesas de lujo, carne, pollo, cerdo, cordero.", foto = drawable.resto6),
     Locales(titulo = "Cocu", detalle = "Panaderia francesa, los mejores panes y pastas de francia", foto = drawable.resto7)  )
-
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-
-        super.onCreate(savedInstanceState)
-        retainInstance = true
-    }
-
 
 
 
@@ -78,13 +58,40 @@ class FragmentHome : Fragment() {
                 // set the custom adapter to the RecyclerView
                 adapter = AdaptadorLocales(locales)
             }
+                        //permission was not enabled
+                        val permission = arrayOf(android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        //show popup to request permission
+                        requestPermissions(permission, PERMISSION_CODE)
 
 
-          
+
+            btn_cam.setOnClickListener {
+
+                val mScanner = IntentIntegrator(activity)
+                mScanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
+                mScanner.setBeepEnabled(false)
+                mScanner.initiateScan()
 
 
-
+            }
         }
+
+
+
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        if (result != null) {
+            if (result.contents == null) {
+                Toast.makeText(activity, "Cancelled", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(activity, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -103,6 +110,8 @@ class FragmentHome : Fragment() {
     interface OnFragmentInteractionListener {
         fun showFragment(fragment: Fragment)
     }
+
+
 
 
 
