@@ -11,12 +11,12 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.easypick.easypick.Interfaz.ClickListener
+import com.easypick.easypick.Locales
 
 
 import com.easypick.easypick.R
 import com.easypick.easypick.adapters.CategoryAdapter
 import com.easypick.easypick.model.Category
-import com.easypick.easypick.model.Producto
 import com.easypick.easypick.viewModels.LocalViewModel
 import kotlinx.android.synthetic.main.fragment_local.*
 import java.util.ArrayList
@@ -25,7 +25,7 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 
-class FragmentLocal : Fragment() {
+class FragmentLocal () : Fragment() {
 
     private var listener: FragmentLocal.OnFragmentInteractionListener? = null
 
@@ -43,9 +43,8 @@ class FragmentLocal : Fragment() {
         Category("Postres", "Para compartir",R.drawable.helado)
     )
 
-    private val storeName : String = "WilliamsBurg"
+    public var store: Locales = Locales("Williamsburg","Hamburguesas Americanas",R.drawable.resto1);
 
-    private val storeDescription : String = "Hamburguesas Americanas"
 
 
     //var categoria: TextView?= null
@@ -81,7 +80,7 @@ class FragmentLocal : Fragment() {
                     listener?.showFragment(FragmentProducto())
                 }
             })
-            initializeStore(view, storeName, storeDescription, R.drawable.resto1);
+            initializeStore(view, store.titulo, store.detalle, store.foto);
 
         }
     }

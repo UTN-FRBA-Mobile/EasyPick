@@ -1,6 +1,5 @@
 package com.easypick.easypick.fragments
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -11,11 +10,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.Locales
 import com.easypick.easypick.R.drawable
 import com.easypick.easypick.R.layout
 import com.easypick.easypick.adapters.AdaptadorLocales
-import com.google.zxing.Result
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.fragment_home.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
@@ -56,7 +55,15 @@ class FragmentHome : Fragment(){
                 // RecyclerView behavior
                 layoutManager = LinearLayoutManager(activity)
                 // set the custom adapter to the RecyclerView
-                adapter = AdaptadorLocales(locales)
+                adapter = AdaptadorLocales(locales, object : ClickListener {
+                    override fun onCLick(vista: View, index: Int) {
+
+                        var storeFrangment = FragmentLocal();
+                        storeFrangment.store = locales.get(index);
+
+                        listener?.showFragment(storeFrangment)
+                    }
+                })
             }
                         //permission was not enabled
                         val permission = arrayOf(android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
