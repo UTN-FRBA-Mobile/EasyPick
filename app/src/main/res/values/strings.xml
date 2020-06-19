@@ -59,4 +59,5 @@
     <string name="resumen_de_la_orden">Resumen de la orden</string>
     <string name="descripcion">descripcion</string>
     <string name="precio">precio</string>
+    <string name="mis_ordenes">Mis ordenes</string>
 </resources>

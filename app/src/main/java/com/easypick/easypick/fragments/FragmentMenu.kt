@@ -52,6 +52,7 @@ class FragmentMenu : Fragment() {
                     1 -> { listener?.showFragment(FragmentLocal()) }
                     3 -> { listener?.showFragment(ForceAuthFragment()) }
                     4 -> { listener?.showFragment(ProfileFragment())}
+                    5 -> { listener?.showFragment(OrderHistoryFragment())}
                 }
             }
 

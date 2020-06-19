@@ -22,5 +22,12 @@ data class Order(
                           OrderEvent("Orden lista para retirar"),
                           OrderEvent("Orden retirada")),
     val estimatedTime: Int = 15,
-    @ServerTimestamp val timestamp:Date? = null) :
-    Parcelable
+    @ServerTimestamp val timestamp:Date? = null) : Parcelable {
+    fun getPrecio(): Double? {
+        return if (this.items != null){
+            this.items.sumByDouble { it.unit_price }
+        } else{
+            0.0
+        }
+    }
+}
