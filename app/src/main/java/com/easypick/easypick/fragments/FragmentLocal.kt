@@ -16,7 +16,6 @@ import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.Locales
 import com.easypick.easypick.R
 import com.easypick.easypick.adapters.CategoryAdapter
-import com.easypick.easypick.model.Categories
 import com.easypick.easypick.model.Category
 import com.easypick.easypick.retroFit.Gateway
 import com.easypick.easypick.retroFit.RetroFitApiConsume
@@ -42,32 +41,9 @@ class FragmentLocal() : Fragment() {
 
     var flag: Boolean = false
 
-    private lateinit var categoriesMock : List<Category>;
+    private lateinit var categories : List<Category>;
 
-    public var store: Locales =
-        Locales("Williamsburg", "Hamburguesas Americanas", R.drawable.resto1, id = 1);
-
-//    public fun setCategories(storeId: Long) {
-//
-//        val retroFitApiConsume = RetroFitApiConsume();
-//
-//        val request = retroFitApiConsume.getRetrofit().create(Gateway::class.java);
-//
-//        val call = request.getCategoryByStoreId(storeId);
-//
-//        call.enqueue(object : Callback<List<Category>> {
-//            override fun onResponse(call: Call<List<Category>>, response: Response<List<Category>>) {
-//                if (response.isSuccessful) {
-//                    categoriesMock = response.body()!!;
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<List<Category>>, t: Throwable) {
-//                Toast.makeText(activity, "Error obteniendo categorias", Toast.LENGTH_SHORT).show()
-//            }
-//        })
-//    }
-
+    public lateinit var store: Locales;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,10 +79,16 @@ class FragmentLocal() : Fragment() {
                     if (response.isSuccessful) {
 
 
-                        adapter = CategoryAdapter(response.body()!!, object : ClickListener {
+                        categories = response.body()!!
+
+                        for (category in categories){
+                            category.image = R.drawable.hamburguesa;
+                        }
+
+                        adapter = CategoryAdapter(categories, object : ClickListener {
                             override fun onCLick(vista: View, index: Int) {
                                 flag = true
-                                viewModel.categoria = categoriesMock?.get(index).name
+                                viewModel.categoria = categories?.get(index).name
                                 listener?.showFragment(FragmentProducto())
                             }
                         })

@@ -1,6 +1,5 @@
 package com.easypick.easypick.retroFit
 
-import com.easypick.easypick.model.Categories
 import com.easypick.easypick.model.Category
 import retrofit2.Call
 import retrofit2.http.GET
