@@ -1,13 +1,14 @@
 package com.easypick.easypick.retroFit
 
+import com.easypick.easypick.model.Categories
 import com.easypick.easypick.model.Category
-import com.squareup.okhttp.Call
+import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Url
+import retrofit2.http.Path
 
 interface Gateway {
 
-    @GET("/pepe")
-    fun getCategoryById(@Url id:Long): Category
+    @GET("/stores/{id}/categories")
+    fun getCategoryByStoreId(@Path("id") id:Long): Call<List<Category>>
 
 }

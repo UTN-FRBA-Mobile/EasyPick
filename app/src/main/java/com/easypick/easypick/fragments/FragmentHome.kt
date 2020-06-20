@@ -60,7 +60,6 @@ class FragmentHome : Fragment(){
 
                         var storeFrangment = FragmentLocal();
                         storeFrangment.store = locales.get(index);
-
                         listener?.showFragment(storeFrangment)
                     }
                 })
