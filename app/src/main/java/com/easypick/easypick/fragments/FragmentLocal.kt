@@ -89,7 +89,7 @@ class FragmentLocal() : Fragment() {
                             override fun onCLick(vista: View, index: Int) {
                                 flag = true
                                 viewModel.categoria = categories?.get(index).name
-                                listener?.showFragment(FragmentProducto())
+                                listener?.showFragment(FragmentProducto(), "")
                             }
                         })
                     }
@@ -132,7 +132,7 @@ class FragmentLocal() : Fragment() {
         if (!flag) {
             viewModel.precioTotal = 0.0
             viewModel.productosSeleccionados.clear()
-            listener?.showFragment(FragmentHome())
+            listener?.showFragment(FragmentHome(), "")
         }
     }
 
@@ -142,7 +142,7 @@ class FragmentLocal() : Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        fun showFragment(fragment: Fragment)
+        fun showFragment(fragment: Fragment, name: String)
     }
 
 

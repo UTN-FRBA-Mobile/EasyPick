@@ -61,7 +61,7 @@ class FragmentOrden : Fragment() {
                         Toast.makeText(activity, "Se ha eliminado ${productosSeleccionados.get(index).descripcion} de la orden", Toast.LENGTH_SHORT).show()
                         viewModel.productosSeleccionados.remove(i)
                     }
-                    listener?.showFragment(FragmentOrdenEliminacion())
+                    listener?.showFragment(FragmentOrdenEliminacion(), "")
                 }
             })
 
@@ -95,7 +95,7 @@ class FragmentOrden : Fragment() {
         val user = firebaseUser?.email?.let {
             firebaseUser.displayName?.let { it1 -> User(it, it1, firebaseUser.uid) } }
         val order = Order(payer=user, items=items, costo=viewModel.precioTotal)
-        listener?.showFragment(ForceAuthFragment.newInstance(order))
+        listener?.showFragment(ForceAuthFragment.newInstance(order), "voyAOrden")
     }
 
     companion object {
@@ -104,7 +104,7 @@ class FragmentOrden : Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        fun showFragment(fragment: Fragment)
+        fun showFragment(fragment: Fragment, name: String)
     }
 
 }

@@ -81,7 +81,7 @@ class ResumenOrdenFragment: Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        fun showFragment(fragment: Fragment)
+        fun showFragment(fragment: Fragment, name: String)
     }
 
     companion object {

@@ -60,7 +60,7 @@ class FragmentHome : Fragment(){
 
                         var storeFrangment = FragmentLocal();
                         storeFrangment.store = locales.get(index);
-                        listener?.showFragment(storeFrangment)
+                        listener?.showFragment(storeFrangment, "")
                     }
                 })
             }
@@ -114,7 +114,7 @@ class FragmentHome : Fragment(){
     }
 
     interface OnFragmentInteractionListener {
-        fun showFragment(fragment: Fragment)
+        fun showFragment(fragment: Fragment, name: String)
     }
 
 

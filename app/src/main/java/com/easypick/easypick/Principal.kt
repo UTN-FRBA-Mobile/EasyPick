@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.easypick.easypick.API.DatabaseAPI
+import com.easypick.easypick.Interfaz.OnBackPressedInterface
 import com.easypick.easypick.firebase.FirebaseToken
 import com.easypick.easypick.fragments.ForceAuthFragment
 import com.easypick.easypick.fragments.FragmentHome
@@ -35,7 +36,7 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
         }
         setContentView(R.layout.activity_principal)
         if (savedInstanceState == null) {
-            showFragment(FragmentHome())
+            showFragment(FragmentHome(), "")
         }
     }
 
@@ -46,10 +47,17 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
         }
     }
 
-    override fun showFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.frag_container_principal, fragment).addToBackStack(null)
-            .commit()
+    override fun showFragment(fragment: Fragment, name: String) {
+        if (name == ""){
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frag_container_principal, fragment).addToBackStack(null)
+                .commit()
+        }
+        else{
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frag_container_principal, fragment).addToBackStack(name)
+                .commit()
+        }
     }
 
     override fun onStart() {
@@ -73,7 +81,7 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
                         loadingFragment.visibility = View.GONE
                         frag_container_principal.visibility = View.VISIBLE
                     }
-                    order?.let { ResumenOrdenFragment.newInstance(it) }?.let { showFragment(it) }
+                    order?.let { ResumenOrdenFragment.newInstance(it) }?.let { showFragment(it, "") }
                 }
             }
         }

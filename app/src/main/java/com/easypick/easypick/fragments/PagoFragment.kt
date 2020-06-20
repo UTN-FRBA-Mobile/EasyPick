@@ -8,7 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.easypick.easypick.API.DatabaseAPI
+import com.easypick.easypick.Interfaz.OnBackPressedInterface
 import com.easypick.easypick.R
 import com.easypick.easypick.interfaces.MercadoPagoService
 import com.easypick.easypick.model.Order
@@ -26,7 +28,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
 
-class PagoFragment : Fragment() {
+class PagoFragment : Fragment(), OnBackPressedInterface {
     private var listener: FragmentHome.OnFragmentInteractionListener? = null
     private lateinit var order: Order
     private val REQUEST_CODE = 1
@@ -80,7 +82,7 @@ class PagoFragment : Fragment() {
                 val payment =
                     data!!.getSerializableExtra(MercadoPagoCheckout.EXTRA_PAYMENT_RESULT) as Payment
                 DatabaseAPI().addOrder(order)
-                listener?.showFragment(ResumenOrdenFragment.newInstance(order))
+                listener?.showFragment(ResumenOrdenFragment.newInstance(order), "")
                 //Done!
             } else if (resultCode == RESULT_CANCELED) {
                 if (data != null && data.extras != null && data.extras!!.containsKey(
@@ -89,7 +91,11 @@ class PagoFragment : Fragment() {
                 ) {
                     val mercadoPagoError =
                         data.getSerializableExtra(MercadoPagoCheckout.EXTRA_ERROR) as MercadoPagoError
+                    activity?.supportFragmentManager?.popBackStack("entroCarrito",
+                        FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 } else { //Resolve canceled checkout
+                    activity?.supportFragmentManager?.popBackStack("entroCarrito",
+                        FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 }
             }
         }
@@ -110,7 +116,7 @@ class PagoFragment : Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        fun showFragment(fragment: Fragment)
+        fun showFragment(fragment: Fragment, name: String)
     }
 
     companion object {
@@ -122,5 +128,11 @@ class PagoFragment : Fragment() {
                 }
             }
         private const val TAG = "PagoFragment"
+    }
+
+    override fun onBackPressed(): Boolean {
+        activity?.supportFragmentManager?.popBackStack(null,
+            FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        return true
     }
 }

@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import com.easypick.easypick.Interfaz.OnBackPressedInterface
 import com.easypick.easypick.R
 import com.easypick.easypick.firebase.FirebaseToken
 import com.easypick.easypick.model.Order
@@ -17,7 +19,7 @@ import com.facebook.login.LoginResult
 import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.fragment_force_auth.*
 
-class ForceAuthFragment: BaseAuthFragment() {
+class ForceAuthFragment: BaseAuthFragment(), OnBackPressedInterface {
     private var listener: FragmentHome.OnFragmentInteractionListener? = null
     private var order: Order? = null
 
@@ -69,10 +71,10 @@ class ForceAuthFragment: BaseAuthFragment() {
                     order!!.payer = user?.email?.let {
                         user.displayName?.let { it1 -> User(it, it1, user.uid) } }
                 }
-                listener?.showFragment(PagoFragment.newInstance(order!!))
+                listener?.showFragment(PagoFragment.newInstance(order!!), "pagoTransaction")
             }
             else {
-                listener?.showFragment(FragmentOrden())
+                listener?.showFragment(FragmentOrden(), "")
             }
         }
     }
@@ -98,7 +100,7 @@ class ForceAuthFragment: BaseAuthFragment() {
      * activity.
      */
     interface OnFragmentInteractionListener {
-        fun showFragment(fragment: Fragment)
+        fun showFragment(fragment: Fragment, name: String)
     }
 
     companion object {
@@ -117,5 +119,11 @@ class ForceAuthFragment: BaseAuthFragment() {
             }
 
         private const val TAG = "SocialAuth"
+    }
+
+    override fun onBackPressed(): Boolean {
+        activity?.supportFragmentManager?.popBackStack(null,
+            FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        return true
     }
 }
