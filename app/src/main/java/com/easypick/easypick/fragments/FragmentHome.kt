@@ -1,6 +1,5 @@
 package com.easypick.easypick.fragments
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -11,11 +10,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.Locales
 import com.easypick.easypick.R.drawable
 import com.easypick.easypick.R.layout
 import com.easypick.easypick.adapters.AdaptadorLocales
-import com.google.zxing.Result
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.fragment_home.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
@@ -32,13 +31,13 @@ class FragmentHome : Fragment(){
     var imageFile: File?= null
 
     private val locales = listOf(
-    Locales(titulo = "Pizzeria", detalle = "Pizzeria Vegana, más de 14 sabores", foto = drawable.resto1) ,
-    Locales(titulo = "Sarkis", detalle = "Comida armenia hecha por nosotros", foto = drawable.resto2) ,
-    Locales(titulo = "Don Julio", detalle = "El mejor asado criollo de buenos aires", foto = drawable.resto3) ,
-    Locales(titulo = "Zakura", detalle = "Comida japonesa, más de 8 platos orientales", foto = drawable.resto4),
-    Locales(titulo = "Blur", detalle = "Cerveza Artenal, contamos con 14 tipos de cervezas.", foto = drawable.resto5),
-    Locales(titulo = "MilaPlus", detalle = "Milanesas de lujo, carne, pollo, cerdo, cordero.", foto = drawable.resto6),
-    Locales(titulo = "Cocu", detalle = "Panaderia francesa, los mejores panes y pastas de francia", foto = drawable.resto7)  )
+    Locales(titulo = "Pizzeria", detalle = "Pizzeria Vegana, más de 14 sabores", foto = drawable.resto1, id = 1) ,
+    Locales(titulo = "Sarkis", detalle = "Comida armenia hecha por nosotros", foto = drawable.resto2, id = 2) ,
+    Locales(titulo = "Don Julio", detalle = "El mejor asado criollo de buenos aires", foto = drawable.resto3, id = 3) ,
+    Locales(titulo = "Zakura", detalle = "Comida japonesa, más de 8 platos orientales", foto = drawable.resto4, id = 4),
+    Locales(titulo = "Blur", detalle = "Cerveza Artenal, contamos con 14 tipos de cervezas.", foto = drawable.resto5, id = 5),
+    Locales(titulo = "MilaPlus", detalle = "Milanesas de lujo, carne, pollo, cerdo, cordero.", foto = drawable.resto6, id = 6),
+    Locales(titulo = "Cocu", detalle = "Panaderia francesa, los mejores panes y pastas de francia", foto = drawable.resto7, id = 7)  )
 
 
 
@@ -56,7 +55,14 @@ class FragmentHome : Fragment(){
                 // RecyclerView behavior
                 layoutManager = LinearLayoutManager(activity)
                 // set the custom adapter to the RecyclerView
-                adapter = AdaptadorLocales(locales)
+                adapter = AdaptadorLocales(locales, object : ClickListener {
+                    override fun onCLick(vista: View, index: Int) {
+
+                        var storeFrangment = FragmentLocal();
+                        storeFrangment.store = locales.get(index);
+                        listener?.showFragment(storeFrangment)
+                    }
+                })
             }
                         //permission was not enabled
                         val permission = arrayOf(android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)

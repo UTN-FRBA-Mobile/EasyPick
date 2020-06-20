@@ -1,31 +1,35 @@
 package com.easypick.easypick.fragments
 
+
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.easypick.easypick.Interfaz.ClickListener
-
-
+import com.easypick.easypick.Locales
 import com.easypick.easypick.R
 import com.easypick.easypick.adapters.CategoryAdapter
 import com.easypick.easypick.model.Category
-import com.easypick.easypick.model.Producto
+import com.easypick.easypick.retroFit.Gateway
+import com.easypick.easypick.retroFit.RetroFitApiConsume
 import com.easypick.easypick.viewModels.LocalViewModel
 import kotlinx.android.synthetic.main.fragment_local.*
-import java.util.ArrayList
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 
-class FragmentLocal : Fragment() {
+class FragmentLocal() : Fragment() {
 
     private var listener: FragmentLocal.OnFragmentInteractionListener? = null
 
@@ -37,18 +41,9 @@ class FragmentLocal : Fragment() {
 
     var flag: Boolean = false
 
-    private val categoriesMock = listOf(
-        Category("Ensaladas", "Las mas ricas de CABA", R.drawable.hamburguesa),
-        Category("Hamburguesas", "Tipo americanas", R.drawable.ensaladacesar),
-        Category("Postres", "Para compartir",R.drawable.helado)
-    )
+    private lateinit var categories : List<Category>;
 
-    private val storeName : String = "WilliamsBurg"
-
-    private val storeDescription : String = "Hamburguesas Americanas"
-
-
-    //var categoria: TextView?= null
+    public lateinit var store: Locales;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,14 +69,39 @@ class FragmentLocal : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
             viewModel = ViewModelProvider(activity!!).get(LocalViewModel::class.java)
-            adapter = CategoryAdapter(categoriesMock, object : ClickListener {
-                override fun onCLick(vista: View, index: Int) {
-                    flag = true
-                    viewModel.categoria = categoriesMock?.get(index).name
-                    listener?.showFragment(FragmentProducto())
+
+            val retroFitApiConsume = RetroFitApiConsume();
+            val request = retroFitApiConsume.getRetrofit().create(Gateway::class.java);
+            val call = request.getCategoryByStoreId(store.id);
+
+            call.enqueue(object : Callback<List<Category>> {
+                override fun onResponse(call: Call<List<Category>>, response: Response<List<Category>>) {
+                    if (response.isSuccessful) {
+
+
+                        categories = response.body()!!
+
+                        for (category in categories){
+                            category.image = R.drawable.hamburguesa;
+                        }
+
+                        adapter = CategoryAdapter(categories, object : ClickListener {
+                            override fun onCLick(vista: View, index: Int) {
+                                flag = true
+                                viewModel.categoria = categories?.get(index).name
+                                listener?.showFragment(FragmentProducto())
+                            }
+                        })
+                    }
+                }
+
+
+                override fun onFailure(call: Call<List<Category>>, t: Throwable) {
+                    Toast.makeText(activity, "Error obteniendo categorias", Toast.LENGTH_SHORT).show()
                 }
             })
-            initializeStore(view, storeName, storeDescription, R.drawable.resto1);
+
+            initializeStore(view, store.titulo, store.detalle, store.foto);
 
         }
     }
@@ -109,7 +129,7 @@ class FragmentLocal : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if(!flag){
+        if (!flag) {
             viewModel.precioTotal = 0.0
             viewModel.productosSeleccionados.clear()
             listener?.showFragment(FragmentHome())
