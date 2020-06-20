@@ -5,6 +5,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 
 
 class DatabaseAPI(private val db: FirebaseFirestore = FirebaseFirestore.getInstance()) {
@@ -14,6 +15,10 @@ class DatabaseAPI(private val db: FirebaseFirestore = FirebaseFirestore.getInsta
 
     fun getOrder(id: String): Task<DocumentSnapshot> {
         return db.collection("orders").document(id).get()
+    }
+
+    fun getOrders(user_id: String): Task<QuerySnapshot> {
+        return db.collection("orders").whereEqualTo("payer.id", user_id).get()
     }
 
     fun updateToken(token: String){
