@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import com.easypick.easypick.API.DatabaseAPI
 import com.easypick.easypick.Interfaz.OnBackPressedInterface
 import com.easypick.easypick.R
@@ -86,13 +85,9 @@ class PagoFragment : Fragment(), OnBackPressedInterface {
                     val mercadoPagoError =
                         data.getSerializableExtra(MercadoPagoCheckout.EXTRA_ERROR) as MercadoPagoError
                     activity?.onBackPressed()
-//                    activity?.supportFragmentManager?.popBackStack("intentoDePago",
-//                        FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 } else {
                     // El usuario fue para atras / cancelo el pago
                     activity?.onBackPressed()
-//                    activity?.supportFragmentManager?.popBackStack("intentoDePago",
-//                        FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 }
             }
         }
