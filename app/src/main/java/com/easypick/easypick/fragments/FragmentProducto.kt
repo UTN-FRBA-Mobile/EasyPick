@@ -74,7 +74,7 @@ class FragmentProducto : Fragment() {
             categoria?.text = viewModel.categoria
             catSeleccionada = viewModel.categoria
             btn_carrito.setOnClickListener {
-                listener?.showFragment(fragmentOrden)
+                listener?.showFragment(fragmentOrden, "")
             }
             var importeTotal: Double = viewModel.precioTotal
             productos = descargarproductos(catSeleccionada)
@@ -149,7 +149,7 @@ class FragmentProducto : Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        fun showFragment(fragment: Fragment)
+        fun showFragment(fragment: Fragment, name: String)
     }
 
     companion object {

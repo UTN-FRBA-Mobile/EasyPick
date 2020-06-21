@@ -34,7 +34,7 @@ class OrderHistoryFragment: Fragment() {
             adapter = OrdersAdapter(orders, object: ClickListener {
                 override fun onCLick(vista: View, index: Int) {
                     val order = orders[index]
-                    listener?.showFragment(ResumenOrdenFragment.newInstance(order))
+                    listener?.showFragment(ResumenOrdenFragment.newInstance(order), "")
                 }
             })
         }.apply {
@@ -42,7 +42,7 @@ class OrderHistoryFragment: Fragment() {
             adapter = OrdersAdapter(orders, object: ClickListener {
                 override fun onCLick(vista: View, index: Int) {
                     val order = orders[index]
-                    listener?.showFragment(ResumenOrdenFragment.newInstance(order))
+                    listener?.showFragment(ResumenOrdenFragment.newInstance(order), "")
                 }
             })
         }
@@ -84,7 +84,7 @@ class OrderHistoryFragment: Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        fun showFragment(fragment: Fragment)
+        fun showFragment(fragment: Fragment, name: String)
     }
 }
 

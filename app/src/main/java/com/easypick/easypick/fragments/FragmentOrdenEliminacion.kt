@@ -78,7 +78,7 @@ class FragmentOrdenEliminacion : Fragment() {
                         Toast.makeText(activity, "Se ha eliminado ${productosSeleccionados.get(index).descripcion} de la orden", Toast.LENGTH_SHORT).show()
                         viewModel.productosSeleccionados.remove(i)
                     }
-                    listener?.showFragment(FragmentOrdenEliminacion())
+                    listener?.showFragment(FragmentOrdenEliminacion(), "")
                     if(productosSeleccionados.size == 0){
                         Toast.makeText(activity, "PEDIDO VACIO", Toast.LENGTH_LONG).show()
                         //bandera = false
@@ -97,7 +97,7 @@ class FragmentOrdenEliminacion : Fragment() {
         super.onPause()
         if(!bandera){
             Toast.makeText(activity, "Ejecuta On Pouse", Toast.LENGTH_SHORT)
-            listener?.showFragment(FragmentLocal())
+            listener?.showFragment(FragmentLocal(), "")
         }
     }
 
@@ -124,7 +124,9 @@ class FragmentOrdenEliminacion : Fragment() {
         val user = firebaseUser?.email?.let {
             firebaseUser.displayName?.let { it1 -> User(it, it1, firebaseUser.uid) } }
         val order = Order(payer=user, items=items, costo=viewModel.precioTotal)
-        listener?.showFragment(ForceAuthFragment.newInstance(order))
+        viewModel.precioTotal = 0.0
+        viewModel.productosSeleccionados.clear()
+        listener?.showFragment(ForceAuthFragment.newInstance(order), "intentoDePago")
     }
 
     companion object {
@@ -148,6 +150,6 @@ class FragmentOrdenEliminacion : Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        fun showFragment(fragment: Fragment)
+        fun showFragment(fragment: Fragment, name: String)
     }
 }
