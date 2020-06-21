@@ -95,7 +95,9 @@ class FragmentOrden : Fragment() {
         val user = firebaseUser?.email?.let {
             firebaseUser.displayName?.let { it1 -> User(it, it1, firebaseUser.uid) } }
         val order = Order(payer=user, items=items, costo=viewModel.precioTotal)
-        listener?.showFragment(ForceAuthFragment.newInstance(order), "voyAOrden")
+        viewModel.precioTotal = 0.0
+        viewModel.productosSeleccionados.clear()
+        listener?.showFragment(ForceAuthFragment.newInstance(order), "intentoDePago")
     }
 
     companion object {

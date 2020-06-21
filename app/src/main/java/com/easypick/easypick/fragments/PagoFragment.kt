@@ -16,7 +16,6 @@ import com.easypick.easypick.interfaces.MercadoPagoService
 import com.easypick.easypick.model.Order
 import com.mercadopago.android.px.core.MercadoPagoCheckout
 import com.mercadopago.android.px.core.MercadoPagoCheckout.Builder
-import com.mercadopago.android.px.model.Payment
 import com.mercadopago.android.px.model.exceptions.MercadoPagoError
 import okhttp3.ResponseBody
 import org.json.JSONObject
@@ -79,23 +78,21 @@ class PagoFragment : Fragment(), OnBackPressedInterface {
     ) {
         if (requestCode == REQUEST_CODE) {
             if (resultCode == MercadoPagoCheckout.PAYMENT_RESULT_CODE) {
-                val payment =
-                    data!!.getSerializableExtra(MercadoPagoCheckout.EXTRA_PAYMENT_RESULT) as Payment
                 DatabaseAPI().addOrder(order)
-                listener?.showFragment(ResumenOrdenFragment.newInstance(order), "")
-                //Done!
+                listener?.showFragment(ResumenOrdenFragment.newInstance(order, true), "")
             } else if (resultCode == RESULT_CANCELED) {
                 if (data != null && data.extras != null && data.extras!!.containsKey(
-                        MercadoPagoCheckout.EXTRA_ERROR
-                    )
-                ) {
+                        MercadoPagoCheckout.EXTRA_ERROR)) {
                     val mercadoPagoError =
                         data.getSerializableExtra(MercadoPagoCheckout.EXTRA_ERROR) as MercadoPagoError
-                    activity?.supportFragmentManager?.popBackStack("entroCarrito",
-                        FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                } else { //Resolve canceled checkout
-                    activity?.supportFragmentManager?.popBackStack("entroCarrito",
-                        FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    activity?.onBackPressed()
+//                    activity?.supportFragmentManager?.popBackStack("intentoDePago",
+//                        FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                } else {
+                    // El usuario fue para atras / cancelo el pago
+                    activity?.onBackPressed()
+//                    activity?.supportFragmentManager?.popBackStack("intentoDePago",
+//                        FragmentManager.POP_BACK_STACK_INCLUSIVE)
                 }
             }
         }
@@ -130,9 +127,7 @@ class PagoFragment : Fragment(), OnBackPressedInterface {
         private const val TAG = "PagoFragment"
     }
 
-    override fun onBackPressed(): Boolean {
-        activity?.supportFragmentManager?.popBackStack(null,
-            FragmentManager.POP_BACK_STACK_INCLUSIVE)
-        return true
+    override fun popToTransactionName(): String {
+        return "intentoDePago"
     }
 }

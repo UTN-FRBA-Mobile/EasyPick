@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.easypick.easypick.Interfaz.OnBackPressedInterface
 import com.easypick.easypick.R
 import com.easypick.easypick.adapters.EstadoOrdenAdapter
 import com.easypick.easypick.model.Order
@@ -18,17 +19,19 @@ import java.text.DateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class ResumenOrdenFragment: Fragment() {
+class ResumenOrdenFragment: Fragment(), OnBackPressedInterface {
     private lateinit var order: Order
     private var listener: FragmentHome.OnFragmentInteractionListener? = null
     private lateinit var mAdapter: EstadoOrdenAdapter
     private var mDataList = ArrayList<OrderEvent>()
     private lateinit var mLayoutManager: LinearLayoutManager
+    var comesFromPayment: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             order = it.getParcelable("orden")!!
+            comesFromPayment = it.getBoolean("comesFromPayment")
         }
     }
 
@@ -86,13 +89,22 @@ class ResumenOrdenFragment: Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(orden: Order) =
+        fun newInstance(orden: Order, comesFromPayment: Boolean=false) =
             ResumenOrdenFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable("orden", orden)
+                    putBoolean("comesFromPayment", comesFromPayment)
                 }
             }
         private const val TAG = "ResumenOrdenFragment"
+    }
+
+    override fun popToTransactionName(): String {
+        return if (comesFromPayment){
+            "verLocal"
+        } else{
+            ""
+        }
     }
 
 }

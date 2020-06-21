@@ -74,7 +74,7 @@ class FragmentProducto : Fragment() {
             categoria?.text = viewModel.categoria
             catSeleccionada = viewModel.categoria
             btn_carrito.setOnClickListener {
-                listener?.showFragment(fragmentOrden, "entroCarrito")
+                listener?.showFragment(fragmentOrden, "")
             }
             var importeTotal: Double = viewModel.precioTotal
             productos = descargarproductos(catSeleccionada)

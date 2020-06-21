@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.easypick.easypick.API.DatabaseAPI
 import com.easypick.easypick.Interfaz.OnBackPressedInterface
 import com.easypick.easypick.firebase.FirebaseToken
@@ -92,10 +93,20 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
             finish()
         }
         else{
-            super.onBackPressed()
+            val currentFragment: Fragment = this.supportFragmentManager.fragments.last()
+            val popTransactionName: String? = (currentFragment as? OnBackPressedInterface)?.
+                popToTransactionName()
+            if (popTransactionName != "" && popTransactionName != null){
+                val result:Boolean = supportFragmentManager.popBackStackImmediate(
+                    popTransactionName, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                if (!result){
+                    super.onBackPressed()
+                }
+            }
+            else{
+                super.onBackPressed()
+            }
         }
-
     }
-
 }
 
