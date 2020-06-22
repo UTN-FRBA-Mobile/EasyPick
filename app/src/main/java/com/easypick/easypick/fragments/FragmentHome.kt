@@ -93,6 +93,10 @@ class FragmentHome : Fragment(){
                 Toast.makeText(activity, "Cancelled", Toast.LENGTH_LONG).show()
             } else {
                 Toast.makeText(activity, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
+                val storeFragment = FragmentLocal();
+                val storeName: String = result.contents
+                storeFragment.store = locales.filter { local -> local.titulo == storeName }.first()
+                listener?.showFragment(storeFragment, "verLocal")
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
