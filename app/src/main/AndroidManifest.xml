@@ -54,6 +54,11 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <service android:name=".services.UpdateOrderService">
+            <intent-filter>
+                <action android:name="UpdateOrderIntent" />
+            </intent-filter>
+        </service>
     </application>
 
 

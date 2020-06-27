@@ -1,18 +1,26 @@
 package com.easypick.easypick.fragments
 
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.easypick.easypick.API.DatabaseAPI
 import com.easypick.easypick.Interfaz.OnBackPressedInterface
 import com.easypick.easypick.R
 import com.easypick.easypick.adapters.EstadoOrdenAdapter
 import com.easypick.easypick.model.Order
 import com.easypick.easypick.model.OrderEvent
+import com.easypick.easypick.services.UpdateOrderService
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.android.synthetic.main.fragment_resumen_orden.*
 import kotlinx.android.synthetic.main.fragment_resumen_orden.view.*
 import java.text.DateFormat
@@ -54,6 +62,19 @@ class ResumenOrdenFragment: Fragment(), OnBackPressedInterface {
         }
         setDataListItems(order)
         initRecyclerView()
+        swipeContainer.setOnRefreshListener {
+            val getOrder: Task<QuerySnapshot> = DatabaseAPI().getOrderById(order.id)
+            getOrder.addOnSuccessListener { orders ->
+                var updatedOrder: Order? = null;
+                for (dbOrder in orders) {
+                    updatedOrder = dbOrder.toObject(Order::class.java)
+                }
+                if (updatedOrder != null){
+                    updateOrderInformation(updatedOrder)
+                    swipeContainer.isRefreshing = false;
+                }
+            }
+        }
     }
 
     private fun setDataListItems(order: Order) {
@@ -67,6 +88,13 @@ class ResumenOrdenFragment: Fragment(), OnBackPressedInterface {
         mAdapter = EstadoOrdenAdapter(order.events)
         estadoOrden.layoutManager = mLayoutManager
         estadoOrden.adapter = mAdapter
+    }
+
+    private fun updateOrderInformation(orden: Order){
+        estimado.text = "Tiempo estimado: " + orden.estimatedTime.toString() + " min"
+        mAdapter = EstadoOrdenAdapter(orden.events)
+        mAdapter.notifyDataSetChanged()
+        Toast.makeText(context, "Order updated.", Toast.LENGTH_SHORT).show()
     }
 
     override fun onAttach(context: Context) {

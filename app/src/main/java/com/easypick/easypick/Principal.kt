@@ -17,6 +17,7 @@ import com.easypick.easypick.model.Order
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 import com.easypick.easypick.fragments.*
+import com.easypick.easypick.services.UpdateOrderService
 import kotlinx.android.synthetic.main.activity_principal.*
 
 
@@ -39,6 +40,17 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
         if (savedInstanceState == null) {
             showFragment(FragmentHome(), "")
         }
+        // registerUpdateOrderService()
+    }
+
+    fun registerUpdateOrderService(){
+        val intent: Intent? = Intent(applicationContext, UpdateOrderService::class.java)
+        startService(intent)
+    }
+
+    fun stopUpdateOrderService(){
+        val intent: Intent? = Intent(applicationContext, UpdateOrderService::class.java)
+        stopService(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Unit {
@@ -75,7 +87,7 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
                     frag_container_principal.visibility = View.GONE
                     loadingFragment.visibility = View.VISIBLE
                 }
-                val getOrder: Task<DocumentSnapshot> = DatabaseAPI().getOrder(extras["ordenId"] as String)
+                val getOrder: Task<DocumentSnapshot> = DatabaseAPI().getOrderByDocId(extras["ordenId"] as String)
                 getOrder.addOnSuccessListener { documentSnapshot ->
                     val order = documentSnapshot.toObject(Order::class.java)
                     Handler().post {
