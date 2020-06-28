@@ -17,7 +17,6 @@ import com.easypick.easypick.model.Order
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 import com.easypick.easypick.fragments.*
-import com.easypick.easypick.services.UpdateOrderService
 import kotlinx.android.synthetic.main.activity_principal.*
 
 
@@ -40,17 +39,6 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
         if (savedInstanceState == null) {
             showFragment(FragmentHome(), "")
         }
-        // registerUpdateOrderService()
-    }
-
-    fun registerUpdateOrderService(){
-        val intent: Intent? = Intent(applicationContext, UpdateOrderService::class.java)
-        startService(intent)
-    }
-
-    fun stopUpdateOrderService(){
-        val intent: Intent? = Intent(applicationContext, UpdateOrderService::class.java)
-        stopService(intent)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Unit {
