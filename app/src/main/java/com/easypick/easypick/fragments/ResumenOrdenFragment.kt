@@ -1,9 +1,6 @@
 package com.easypick.easypick.fragments
 
-import android.content.BroadcastReceiver
 import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,7 +15,6 @@ import com.easypick.easypick.R
 import com.easypick.easypick.adapters.EstadoOrdenAdapter
 import com.easypick.easypick.model.Order
 import com.easypick.easypick.model.OrderEvent
-import com.easypick.easypick.services.UpdateOrderService
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.android.synthetic.main.fragment_resumen_orden.*
@@ -60,6 +56,8 @@ class ResumenOrdenFragment: Fragment(), OnBackPressedInterface {
             view.fecha.text = DateFormat.getDateInstance(DateFormat.LONG,
                 Locale("es", "ES")).format(order.timestamp!!)
         }
+        view.estimado.text = getString(R.string.estimated,
+            order.estimatedTime.toString())
         setDataListItems(order)
         initRecyclerView()
         swipeContainer.setOnRefreshListener {

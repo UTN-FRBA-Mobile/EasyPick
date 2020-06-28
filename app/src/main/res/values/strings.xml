@@ -60,4 +60,5 @@
     <string name="descripcion">descripcion</string>
     <string name="precio">precio</string>
     <string name="mis_ordenes">Mis ordenes</string>
+    <string name="estimated">Tiempo estimado: %1s min</string>
 </resources>
