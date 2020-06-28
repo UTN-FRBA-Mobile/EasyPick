@@ -22,6 +22,10 @@
   </head>
   <body>
     <div id="message">
+      <form>
+        <label for="estimatedTime">Tiempo estimado:</label><br>
+        <input type="text" id="estimatedTime" name="estimatedTime"><br>
+      </form>
       <p id="showData"></p>
       <button onclick="updateOrder()">Actualizar orden</button>
     </div>
@@ -46,6 +50,7 @@
           const orderId = urlParams.get('id');
           db.collection("orders").doc(orderId).get().then((snapshot) => {
             var orderData = snapshot.data();
+            $('#estimatedTime').val(orderData.estimatedTime);
             var orderEvents = orderData.events;
             // EXTRACT VALUE FOR HTML HEADER. 
             var col = [];
@@ -98,6 +103,8 @@
       function updateOrder(){
         let db = firebase.firestore();
         let updatedOrderEventsJson = $('table').tableToJSON();
+        let estimatedTimeInput = $('#estimatedTime').val();
+        let estimatedTime = Number(estimatedTimeInput);
         var activeEvent = updatedOrderEventsJson.filter(ev => ev['status'] == "ACTIVE")[0];
         const isActiveEvent = (element) => element['message'] === activeEvent['message'];
         let index = updatedOrderEventsJson.findIndex(isActiveEvent);
@@ -105,12 +112,23 @@
         console.log(updatedOrderEventsJson);
         const urlParams = new URLSearchParams(window.location.search);
         const orderId = urlParams.get('id');
-        db.collection("orders").doc(orderId).update({
-          "events": updatedOrderEventsJson
-        }).then(function() {
-          console.log("Document successfully updated!");
-          window.location.reload();
-        });
+        if (estimatedTimeInput != ""){
+          db.collection("orders").doc(orderId).update({
+            "events": updatedOrderEventsJson,
+            "estimatedTime": estimatedTime
+          }).then(function() {
+            console.log("Document successfully updated!");
+            window.location.reload();
+          });
+        }
+        else {
+          db.collection("orders").doc(orderId).update({
+            "events": updatedOrderEventsJson
+          }).then(function() {
+            console.log("Document successfully updated!");
+            window.location.reload();
+          });
+        }
       }
     </script>
   </body>

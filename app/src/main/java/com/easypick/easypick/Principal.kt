@@ -75,7 +75,7 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
                     frag_container_principal.visibility = View.GONE
                     loadingFragment.visibility = View.VISIBLE
                 }
-                val getOrder: Task<DocumentSnapshot> = DatabaseAPI().getOrder(extras["ordenId"] as String)
+                val getOrder: Task<DocumentSnapshot> = DatabaseAPI().getOrderByDocId(extras["ordenId"] as String)
                 getOrder.addOnSuccessListener { documentSnapshot ->
                     val order = documentSnapshot.toObject(Order::class.java)
                     Handler().post {

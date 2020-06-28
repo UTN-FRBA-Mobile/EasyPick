@@ -71,17 +71,22 @@
         android:layout_marginStart="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/order_id"
-        app:layout_constraintBottom_toTopOf="@+id/estadoOrden"/>
+        app:layout_constraintBottom_toTopOf="@+id/swipeContainer"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/estadoOrden"
-        android:layout_width="0dp"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeContainer"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:background="@color/px_white"
-        tools:listitem="@layout/item_orden_status"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/estimado"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/estimado">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/estadoOrden"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/px_white"
+            tools:listitem="@layout/item_orden_status" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
