@@ -89,10 +89,9 @@ class ResumenOrdenFragment: Fragment(), OnBackPressedInterface {
     }
 
     private fun updateOrderInformation(orden: Order){
-        estimado.text = "Tiempo estimado: " + orden.estimatedTime.toString() + " min"
+        estimado.text = getString(R.string.estimated, orden.estimatedTime.toString())
         mAdapter = EstadoOrdenAdapter(orden.events)
         mAdapter.notifyDataSetChanged()
-        Toast.makeText(context, "Order updated.", Toast.LENGTH_SHORT).show()
     }
 
     override fun onAttach(context: Context) {
