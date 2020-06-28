@@ -3,6 +3,7 @@ package com.easypick.easypick.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -74,11 +75,14 @@ class FragmentLocal() : Fragment() {
             val request = retroFitApiConsume.getRetrofit().create(Gateway::class.java);
             val call = request.getCategoryByStoreId(store.id);
 
+            Handler().post {
+                recyclerViewCategories.visibility = View.GONE
+                loadingCategories.visibility = View.VISIBLE
+            }
+
             call.enqueue(object : Callback<List<Category>> {
                 override fun onResponse(call: Call<List<Category>>, response: Response<List<Category>>) {
                     if (response.isSuccessful) {
-
-
                         categories = response.body()!!
 
                         for (category in categories){
@@ -92,6 +96,12 @@ class FragmentLocal() : Fragment() {
                                 listener?.showFragment(FragmentProducto(), "")
                             }
                         })
+
+                        Handler().post {
+                            recyclerViewCategories.visibility = View.VISIBLE
+                            loadingCategories.visibility = View.GONE
+                        }
+
                     }
                 }
 
