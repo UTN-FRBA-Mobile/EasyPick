@@ -2,6 +2,7 @@ package com.easypick.easypick.fragments
 
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -25,6 +26,8 @@ import kotlinx.android.synthetic.main.fragment_local.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Url
+import java.net.URL
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -124,7 +127,7 @@ class FragmentLocal() : Fragment() {
         storeDescription?.text = description;
 
         val storeImage: ImageView? = view.findViewById(R.id.storeImage)
-        storeImage?.setImageResource(image);
+        storeImage?.setImageResource(image)
     }
 
     override fun onAttach(context: Context) {
