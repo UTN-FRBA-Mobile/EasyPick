@@ -1,4 +1,4 @@
 package com.easypick.easypick.model
 
-class ItemOrder(var descripcion: String, var precioUnitario: Double, var foto: Int, var importe: Double, var cantidad: Int) {
+class ItemOrder(var codigo: Long, var descripcion: String = "Descripción", var precioUnitario: Double, var foto: String, var importe: Double, var cantidad: Int) {
 }

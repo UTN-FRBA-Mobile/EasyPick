@@ -1,5 +1,6 @@
 package com.easypick.easypick.adapters
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +9,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.R
+import com.easypick.easypick.model.Catalogo
 import com.easypick.easypick.model.Category
+import com.squareup.picasso.Picasso
 
 
 class CategoryAdapter(private val list: List<Category>, var listener: ClickListener) :
@@ -24,9 +27,10 @@ class CategoryAdapter(private val list: List<Category>, var listener: ClickListe
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = list[position]
+        var urlImage = item.image
         holder.name?.text = item.name
         holder.description?.text = item.description
-        holder.image?.setImageResource(item.image)
+       // Picasso.get().load(Uri.parse(urlImage)).into(holder.image!!)
     }
 
     class ViewHolder(view: View, listener: ClickListener) : RecyclerView.ViewHolder(view),

@@ -20,6 +20,7 @@ class FragmentOrden : Fragment() {
     private var listener: FragmentOrden.OnFragmentInteractionListener? = null
     private var productosSeleccionados = ArrayList<ItemOrder>()
 
+
     private lateinit var viewModel: LocalViewModel
     var importeTotal: TextView?= null
 
@@ -58,7 +59,7 @@ class FragmentOrden : Fragment() {
                     } else {
                         val i : ItemOrder
                         i = productosSeleccionados.get(index)
-                        Toast.makeText(activity, "Se ha eliminado ${productosSeleccionados.get(index).descripcion} de la orden", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "Se ha eliminado ${productosSeleccionados?.get(index).descripcion} de la orden", Toast.LENGTH_SHORT).show()
                         viewModel.productosSeleccionados.remove(i)
                     }
                     listener?.showFragment(FragmentOrdenEliminacion())

@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -17,10 +16,13 @@ import com.easypick.easypick.R
 
 import com.easypick.easypick.adapters.ProductAdapter
 import com.easypick.easypick.model.ItemOrder
-import com.easypick.easypick.model.Producto
+import com.easypick.easypick.model.Catalogo
+import com.easypick.easypick.retroFit.Gateway
+import com.easypick.easypick.retroFit.RetroFitApiConsume
 import com.easypick.easypick.viewModels.LocalViewModel
 import kotlinx.android.synthetic.main.fragment_producto.*
-import kotlinx.android.synthetic.main.template_producto.view.*
+import retrofit2.Call
+import retrofit2.Response
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -39,12 +41,13 @@ class FragmentProducto : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private var productos = ArrayList<Producto>()
+    private lateinit var productos: List<Catalogo>
     private lateinit var viewModel: LocalViewModel
     var categoria: TextView?= null
     private var catSeleccionada: String? = null
     private lateinit var fragmentProducto: Fragment
     private lateinit var fragmentOrden: Fragment
+    private lateinit var iOrder: ItemOrder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,32 +80,50 @@ class FragmentProducto : Fragment() {
                 listener?.showFragment(fragmentOrden)
             }
             var importeTotal: Double = viewModel.precioTotal
-            productos = descargarproductos(catSeleccionada)
-            adapter = ProductAdapter(productos, object :ClickListener{
-                override fun onCLick(vista: View, index: Int) {
-                    importeTotal += productos.get(index).precio
-                    viewModel.precioTotal = importeTotal
-                    var find: Boolean = false
-                    if(viewModel.productosSeleccionados.size > 0) {
-                        for (i in viewModel.productosSeleccionados) {
-                            if (i.descripcion == productos.get(index).descripcion) {
-                                find = true
-                                i.cantidad += 1
-                                i.importe = productos.get(index).precio * i.cantidad
-                            }
-                        }
-                    }
-                    if(!find){
-                        viewModel.productosSeleccionados.add((ItemOrder(productos.get(index).descripcion, productos.get(index).precio, productos.get(index).foto, productos.get(index).precio, 1)))
-                     }
+           // productos = descargarproductos(catSeleccionada)
 
-                    //viewModel.productosSeleccionados.add(Producto(productos.get(index).descripcion, productos.get(index).precio, productos.get(index).foto, productos.get(index).comentarios))
-                    Toast.makeText(activity, "Se ha agregado ${productos.get(index).descripcion} al pedido", Toast.LENGTH_SHORT).show()
+            val retroFitApiConsume = RetroFitApiConsume()
+            val request = retroFitApiConsume.getRetrofit().create(Gateway::class.java)
+            val call = request.getProductByCategoryId(1)
+
+            call.enqueue(object :  retrofit2.Callback<List<Catalogo>> {
+
+                override fun onResponse(
+                    call: Call<List<Catalogo>>,
+                    response: Response<List<Catalogo>>
+                ) {
+                   if(response.isSuccessful){
+                       productos = response.body()!!
+                       //Log.d("RESPONSE", productos.toString())
+                       adapter = ProductAdapter(productos, object :ClickListener{
+                           override fun onCLick(vista: View, index: Int) {
+                               importeTotal += productos.get(index).precio
+                               viewModel.precioTotal = importeTotal
+                               var find: Boolean = false
+                               if(viewModel.productosSeleccionados.size > 0) {
+                                   for (i in viewModel.productosSeleccionados) {
+                                       if (i.codigo == productos.get(index).codigo) {
+                                           find = true
+                                           i.cantidad += 1
+                                           i.importe = productos.get(index).precio * i.cantidad
+                                       }
+                                   }
+                               }
+                               if(!find){
+                                   viewModel.productosSeleccionados.add((ItemOrder(productos.get(index).codigo, productos.get(index).descripcion, productos.get(index).precio, productos.get(index).foto, productos.get(index).precio, 1)))
+                               }
+
+                               //viewModel.productosSeleccionados.add(Producto(productos.get(index).descripcion, productos.get(index).precio, productos.get(index).foto, productos.get(index).comentarios))
+                               Toast.makeText(activity, "Se ha agregado ${productos.get(index).descripcion} al pedido", Toast.LENGTH_SHORT).show()
+                           }
+                       })
+                   }
+                }
+
+                override fun onFailure(call: Call<List<Catalogo>>, t: Throwable) {
+                    Toast.makeText(activity, "Error obteniendo productos", Toast.LENGTH_SHORT).show()
                 }
             })
-            /*btn_agregar.setOnClickListener{
-                listener?.showFragment(fragmentOrden)
-            }*/
         }
     }
 
@@ -120,7 +141,7 @@ class FragmentProducto : Fragment() {
         listener = null
     }
 
-    fun descargarproductos(cat: String?): ArrayList<Producto> {
+   /* fun descargarproductos(cat: String?): ArrayList<Producto> {
         var cat = cat
         val prods = ArrayList<Producto>()
         if(cat == "Hamburguesas"){
@@ -146,7 +167,7 @@ class FragmentProducto : Fragment() {
         }
 
         return prods
-    }
+    }*/
 
     interface OnFragmentInteractionListener {
         fun showFragment(fragment: Fragment)
@@ -172,3 +193,7 @@ class FragmentProducto : Fragment() {
             }
     }
 }
+
+
+
+
