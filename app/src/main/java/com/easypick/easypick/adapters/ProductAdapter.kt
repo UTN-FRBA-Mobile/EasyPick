@@ -30,13 +30,17 @@ class ProductAdapter(var items: List<Producto>, var listener: ClickListener): Re
         return items.size
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
+    }
+
     override fun onBindViewHolder(holder: ProductAdapter.ViewHolder, position: Int) {
     val item = items?.get(position)
     val urlImage = item?.image
     //holder.foto?.setImageResource(item?.foto!!)
-    holder.comentario?.text =item?.description
+    holder.comentario?.text =item?.coments
     holder.precio?.text = item?.price.toString()
-    Picasso.get().load(Uri.parse(urlImage)).into(holder.imagen!!)
+    Picasso.get().load(Uri.parse(urlImage)).error(R.drawable.hamb_fritas).into(holder.imagen)
     }
 
     class ViewHolder(vista: View, listener: ClickListener) : RecyclerView.ViewHolder(vista), View.OnClickListener{
@@ -49,7 +53,7 @@ class ProductAdapter(var items: List<Producto>, var listener: ClickListener): Re
 
         init {
             precio = vista.findViewById(R.id.precio)
-            imagen= vista.findViewById(R.id.iProducto)
+            this.imagen= vista.findViewById(R.id.iProducto)
             comentario = vista.findViewById(R.id.descripcion)
             boton = vista.findViewById(R.id.btn_agregar)
             this.listener = listener

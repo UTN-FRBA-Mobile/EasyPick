@@ -10,10 +10,6 @@ import java.util.*
 
 
 interface Gateway {
-
-    //@GET("categories/{id}.php")
-     //fun getProductoByCategoryId(@Path("id") id: Long): Call<List<Producto>>
-
     @GET("api.php")
     fun getProductoByCategoryId(@Query("store") store: Long,
                                 @Query("categoria") categoria: Long): Call<List<Producto>>
