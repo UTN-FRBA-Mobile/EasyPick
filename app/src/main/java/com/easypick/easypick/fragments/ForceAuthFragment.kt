@@ -69,10 +69,10 @@ class ForceAuthFragment: BaseAuthFragment() {
                     order!!.payer = user?.email?.let {
                         user.displayName?.let { it1 -> User(it, it1, user.uid) } }
                 }
-                listener?.showFragment(PagoFragment.newInstance(order!!))
+                listener?.showFragment(PagoFragment.newInstance(order!!), "")
             }
             else {
-                listener?.showFragment(FragmentOrden())
+                listener?.showFragment(FragmentOrden(), "")
             }
         }
     }
@@ -98,7 +98,7 @@ class ForceAuthFragment: BaseAuthFragment() {
      * activity.
      */
     interface OnFragmentInteractionListener {
-        fun showFragment(fragment: Fragment)
+        fun showFragment(fragment: Fragment, name: String)
     }
 
     companion object {

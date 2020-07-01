@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetroFitApiConsume {
 
     private var retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("https://gardinia.online/api")
+        .baseUrl("https://gardinia.online/api/")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build();

@@ -1,9 +1,14 @@
 package com.easypick.easypick.fragments
 
 
-import android.content.Context
+/*import android.content.Context
+import android.net.Uri
 import android.os.Bundle
+<<<<<<< HEAD
 import android.util.Log
+=======
+import android.os.Handler
+>>>>>>> 0aaf48f260165026db485cadb65bf1fe08e0c04f
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,6 +31,8 @@ import kotlinx.android.synthetic.main.fragment_local.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.http.Url
+import java.net.URL
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -77,6 +84,7 @@ class FragmentLocal() : Fragment() {
             val request = retroFitApiConsume.getRetrofit().create(Gateway::class.java);
             val call = request.getCatalogoByStoreId(1);
 
+<<<<<<< HEAD
             call.enqueue(object : Callback<List<Catalogo>> {
                 override fun onResponse(call: Call<List<Catalogo>>, response: Response<List<Catalogo>>) {
                     if (response.isSuccessful) {
@@ -84,6 +92,17 @@ class FragmentLocal() : Fragment() {
                         catalogos = response.body()!!
 
                         Log.d("RESPONSE", catalogos.toString())
+=======
+            Handler().post {
+                recyclerViewCategories.visibility = View.GONE
+                loadingCategories.visibility = View.VISIBLE
+            }
+
+            call.enqueue(object : Callback<List<Category>> {
+                override fun onResponse(call: Call<List<Category>>, response: Response<List<Category>>) {
+                    if (response.isSuccessful) {
+                        categories = response.body()!!
+>>>>>>> 0aaf48f260165026db485cadb65bf1fe08e0c04f
 
                         for(i in catalogos){
                             viewModel.categoria.add(Category(i.name, i.description, R.drawable.ensalada))
@@ -93,11 +112,22 @@ class FragmentLocal() : Fragment() {
                         adapter = CategoryAdapter(categories, object : ClickListener {
                             override fun onCLick(vista: View, index: Int) {
                                 flag = true
+<<<<<<< HEAD
                                 //viewModel.idCateogoria = categories.get(index).id
                                 viewModel.catSelect = categories?.get(index).name
                                 //listener?.showFragment(FragmentProducto())
+=======
+                                viewModel.categoria = categories?.get(index).name
+                                listener?.showFragment(FragmentProducto(), "")
+>>>>>>> 0aaf48f260165026db485cadb65bf1fe08e0c04f
                             }
                         })
+
+                        Handler().post {
+                            recyclerViewCategories.visibility = View.VISIBLE
+                            loadingCategories.visibility = View.GONE
+                        }
+
                     }
                 }
 
@@ -119,7 +149,7 @@ class FragmentLocal() : Fragment() {
         storeDescription?.text = description;
 
         val storeImage: ImageView? = view.findViewById(R.id.storeImage)
-        storeImage?.setImageResource(image);
+        storeImage?.setImageResource(image)
     }
 
     override fun onAttach(context: Context) {
@@ -137,7 +167,7 @@ class FragmentLocal() : Fragment() {
         if (!flag) {
             viewModel.precioTotal = 0.0
             viewModel.productosSeleccionados.clear()
-            listener?.showFragment(FragmentHome())
+            listener?.showFragment(FragmentHome(), "")
         }
     }
 
@@ -147,7 +177,7 @@ class FragmentLocal() : Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        fun showFragment(fragment: Fragment)
+        fun showFragment(fragment: Fragment, name: String)
     }
 
 
@@ -171,4 +201,4 @@ class FragmentLocal() : Fragment() {
             }
     }
 
-}
+}*/

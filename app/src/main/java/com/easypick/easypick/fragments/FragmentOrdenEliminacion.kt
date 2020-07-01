@@ -71,14 +71,14 @@ class FragmentOrdenEliminacion : Fragment() {
                     if(productosSeleccionados.get(index).cantidad >1){
                         productosSeleccionados.get(index).cantidad -= 1
                         productosSeleccionados.get(index).importe = productosSeleccionados.get(index).precioUnitario * productosSeleccionados.get(index).cantidad
-                        Toast.makeText(activity, "Quedan ${productosSeleccionados.get(index).cantidad} de ${productosSeleccionados.get(index).descripcion} en la orden", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "Quedan ${productosSeleccionados.get(index).cantidad} de ${productosSeleccionados.get(index).description} en la orden", Toast.LENGTH_SHORT).show()
                     } else {
                         val i : ItemOrder
                         i = productosSeleccionados.get(index)
-                        Toast.makeText(activity, "Se ha eliminado ${productosSeleccionados.get(index).descripcion} de la orden", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "Se ha eliminado ${productosSeleccionados.get(index).description} de la orden", Toast.LENGTH_SHORT).show()
                         viewModel.productosSeleccionados.remove(i)
                     }
-                    listener?.showFragment(FragmentOrdenEliminacion())
+                    listener?.showFragment(FragmentOrdenEliminacion(), "")
                     if(productosSeleccionados.size == 0){
                         Toast.makeText(activity, "PEDIDO VACIO", Toast.LENGTH_LONG).show()
                         //bandera = false
@@ -93,13 +93,13 @@ class FragmentOrdenEliminacion : Fragment() {
         }
     }
 
-    override fun onPause() {
+    /*override fun onPause() {
         super.onPause()
         if(!bandera){
             Toast.makeText(activity, "Ejecuta On Pouse", Toast.LENGTH_SHORT)
-            listener?.showFragment(FragmentLocal())
+            listener?.showFragment(FragmentLocal(), "")
         }
-    }
+    }*/
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -118,13 +118,15 @@ class FragmentOrdenEliminacion : Fragment() {
     private fun crearOrden(){
         val items: ArrayList<Item> = ArrayList<Item>()
         for (producto: ItemOrder in productosSeleccionados){
-            items.add(Item(title=producto.descripcion, quantity=1, unit_price=producto.importe))
+            items.add(Item(title=producto.description, quantity=1, unit_price=producto.importe))
         }
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         val user = firebaseUser?.email?.let {
             firebaseUser.displayName?.let { it1 -> User(it, it1, firebaseUser.uid) } }
         val order = Order(payer=user, items=items, costo=viewModel.precioTotal)
-        listener?.showFragment(ForceAuthFragment.newInstance(order))
+        viewModel.precioTotal = 0.0
+        viewModel.productosSeleccionados.clear()
+        listener?.showFragment(ForceAuthFragment.newInstance(order), "intentoDePago")
     }
 
     companion object {
@@ -148,6 +150,6 @@ class FragmentOrdenEliminacion : Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        fun showFragment(fragment: Fragment)
+        fun showFragment(fragment: Fragment, name: String)
     }
 }

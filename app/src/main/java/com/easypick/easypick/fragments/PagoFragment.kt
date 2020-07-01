@@ -9,12 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.easypick.easypick.API.DatabaseAPI
+import com.easypick.easypick.Interfaz.OnBackPressedInterface
 import com.easypick.easypick.R
 import com.easypick.easypick.interfaces.MercadoPagoService
 import com.easypick.easypick.model.Order
 import com.mercadopago.android.px.core.MercadoPagoCheckout
 import com.mercadopago.android.px.core.MercadoPagoCheckout.Builder
-import com.mercadopago.android.px.model.Payment
 import com.mercadopago.android.px.model.exceptions.MercadoPagoError
 import okhttp3.ResponseBody
 import org.json.JSONObject
@@ -26,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
 
-class PagoFragment : Fragment() {
+class PagoFragment : Fragment(), OnBackPressedInterface {
     private var listener: FragmentHome.OnFragmentInteractionListener? = null
     private lateinit var order: Order
     private val REQUEST_CODE = 1
@@ -77,19 +77,17 @@ class PagoFragment : Fragment() {
     ) {
         if (requestCode == REQUEST_CODE) {
             if (resultCode == MercadoPagoCheckout.PAYMENT_RESULT_CODE) {
-                val payment =
-                    data!!.getSerializableExtra(MercadoPagoCheckout.EXTRA_PAYMENT_RESULT) as Payment
                 DatabaseAPI().addOrder(order)
-                listener?.showFragment(ResumenOrdenFragment.newInstance(order))
-                //Done!
+                listener?.showFragment(ResumenOrdenFragment.newInstance(order, true), "")
             } else if (resultCode == RESULT_CANCELED) {
                 if (data != null && data.extras != null && data.extras!!.containsKey(
-                        MercadoPagoCheckout.EXTRA_ERROR
-                    )
-                ) {
+                        MercadoPagoCheckout.EXTRA_ERROR)) {
                     val mercadoPagoError =
                         data.getSerializableExtra(MercadoPagoCheckout.EXTRA_ERROR) as MercadoPagoError
-                } else { //Resolve canceled checkout
+                    activity?.onBackPressed()
+                } else {
+                    // El usuario fue para atras / cancelo el pago
+                    activity?.onBackPressed()
                 }
             }
         }
@@ -110,7 +108,7 @@ class PagoFragment : Fragment() {
     }
 
     interface OnFragmentInteractionListener {
-        fun showFragment(fragment: Fragment)
+        fun showFragment(fragment: Fragment, name: String)
     }
 
     companion object {
@@ -122,5 +120,9 @@ class PagoFragment : Fragment() {
                 }
             }
         private const val TAG = "PagoFragment"
+    }
+
+    override fun popToTransactionName(): String {
+        return "intentoDePago"
     }
 }

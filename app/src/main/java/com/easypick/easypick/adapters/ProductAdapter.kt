@@ -11,10 +11,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.R
-import com.easypick.easypick.model.Catalogo
+import com.easypick.easypick.model.Producto
 import com.squareup.picasso.Picasso
 
-class ProductAdapter(var items: List<Catalogo>, var listener: ClickListener): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
+class ProductAdapter(var items: List<Producto>, var listener: ClickListener): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
     var contexto: Context?= null
 
@@ -34,8 +34,8 @@ class ProductAdapter(var items: List<Catalogo>, var listener: ClickListener): Re
     val item = items?.get(position)
     val urlImage = item?.image
     //holder.foto?.setImageResource(item?.foto!!)
-    holder.comentario?.text =item?.comentarios
-    holder.precio?.text = item?.precio.toString()
+    holder.comentario?.text =item?.description
+    holder.precio?.text = item?.price.toString()
     Picasso.get().load(Uri.parse(urlImage)).into(holder.imagen!!)
     }
 

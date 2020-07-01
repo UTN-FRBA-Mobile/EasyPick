@@ -5,6 +5,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 
 
@@ -13,12 +14,17 @@ class DatabaseAPI(private val db: FirebaseFirestore = FirebaseFirestore.getInsta
         db.collection("orders").add(order)
     }
 
-    fun getOrder(id: String): Task<DocumentSnapshot> {
+    fun getOrderByDocId(id: String): Task<DocumentSnapshot> {
         return db.collection("orders").document(id).get()
     }
 
+    fun getOrderById(id: String): Task<QuerySnapshot>{
+        return db.collection("orders").whereEqualTo("id", id).get()
+    }
+
     fun getOrders(user_id: String): Task<QuerySnapshot> {
-        return db.collection("orders").whereEqualTo("payer.id", user_id).get()
+        return db.collection("orders").whereEqualTo("payer.id", user_id).
+            orderBy("timestamp", Query.Direction.DESCENDING).get()
     }
 
     fun updateToken(token: String){

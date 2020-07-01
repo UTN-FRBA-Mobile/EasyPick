@@ -48,11 +48,11 @@ class FragmentMenu : Fragment() {
         tabs.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position!!) {
-                    0 -> { listener?.showFragment(FragmentHome()) }
-                    1 -> { listener?.showFragment(FragmentLocal()) }
-                    3 -> { listener?.showFragment(ForceAuthFragment()) }
-                    4 -> { listener?.showFragment(ProfileFragment())}
-                    5 -> { listener?.showFragment(OrderHistoryFragment())}
+                    0 -> { listener?.showFragment(FragmentHome(), "") }
+                    1 -> { listener?.showFragment(FragmentProducto(), "")}
+                    3 -> { listener?.showFragment(ForceAuthFragment(), "") }
+                    4 -> { listener?.showFragment(ProfileFragment(), "")}
+                    5 -> { listener?.showFragment(OrderHistoryFragment(), "")}
                 }
             }
 

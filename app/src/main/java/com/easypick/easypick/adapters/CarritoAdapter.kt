@@ -26,9 +26,9 @@ class CarritoAdapter(var items: ArrayList<ItemOrder>, var ClickListener: ClickLi
 
     override fun onBindViewHolder(holder: CarritoAdapter.ViewHolder, position: Int) {
         val item = items?.get(position)
-        val urlImage = item?.foto
+        val urlImage = item?.image
        // holder.foto?.setImageResource(item?.foto!!)
-        holder.descripcion?.text =item?.descripcion
+        holder.descripcion?.text =item?.description
         holder.importe?.text = item?.importe.toString()
         holder.cantidad?.text = item?.cantidad.toString()
 

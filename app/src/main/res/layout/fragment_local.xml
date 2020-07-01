@@ -1,80 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.FragmentLocal"
-    android:weightSum="7"
-    android:orientation="vertical">
-
-    <LinearLayout
+    xmlns:tools="http://schemas.android.com/tools">
+    <ImageView
+        android:id="@+id/storeImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/fb"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toTopOf="@+id/storeName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:id="@+id/storeName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:fontFamily="@font/montserratsemibold"
+        android:textSize="@dimen/fragment_title"
+        android:textColor="@android:color/background_dark"
+        android:text="Nombre del store"
+        app:layout_constraintTop_toBottomOf="@+id/storeImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </TextView>
+    <TextView
+        android:id="@+id/storeDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="@dimen/fragment_info"
+        android:textColor="@android:color/background_dark"
+        android:text="Descripcion"
+        android:fontFamily="@font/montserratlight"
+        app:layout_constraintTop_toBottomOf="@+id/storeName"
+        app:layout_constraintBottom_toTopOf="@+id/loadingCategories"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+    </TextView>
+    <ProgressBar
+        android:id="@+id/loadingCategories"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/storeDescription"
+        tools:visibility="visible" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewCategories"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="6"
-        android:background="@color/colorPrimary"
-        android:orientation="horizontal"
-        android:weightSum="5">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:src="@drawable/fb"
-            android:id="@+id/storeImage">
-
-        </ImageView>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:weightSum="2"
-            android:layout_weight="2">
-
-            <TextView
-                android:id="@+id/storeName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textSize="32sp"
-                android:textColor="@android:color/background_light"
-                android:text="TextView"
-                android:gravity="center">
-
-
-            </TextView>
-
-            <TextView
-                android:id="@+id/storeDescription"
-                android:text="TextView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:textSize="10dp"
-                android:textColor="@android:color/background_light"
-                android:gravity="center">
-
-            </TextView>
-
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewCategories"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"/>
-    </LinearLayout>
-
-</LinearLayout>
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loadingCategories" />
+</androidx.constraintlayout.widget.ConstraintLayout>

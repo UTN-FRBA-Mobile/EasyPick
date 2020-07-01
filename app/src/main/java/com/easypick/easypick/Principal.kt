@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.easypick.easypick.API.DatabaseAPI
+import com.easypick.easypick.Interfaz.OnBackPressedInterface
 import com.easypick.easypick.firebase.FirebaseToken
 import com.easypick.easypick.fragments.ForceAuthFragment
 import com.easypick.easypick.fragments.FragmentHome
-import com.easypick.easypick.fragments.FragmentLocal
+//import com.easypick.easypick.fragments.FragmentLocal
 import com.easypick.easypick.fragments.ResumenOrdenFragment
 import com.easypick.easypick.model.Order
 import com.google.android.gms.tasks.Task
@@ -19,8 +21,8 @@ import kotlinx.android.synthetic.main.activity_principal.*
 
 
 class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
-    ForceAuthFragment.OnFragmentInteractionListener, FragmentLocal.OnFragmentInteractionListener ,
-    /*FragmentProducto.OnFragmentInteractionListener,*/ FragmentOrden.OnFragmentInteractionListener,
+    ForceAuthFragment.OnFragmentInteractionListener, /*FragmentLocal.OnFragmentInteractionListener ,*/
+    FragmentProducto.OnFragmentInteractionListener, FragmentOrden.OnFragmentInteractionListener,
     FragmentOrdenEliminacion.OnFragmentInteractionListener,
     OrderHistoryFragment.OnFragmentInteractionListener  {
 
@@ -35,7 +37,7 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
         }
         setContentView(R.layout.activity_principal)
         if (savedInstanceState == null) {
-            showFragment(FragmentHome())
+            showFragment(FragmentHome(), "")
         }
     }
 
@@ -46,10 +48,17 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
         }
     }
 
-    override fun showFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.frag_container_principal, fragment).addToBackStack(null)
-            .commit()
+    override fun showFragment(fragment: Fragment, name: String) {
+        if (name == ""){
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frag_container_principal, fragment).addToBackStack(null)
+                .commit()
+        }
+        else{
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.frag_container_principal, fragment).addToBackStack(name)
+                .commit()
+        }
     }
 
     override fun onStart() {
@@ -66,14 +75,14 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
                     frag_container_principal.visibility = View.GONE
                     loadingFragment.visibility = View.VISIBLE
                 }
-                val getOrder: Task<DocumentSnapshot> = DatabaseAPI().getOrder(extras["ordenId"] as String)
+                val getOrder: Task<DocumentSnapshot> = DatabaseAPI().getOrderByDocId(extras["ordenId"] as String)
                 getOrder.addOnSuccessListener { documentSnapshot ->
                     val order = documentSnapshot.toObject(Order::class.java)
                     Handler().post {
                         loadingFragment.visibility = View.GONE
                         frag_container_principal.visibility = View.VISIBLE
                     }
-                    order?.let { ResumenOrdenFragment.newInstance(it) }?.let { showFragment(it) }
+                    order?.let { ResumenOrdenFragment.newInstance(it) }?.let { showFragment(it, "") }
                 }
             }
         }
@@ -84,10 +93,20 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
             finish()
         }
         else{
-            super.onBackPressed()
+            val currentFragment: Fragment = this.supportFragmentManager.fragments.last()
+            val popTransactionName: String? = (currentFragment as? OnBackPressedInterface)?.
+                popToTransactionName()
+            if (popTransactionName != "" && popTransactionName != null){
+                val result:Boolean = supportFragmentManager.popBackStackImmediate(
+                    popTransactionName, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                if (!result){
+                    super.onBackPressed()
+                }
+            }
+            else{
+                super.onBackPressed()
+            }
         }
-
     }
-
 }
 

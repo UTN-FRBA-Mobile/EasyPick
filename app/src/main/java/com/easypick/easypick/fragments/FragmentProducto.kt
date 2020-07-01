@@ -2,6 +2,7 @@ package com.easypick.easypick.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,13 +17,19 @@ import com.easypick.easypick.R
 
 import com.easypick.easypick.adapters.ProductAdapter
 import com.easypick.easypick.model.ItemOrder
-import com.easypick.easypick.model.Catalogo
+import com.easypick.easypick.model.Producto
 import com.easypick.easypick.retroFit.Gateway
 import com.easypick.easypick.retroFit.RetroFitApiConsume
 import com.easypick.easypick.viewModels.LocalViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_producto.*
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -41,13 +48,13 @@ class FragmentProducto : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var productos: List<Catalogo>
+    private lateinit var productos: List<Producto>
     private lateinit var viewModel: LocalViewModel
     var categoria: TextView?= null
     private var catSeleccionada: String? = null
     private lateinit var fragmentProducto: Fragment
     private lateinit var fragmentOrden: Fragment
-    private lateinit var iOrder: ItemOrder
+    private var myCompositeDisposable: CompositeDisposable?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,53 +81,55 @@ class FragmentProducto : Fragment() {
             // set the custom adapter to the RecyclerView
             viewModel = ViewModelProvider(activity!!).get(LocalViewModel::class.java)
             categoria = view.findViewById(R.id.categoria)
-            categoria?.text = viewModel.categoria
-            catSeleccionada = viewModel.categoria
+            //categoria?.text = viewModel.catSelect
+            categoria?.text = "Categoria Seleccionada"
             btn_carrito.setOnClickListener {
-                listener?.showFragment(fragmentOrden)
+                listener?.showFragment(fragmentOrden, "")
             }
             var importeTotal: Double = viewModel.precioTotal
            // productos = descargarproductos(catSeleccionada)
 
             val retroFitApiConsume = RetroFitApiConsume()
             val request = retroFitApiConsume.getRetrofit().create(Gateway::class.java)
-            val call = request.getProductByCategoryId(1)
+            val call = request.getProductoByCategoryId(1, 2)
 
-            call.enqueue(object :  retrofit2.Callback<List<Catalogo>> {
+
+            call.enqueue(object : Callback<List<Producto>> {
 
                 override fun onResponse(
-                    call: Call<List<Catalogo>>,
-                    response: Response<List<Catalogo>>
+                    call: Call<List<Producto>>,
+                    response: Response<List<Producto>>
                 ) {
                    if(response.isSuccessful){
                        productos = response.body()!!
-                       //Log.d("RESPONSE", productos.toString())
+                       Log.d("RESPONSE", productos.toString())
+
                        adapter = ProductAdapter(productos, object :ClickListener{
                            override fun onCLick(vista: View, index: Int) {
-                               importeTotal += productos.get(index).precio
+                               importeTotal += productos.get(index).price
                                viewModel.precioTotal = importeTotal
                                var find: Boolean = false
                                if(viewModel.productosSeleccionados.size > 0) {
                                    for (i in viewModel.productosSeleccionados) {
-                                       if (i.codigo == productos.get(index).codigo) {
+                                       if (i.Code == productos.get(index).Code) {
                                            find = true
                                            i.cantidad += 1
-                                           i.importe = productos.get(index).precio * i.cantidad
+                                           i.importe = productos.get(index).price* i.cantidad
                                        }
                                    }
                                }
                                if(!find){
-                                   viewModel.productosSeleccionados.add((ItemOrder(productos.get(index).codigo, productos.get(index).descripcion, productos.get(index).precio, productos.get(index).foto, productos.get(index).precio, 1)))
+                                   viewModel.productosSeleccionados.add((ItemOrder(productos.get(index).Code, productos.get(index).description, productos.get(index).price, productos.get(index).image, 1, productos.get(index).price)))
                                }
 
                                //viewModel.productosSeleccionados.add(Producto(productos.get(index).descripcion, productos.get(index).precio, productos.get(index).foto, productos.get(index).comentarios))
-                               Toast.makeText(activity, "Se ha agregado ${productos.get(index).descripcion} al pedido", Toast.LENGTH_SHORT).show()
+                               Toast.makeText(activity, "Se ha agregado ${productos.get(index).description} al pedido", Toast.LENGTH_SHORT).show()
                            }
                        })
                    }
                 }
 
-                override fun onFailure(call: Call<List<Catalogo>>, t: Throwable) {
+                override fun onFailure(call: Call<List<Producto>>, t: Throwable) {
                     Toast.makeText(activity, "Error obteniendo productos", Toast.LENGTH_SHORT).show()
                 }
             })
@@ -140,6 +149,17 @@ class FragmentProducto : Fragment() {
         super.onDetach()
         listener = null
     }
+
+    /*private fun loadProduct(){
+        val requestGateway = Retrofit.Builder()
+            .baseUrl("https://gardinia.online/api/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build().create(Gateway::class.java)
+        myCompositeDisposable?.add(requestGateway.getProductoByCategoryId(1,2)
+            .observeOn(AndroidSchedulers.mainThread()
+    }*/
+
 
    /* fun descargarproductos(cat: String?): ArrayList<Producto> {
         var cat = cat
@@ -170,7 +190,7 @@ class FragmentProducto : Fragment() {
     }*/
 
     interface OnFragmentInteractionListener {
-        fun showFragment(fragment: Fragment)
+        fun showFragment(fragment: Fragment, name: String)
     }
 
     companion object {
