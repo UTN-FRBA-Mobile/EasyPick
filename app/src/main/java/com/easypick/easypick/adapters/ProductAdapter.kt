@@ -2,6 +2,7 @@ package com.easypick.easypick.adapters
 
 import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.R
 import com.easypick.easypick.model.Producto
+import com.google.zxing.client.result.URIResultParser
 import com.squareup.picasso.Picasso
+import java.net.URI
 
 class ProductAdapter(var items: List<Producto>, var listener: ClickListener): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
@@ -37,10 +40,11 @@ class ProductAdapter(var items: List<Producto>, var listener: ClickListener): Re
     override fun onBindViewHolder(holder: ProductAdapter.ViewHolder, position: Int) {
     val item = items?.get(position)
     val urlImage = item?.image
+
     //holder.foto?.setImageResource(item?.foto!!)
-    holder.comentario?.text =item?.coments
+    holder.comentario?.text =item?.description
     holder.precio?.text = item?.price.toString()
-    Picasso.get().load(Uri.parse(urlImage)).error(R.drawable.hamb_fritas).into(holder.imagen)
+    Picasso.get().load(Uri.parse(urlImage)).resize(120,0).error(R.drawable.hamb_fritas).into(holder.imagen)
     }
 
     class ViewHolder(vista: View, listener: ClickListener) : RecyclerView.ViewHolder(vista), View.OnClickListener{

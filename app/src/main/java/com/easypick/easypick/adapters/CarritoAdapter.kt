@@ -28,7 +28,7 @@ class CarritoAdapter(var items: ArrayList<ItemOrder>, var ClickListener: ClickLi
         val item = items?.get(position)
         val urlImage = item?.image
        // holder.foto?.setImageResource(item?.foto!!)
-        holder.descripcion?.text =item?.comentarios
+        holder.descripcion?.text =item?.description
         holder.importe?.text = item?.importe.toString()
         holder.cantidad?.text = item?.cantidad.toString()
 

@@ -1,6 +1,7 @@
 package com.easypick.easypick.fragments
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -118,10 +119,10 @@ class FragmentProducto : Fragment() {
                                    }
                                }
                                if(!find){
-                                   viewModel.productosSeleccionados.add((ItemOrder(productos.get(index).Code, productos.get(index).coments, productos.get(index).price, productos.get(index).image, 1, productos.get(index).price)))
+                                   viewModel.productosSeleccionados.add((ItemOrder(productos.get(index).Code, productos.get(index).description, productos.get(index).price, productos.get(index).image, 1, productos.get(index).price)))
                                }
                                //viewModel.productosSeleccionados.add(Producto(productos.get(index).descripcion, productos.get(index).precio, productos.get(index).foto, productos.get(index).comentarios))
-                               Toast.makeText(activity, "Se ha agregado ${productos.get(index).coments} al pedido", Toast.LENGTH_SHORT).show()
+                               Toast.makeText(activity, "Se ha agregado ${productos.get(index).description} al pedido", Toast.LENGTH_SHORT).show()
                            }
                        })
                    }
