@@ -93,13 +93,15 @@ class FragmentOrdenEliminacion : Fragment() {
         }
     }
 
-    /*override fun onPause() {
+    override fun onPause() {
         super.onPause()
         if(!bandera){
-            Toast.makeText(activity, "Ejecuta On Pouse", Toast.LENGTH_SHORT)
-            listener?.showFragment(FragmentLocal(), "")
+            val storeFragment = FragmentLocal()
+            storeFragment.store = viewModel.local
+            listener?.showFragment(storeFragment,"")
         }
-    }*/
+    }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

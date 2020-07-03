@@ -9,12 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.Locales
 import com.easypick.easypick.R.drawable
 import com.easypick.easypick.R.layout
 import com.easypick.easypick.adapters.AdaptadorLocales
+import com.easypick.easypick.viewModels.LocalViewModel
 import com.google.api.AnnotationsProto.http
 import com.google.zxing.integration.android.IntentIntegrator
 import kotlinx.android.synthetic.main.card_locales.*
@@ -34,7 +36,7 @@ class FragmentHome : Fragment(){
     private var PERMISSION_CODE=1000
     var imageUri: Uri? = null
     var imageFile: File?= null
-
+    private lateinit var viewModel: LocalViewModel
 
     //val apiResponse = URL("http://gardinia.online/api/get_catalogo_id.php?id=1").readText()
 
@@ -63,6 +65,7 @@ class FragmentHome : Fragment(){
             // set a LinearLayoutManager to handle Android
             // RecyclerView behavior
             layoutManager = LinearLayoutManager(activity)
+            viewModel = ViewModelProvider(activity!!).get(LocalViewModel::class.java)
             // set the custom adapter to the RecyclerView
             adapter = AdaptadorLocales(locales, object : ClickListener {
                 override fun onCLick(vista: View, index: Int) {
@@ -70,6 +73,7 @@ class FragmentHome : Fragment(){
                     var storeFrangment = FragmentLocal();
 
                     storeFrangment.store = locales.get(index);
+                    viewModel.local = locales.get(index)
                     listener?.showFragment(storeFrangment, "verLocal")
 
                 }
