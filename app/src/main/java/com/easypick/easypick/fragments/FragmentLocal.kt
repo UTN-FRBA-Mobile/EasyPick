@@ -1,14 +1,10 @@
 package com.easypick.easypick.fragments
 
 
-/*import android.content.Context
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
-<<<<<<< HEAD
-import android.util.Log
-=======
 import android.os.Handler
->>>>>>> 0aaf48f260165026db485cadb65bf1fe08e0c04f
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,7 +18,6 @@ import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.Locales
 import com.easypick.easypick.R
 import com.easypick.easypick.adapters.CategoryAdapter
-import com.easypick.easypick.model.Catalogo
 import com.easypick.easypick.model.Category
 import com.easypick.easypick.retroFit.Gateway
 import com.easypick.easypick.retroFit.RetroFitApiConsume
@@ -50,8 +45,7 @@ class FragmentLocal() : Fragment() {
 
     var flag: Boolean = false
 
-    private lateinit var catalogos : List<Catalogo>;
-    private lateinit var catagories : List<Category>;
+    private lateinit var categories : List<Category>;
 
     public lateinit var store: Locales;
 
@@ -82,17 +76,8 @@ class FragmentLocal() : Fragment() {
 
             val retroFitApiConsume = RetroFitApiConsume();
             val request = retroFitApiConsume.getRetrofit().create(Gateway::class.java);
-            val call = request.getCatalogoByStoreId(1);
-
-<<<<<<< HEAD
-            call.enqueue(object : Callback<List<Catalogo>> {
-                override fun onResponse(call: Call<List<Catalogo>>, response: Response<List<Catalogo>>) {
-                    if (response.isSuccessful) {
-
-                        catalogos = response.body()!!
-
-                        Log.d("RESPONSE", catalogos.toString())
-=======
+            val call = request.getCategoryByStoreId(store.id);
+            viewModel.idStore = store.id
             Handler().post {
                 recyclerViewCategories.visibility = View.GONE
                 loadingCategories.visibility = View.VISIBLE
@@ -102,24 +87,17 @@ class FragmentLocal() : Fragment() {
                 override fun onResponse(call: Call<List<Category>>, response: Response<List<Category>>) {
                     if (response.isSuccessful) {
                         categories = response.body()!!
->>>>>>> 0aaf48f260165026db485cadb65bf1fe08e0c04f
 
-                        for(i in catalogos){
-                            viewModel.categoria.add(Category(i.name, i.description, R.drawable.ensalada))
+                        for (category in categories){
+                            category.image = R.drawable.hamburguesa;
                         }
 
-                        val categories = viewModel.categoria
                         adapter = CategoryAdapter(categories, object : ClickListener {
                             override fun onCLick(vista: View, index: Int) {
                                 flag = true
-<<<<<<< HEAD
-                                //viewModel.idCateogoria = categories.get(index).id
-                                viewModel.catSelect = categories?.get(index).name
-                                //listener?.showFragment(FragmentProducto())
-=======
-                                viewModel.categoria = categories?.get(index).name
+                                viewModel.nameCatSelect = categories.get(index).name
+                                viewModel.catSelect = index +1
                                 listener?.showFragment(FragmentProducto(), "")
->>>>>>> 0aaf48f260165026db485cadb65bf1fe08e0c04f
                             }
                         })
 
@@ -131,8 +109,9 @@ class FragmentLocal() : Fragment() {
                     }
                 }
 
-                override fun onFailure(call: Call<List<Catalogo>>, t: Throwable) {
-                    Toast.makeText(activity, "Error obteniendo catalogo", Toast.LENGTH_SHORT).show()
+
+                override fun onFailure(call: Call<List<Category>>, t: Throwable) {
+                    Toast.makeText(activity, "Error obteniendo categorias", Toast.LENGTH_SHORT).show()
                 }
             })
 
@@ -201,4 +180,5 @@ class FragmentLocal() : Fragment() {
             }
     }
 
-}*/
+}
+

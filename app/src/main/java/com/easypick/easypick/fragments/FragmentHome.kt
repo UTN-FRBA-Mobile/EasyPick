@@ -40,65 +40,64 @@ class FragmentHome : Fragment(){
 
 
     private val locales = listOf(
-    Locales(titulo = "Pizzeria", detalle = "Pizzeria Vegana, más de 14 sabores", foto= drawable.resto1,  id = 1) ,
-    Locales(titulo = "Sarkis", detalle = "Comida armenia hecha por nosotros", foto = drawable.resto2, id = 2),
-    Locales(titulo = "Don Julio", detalle = "El mejor asado criollo de buenos aires", foto = drawable.resto3, id = 3) ,
-    Locales(titulo = "Zakura", detalle = "Comida japonesa, más de 8 platos orientales", foto = drawable.resto4, id = 4),
-    Locales(titulo = "Blur", detalle = "Cerveza Artenal, contamos con 14 tipos de cervezas.", foto = drawable.resto5, id = 5),
-    Locales(titulo = "MilaPlus", detalle = "Milanesas de lujo, carne, pollo, cerdo, cordero.", foto = drawable.resto6, id = 6),
-    Locales(titulo = "Cocu", detalle = "Panaderia francesa, los mejores panes y pastas de francia", foto = drawable.resto7, id = 7))
+        Locales(titulo = "Pizzeria", detalle = "Pizzeria Vegana, más de 14 sabores", foto= drawable.resto1,  id = 1) ,
+        Locales(titulo = "Sarkis", detalle = "Comida armenia hecha por nosotros", foto = drawable.resto2, id = 2),
+        Locales(titulo = "Don Julio", detalle = "El mejor asado criollo de buenos aires", foto = drawable.resto3, id = 3) ,
+        Locales(titulo = "Zakura", detalle = "Comida japonesa, más de 8 platos orientales", foto = drawable.resto4, id = 4),
+        Locales(titulo = "Blur", detalle = "Cerveza Artenal, contamos con 14 tipos de cervezas.", foto = drawable.resto5, id = 5),
+        Locales(titulo = "MilaPlus", detalle = "Milanesas de lujo, carne, pollo, cerdo, cordero.", foto = drawable.resto6, id = 6),
+        Locales(titulo = "Cocu", detalle = "Panaderia francesa, los mejores panes y pastas de francia", foto = drawable.resto7, id = 7))
 
 
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+                              savedInstanceState: Bundle?
     ): View? = inflater.inflate(layout.fragment_home, container, false)
 
-        // populate the views now that the layout has been inflated
-        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-            super.onViewCreated(view, savedInstanceState)
-            // RecyclerView node initialized here
-            RecyLocales.apply {
-                // set a LinearLayoutManager to handle Android
-                // RecyclerView behavior
-                layoutManager = LinearLayoutManager(activity)
-                // set the custom adapter to the RecyclerView
-                adapter = AdaptadorLocales(locales)
-                    /*, object : ClickListener {
-                    override fun onCLick(vista: View, index: Int) {
+    // populate the views now that the layout has been inflated
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        // RecyclerView node initialized here
+        RecyLocales.apply {
+            // set a LinearLayoutManager to handle Android
+            // RecyclerView behavior
+            layoutManager = LinearLayoutManager(activity)
+            // set the custom adapter to the RecyclerView
+            adapter = AdaptadorLocales(locales, object : ClickListener {
+                override fun onCLick(vista: View, index: Int) {
 
-                        var storeFrangment = FragmentLocal();
+                    var storeFrangment = FragmentLocal();
 
-                        storeFrangment.store = locales.get(index);
-                        listener?.showFragment(storeFrangment, "verLocal")
+                    storeFrangment.store = locales.get(index);
+                    listener?.showFragment(storeFrangment, "verLocal")
 
-                    }
-                })*/
-            }
-                        //permission was not enabled
-                        val permission = arrayOf(android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                        //show popup to request permission
-                        requestPermissions(permission, PERMISSION_CODE)
-
+                }
+            })
+        }
+        //permission was not enabled
+        val permission = arrayOf(android.Manifest.permission.CAMERA, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        //show popup to request permission
+        requestPermissions(permission, PERMISSION_CODE)
 
 
-              btn_cam.setOnClickListener {
 
-                val mScanner = IntentIntegrator(activity)
-                mScanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
-                mScanner.setBeepEnabled(false)
-                mScanner.initiateScan()
+        btn_cam.setOnClickListener {
+
+            val mScanner = IntentIntegrator(activity)
+            mScanner.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE)
+            mScanner.setBeepEnabled(false)
+            mScanner.initiateScan()
 
 
-            }
-
-         //   print(apiResponse);
         }
 
+        //   print(apiResponse);
+    }
 
 
-    /*override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
         if (result != null) {
             if (result.contents == null) {
@@ -108,7 +107,7 @@ class FragmentHome : Fragment(){
                 //aqui enviar al 2do slide
 
                 var storeFrangment = FragmentLocal();
-               // var localqr= Locales(titulo = "LocalQR", detalle = "QR",foto = drawable.resto1, id = result.contents.toLong())
+                // var localqr= Locales(titulo = "LocalQR", detalle = "QR",foto = drawable.resto1, id = result.contents.toLong())
                 var qr= result.contents.split(",").toTypedArray()
 
 
@@ -120,7 +119,7 @@ class FragmentHome : Fragment(){
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
-    }*/
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -140,10 +139,7 @@ class FragmentHome : Fragment(){
         fun showFragment(fragment: Fragment, name: String)
     }
 
-
-
-
-
 }
+
 
 

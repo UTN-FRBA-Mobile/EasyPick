@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.activity_principal.*
 
 
 class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
-    ForceAuthFragment.OnFragmentInteractionListener, /*FragmentLocal.OnFragmentInteractionListener ,*/
+    ForceAuthFragment.OnFragmentInteractionListener, FragmentLocal.OnFragmentInteractionListener ,
     FragmentProducto.OnFragmentInteractionListener, FragmentOrden.OnFragmentInteractionListener,
     FragmentOrdenEliminacion.OnFragmentInteractionListener,
     OrderHistoryFragment.OnFragmentInteractionListener  {

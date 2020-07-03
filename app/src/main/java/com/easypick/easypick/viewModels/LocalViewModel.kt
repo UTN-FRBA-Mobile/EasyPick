@@ -5,8 +5,9 @@ import com.easypick.easypick.model.Category
 import com.easypick.easypick.model.ItemOrder
 
 class LocalViewModel: ViewModel() {
-    var categoria = ArrayList<Category>()
-    var catSelect : String = ""
+    var catSelect : Int = 0
+    var nameCatSelect: String = ""
+    var idStore: Long = 0
     var productosSeleccionados = ArrayList<ItemOrder>()
     var precioTotal: Double = 0.0
 }

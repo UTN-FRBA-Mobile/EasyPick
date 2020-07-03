@@ -21,6 +21,7 @@ import com.easypick.easypick.model.ItemOrder
 import com.easypick.easypick.model.Producto
 import com.easypick.easypick.retroFit.Gateway
 import com.easypick.easypick.retroFit.RetroFitApiConsume
+import com.easypick.easypick.retroFit.RetrofitApiConsumeGardinia
 import com.easypick.easypick.viewModels.LocalViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -81,17 +82,17 @@ class FragmentProducto : Fragment() {
             // set the custom adapter to the RecyclerView
             viewModel = ViewModelProvider(activity!!).get(LocalViewModel::class.java)
             categoria = view.findViewById(R.id.categoria)
-            //categoria?.text = viewModel.catSelect
-            categoria?.text = "Categoria Seleccionada"
+            categoria?.text = viewModel.nameCatSelect
             btn_carrito.setOnClickListener {
                 listener?.showFragment(fragmentOrden, "")
             }
             var importeTotal: Double = viewModel.precioTotal
-           // productos = descargarproductos(catSeleccionada)
 
-            val retroFitApiConsume = RetroFitApiConsume()
+            val retroFitApiConsume = RetrofitApiConsumeGardinia()
             val request = retroFitApiConsume.getRetrofit().create(Gateway::class.java)
-            val call = request.getProductoByCategoryId(1, 2)
+            val idStore: Long = viewModel.idStore
+            val idCategory: Int = viewModel.catSelect
+            val call = request.getProductoByCategoryId(idStore, idCategory)
 
 
             call.enqueue(object : Callback<List<Producto>> {
