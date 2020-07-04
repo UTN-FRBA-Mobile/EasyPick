@@ -14,43 +14,28 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:background="#F44336"
-            app:tabMode="scrollable">
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/ic_home" />
+            android:layout_height="wrap_content"
+            android:background="@color/toolbarRed"
+            app:tabMode="fixed"
+            app:tabMaxWidth="0dp"
+            app:tabGravity="fill">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/ic_action_name" />
-
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/ic_pay" />
-
-            <com.google.android.material.tabs.TabItem
-                android:id="@+id/settings_tab"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/ic_sett" />
+                android:icon="@drawable/ic_home_v2" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/profile_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/ic_person_outline" />
+                android:icon="@drawable/ic_person_v2" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/order_history_tab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/ic_order_history" />
+                android:icon="@drawable/ic_order_history_v2" />
         </com.google.android.material.tabs.TabLayout>
     </com.google.android.material.appbar.AppBarLayout>
 

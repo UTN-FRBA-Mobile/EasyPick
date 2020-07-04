@@ -66,6 +66,7 @@ class OrderHistoryFragment: Fragment() {
                     loadingOrders.visibility = View.GONE
                     ordersRecycler.visibility = View.VISIBLE
                 }
+                listener?.selectTab("OrderHistoryFragment")
         }
     }
 
@@ -85,6 +86,7 @@ class OrderHistoryFragment: Fragment() {
 
     interface OnFragmentInteractionListener {
         fun showFragment(fragment: Fragment, name: String)
+        fun selectTab(fragmentName: String)
     }
 }
 

@@ -59,6 +59,7 @@ class FragmentHome : Fragment(){
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
             // RecyclerView node initialized here
+            listener?.selectTab("FragmentHome")
             RecyLocales.apply {
                 // set a LinearLayoutManager to handle Android
                 // RecyclerView behavior
@@ -137,6 +138,7 @@ class FragmentHome : Fragment(){
 
     interface OnFragmentInteractionListener {
         fun showFragment(fragment: Fragment, name: String)
+        fun selectTab(fragmentName: String)
     }
 
 
