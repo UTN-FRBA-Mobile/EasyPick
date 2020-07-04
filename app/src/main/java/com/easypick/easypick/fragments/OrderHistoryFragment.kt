@@ -31,15 +31,7 @@ class OrderHistoryFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         ordersRecycler.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = OrdersAdapter(orders, object: ClickListener {
-                override fun onCLick(vista: View, index: Int) {
-                    val order = orders[index]
-                    listener?.showFragment(ResumenOrdenFragment.newInstance(order), "")
-                }
-            })
-        }.apply {
-            layoutManager = LinearLayoutManager(activity)
-            adapter = OrdersAdapter(orders, object: ClickListener {
+            adapter = OrdersAdapter(orders, context, object: ClickListener {
                 override fun onCLick(vista: View, index: Int) {
                     val order = orders[index]
                     listener?.showFragment(ResumenOrdenFragment.newInstance(order), "")
@@ -59,6 +51,7 @@ class OrderHistoryFragment: Fragment() {
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         firebaseUser?.uid?.let { DatabaseAPI().getOrders(it) }
             ?.addOnSuccessListener { dbOrders ->
+                orders.clear()
                 for (dbOrder in dbOrders){
                     orders.add(dbOrder.toObject(Order::class.java))
                 }

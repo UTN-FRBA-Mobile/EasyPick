@@ -22,6 +22,8 @@ data class Order(
                           OrderEvent("Orden lista para retirar"),
                           OrderEvent("Orden retirada")),
     val estimatedTime: Int = 15,
+    val local: String = "",
+    val completed: Boolean = false,
     @ServerTimestamp val timestamp:Date? = null) : Parcelable {
     fun getPrecio(): Double? {
         return if (this.items != null){
