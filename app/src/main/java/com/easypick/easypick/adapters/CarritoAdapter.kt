@@ -32,7 +32,7 @@ class CarritoAdapter(var items: ArrayList<ItemOrder>, var ClickListener: ClickLi
         holder.importe?.text = item?.importe.toString()
         holder.cantidad?.text = item?.cantidad.toString()
 
-        Picasso.get().load(urlImage).into(holder.foto!!)
+        Picasso.get().load(urlImage).resize(120,0).error(R.drawable.hamb_fritas).into(holder.foto!!)
     }
 
 

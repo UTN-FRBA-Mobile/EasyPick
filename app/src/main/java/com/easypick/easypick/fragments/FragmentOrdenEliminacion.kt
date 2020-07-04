@@ -37,7 +37,6 @@ class FragmentOrdenEliminacion : Fragment() {
     private lateinit var viewModel: LocalViewModel
     var importeTotal: TextView?= null
     var bandera: Boolean = false
-    var vacio: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +80,6 @@ class FragmentOrdenEliminacion : Fragment() {
                     listener?.showFragment(FragmentOrdenEliminacion(), "")
                     if(productosSeleccionados.size == 0){
                         Toast.makeText(activity, "PEDIDO VACIO", Toast.LENGTH_LONG).show()
-                        //bandera = false
                     }
                 }
             })

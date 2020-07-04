@@ -154,8 +154,8 @@ class FragmentLocal() : Fragment() {
         if (!flag) {
             viewModel.precioTotal = 0.0
             viewModel.productosSeleccionados.clear()
+            viewModel.idStore = 0
             listener?.showFragment(FragmentHome(), "")
-           // viewModel.storeVigente = false
         }
     }
 
