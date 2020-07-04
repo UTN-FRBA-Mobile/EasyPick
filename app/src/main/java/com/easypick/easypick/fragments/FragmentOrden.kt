@@ -59,7 +59,7 @@ class FragmentOrden : Fragment() {
                     } else {
                         val i : ItemOrder
                         i = productosSeleccionados.get(index)
-                        Toast.makeText(activity, "Se ha eliminado ${productosSeleccionados?.get(index).description} de la orden", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "Se ha eliminado ${productosSeleccionados.get(index).description} de la orden", Toast.LENGTH_SHORT).show()
                         viewModel.productosSeleccionados.remove(i)
                     }
                     listener?.showFragment(FragmentOrdenEliminacion(), "")

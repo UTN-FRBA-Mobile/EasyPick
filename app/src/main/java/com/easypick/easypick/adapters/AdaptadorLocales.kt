@@ -11,7 +11,7 @@ import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.Locales
 import com.easypick.easypick.R
 
-class AdaptadorLocales(var list: List<Locales>/*, var listener: ClickListener*/): RecyclerView.Adapter<AdaptadorLocales.ViewHolder>(){
+class AdaptadorLocales(var list: List<Locales>, var listener: ClickListener): RecyclerView.Adapter<AdaptadorLocales.ViewHolder>(){
 
     override fun getItemCount(): Int {
         return list.size
@@ -21,7 +21,7 @@ class AdaptadorLocales(var list: List<Locales>/*, var listener: ClickListener*/)
 
         val vista=  LayoutInflater.from(parent?.context).inflate(R.layout.card_locales, parent, false)
 
-        return ViewHolder(vista/*, listener*/)
+        return ViewHolder(vista, listener)
     }
 
 
@@ -30,13 +30,13 @@ class AdaptadorLocales(var list: List<Locales>/*, var listener: ClickListener*/)
     }
 
 
-    class ViewHolder(view: View/*, listener: ClickListener*/): RecyclerView.ViewHolder(view)/*, View.OnClickListener*/ {
+    class ViewHolder(view: View, listener: ClickListener): RecyclerView.ViewHolder(view), View.OnClickListener {
 
-       /* var listener: ClickListener? = null
+        var listener: ClickListener? = null
         init {
             this.listener = listener
             view.setOnClickListener(this)
-        }*/
+        }
 
 
         fun bindItems(data: Locales) {
@@ -58,9 +58,9 @@ class AdaptadorLocales(var list: List<Locales>/*, var listener: ClickListener*/)
 
         }
 
-       /* override fun onClick(v: View?) {
+        override fun onClick(v: View?) {
             this.listener?.onCLick(v!!, adapterPosition)
-        }*/
+        }
     }
 
 

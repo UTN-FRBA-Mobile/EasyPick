@@ -19,12 +19,9 @@ import java.net.URI
 
 class ProductAdapter(var items: List<Producto>, var listener: ClickListener): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
-    var contexto: Context?= null
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val vista =
             LayoutInflater.from(parent?.context).inflate(R.layout.template_producto, parent, false)
-        contexto = parent?.context
         val viewHolder = ViewHolder(vista, listener)
         return viewHolder
     }
@@ -41,7 +38,7 @@ class ProductAdapter(var items: List<Producto>, var listener: ClickListener): Re
     val item = items?.get(position)
     val urlImage = item?.image
 
-    //holder.foto?.setImageResource(item?.foto!!)
+
     holder.comentario?.text =item?.description
     holder.precio?.text = item?.price.toString()
     Picasso.get().load(Uri.parse(urlImage)).resize(120,0).error(R.drawable.hamb_fritas).into(holder.imagen)

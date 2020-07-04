@@ -37,7 +37,6 @@ class FragmentOrdenEliminacion : Fragment() {
     private lateinit var viewModel: LocalViewModel
     var importeTotal: TextView?= null
     var bandera: Boolean = false
-    var vacio: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,7 +80,6 @@ class FragmentOrdenEliminacion : Fragment() {
                     listener?.showFragment(FragmentOrdenEliminacion(), "")
                     if(productosSeleccionados.size == 0){
                         Toast.makeText(activity, "PEDIDO VACIO", Toast.LENGTH_LONG).show()
-                        //bandera = false
                     }
                 }
             })
@@ -93,13 +91,15 @@ class FragmentOrdenEliminacion : Fragment() {
         }
     }
 
-    /*override fun onPause() {
+    override fun onPause() {
         super.onPause()
         if(!bandera){
-            Toast.makeText(activity, "Ejecuta On Pouse", Toast.LENGTH_SHORT)
-            listener?.showFragment(FragmentLocal(), "")
+            val storeFragment = FragmentLocal()
+            storeFragment.store = viewModel.local
+            listener?.showFragment(storeFragment,"")
         }
-    }*/
+    }
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

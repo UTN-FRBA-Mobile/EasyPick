@@ -21,6 +21,7 @@ import com.easypick.easypick.model.ItemOrder
 import com.easypick.easypick.model.Producto
 import com.easypick.easypick.retroFit.Gateway
 import com.easypick.easypick.retroFit.RetroFitApiConsume
+import com.easypick.easypick.retroFit.RetrofitApiConsumeGardinia
 import com.easypick.easypick.viewModels.LocalViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -81,17 +82,17 @@ class FragmentProducto : Fragment() {
             // set the custom adapter to the RecyclerView
             viewModel = ViewModelProvider(activity!!).get(LocalViewModel::class.java)
             categoria = view.findViewById(R.id.categoria)
-            //categoria?.text = viewModel.catSelect
-            categoria?.text = "Categoria Seleccionada"
+            categoria?.text = viewModel.nameCatSelect
             btn_carrito.setOnClickListener {
                 listener?.showFragment(fragmentOrden, "")
             }
             var importeTotal: Double = viewModel.precioTotal
-           // productos = descargarproductos(catSeleccionada)
 
-            val retroFitApiConsume = RetroFitApiConsume()
+            val retroFitApiConsume = RetrofitApiConsumeGardinia()
             val request = retroFitApiConsume.getRetrofit().create(Gateway::class.java)
-            val call = request.getProductoByCategoryId(1, 2)
+            val idStore: Long = viewModel.idStore
+            val idCategory: Int = viewModel.catSelect
+            val call = request.getProductoByCategoryId(idStore, idCategory)
 
 
             call.enqueue(object : Callback<List<Producto>> {
@@ -102,7 +103,6 @@ class FragmentProducto : Fragment() {
                 ) {
                    if(response.isSuccessful){
                        productos = response.body()!!
-                       Log.d("RESPONSE", productos.toString())
 
                        adapter = ProductAdapter(productos, object :ClickListener{
                            override fun onCLick(vista: View, index: Int) {
@@ -121,7 +121,6 @@ class FragmentProducto : Fragment() {
                                if(!find){
                                    viewModel.productosSeleccionados.add((ItemOrder(productos.get(index).Code, productos.get(index).description, productos.get(index).price, productos.get(index).image, 1, productos.get(index).price)))
                                }
-                               //viewModel.productosSeleccionados.add(Producto(productos.get(index).descripcion, productos.get(index).precio, productos.get(index).foto, productos.get(index).comentarios))
                                Toast.makeText(activity, "Se ha agregado ${productos.get(index).description} al pedido", Toast.LENGTH_SHORT).show()
                            }
                        })
@@ -149,44 +148,6 @@ class FragmentProducto : Fragment() {
         listener = null
     }
 
-    /*private fun loadProduct(){
-        val requestGateway = Retrofit.Builder()
-            .baseUrl("https://gardinia.online/api/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build().create(Gateway::class.java)
-        myCompositeDisposable?.add(requestGateway.getProductoByCategoryId(1,2)
-            .observeOn(AndroidSchedulers.mainThread()
-    }*/
-
-
-   /* fun descargarproductos(cat: String?): ArrayList<Producto> {
-        var cat = cat
-        val prods = ArrayList<Producto>()
-        if(cat == "Hamburguesas"){
-            prods.add(Producto("Hamburguesa Completa", 300.0, R.drawable.hamburguesa, ""))
-            prods.add(Producto("Hamburguesa LYT", 250.0, R.drawable.hamburguesa2, "" ))
-            prods.add(Producto("Hamburguesa de Pollo", 200.0, R.drawable.hamburguesapollo, ""))
-            prods.add(Producto("Hamburguesa con fritas", 350.0, R.drawable.hamb_fritas, ""))
-            prods.add(Producto("Hamburguesa Gourmet", 350.0, R.drawable.hamb_gourmet, ""))
-            prods.add(Producto("Hamburguesa con panceta", 300.0, R.drawable.hamb_panceta, ""))
-            prods.add(Producto("Hamburguesa de Sushi", 450.0, R.drawable.hamb_sushi, ""))
-        }else if(cat == "Ensaladas"){
-            prods.add(Producto("Ensalada Cesar", 250.0, R.drawable.ensaladacesar, ""))
-            prods.add(Producto("Ensalada de mar", 400.0, R.drawable.demar, ""))
-            prods.add(Producto("Ensalada Primavera", 180.0, R.drawable.primavera, ""))
-            prods.add(Producto("Ensalada cherry", 180.0, R.drawable.cherry, ""))
-            prods.add(Producto("Ensalada con Pasta", 200.0, R.drawable.fideos, ""))
-            prods.add(Producto("Ensalada Gourmet", 300.0, R.drawable.gourmet, ""))
-        }else{
-            prods.add(Producto("helado", 200.0, R.drawable.helado, ""))
-            prods.add(Producto("Flan casero", 200.0, R.drawable.flan, ""))
-            prods.add(Producto("Ensalada de fruta", 200.0, R.drawable.ensalada, ""))
-            prods.add(Producto("Bombón Suizo", 250.0, R.drawable.bombon,""))
-        }
-
-        return prods
-    }*/
 
     interface OnFragmentInteractionListener {
         fun showFragment(fragment: Fragment, name: String)
