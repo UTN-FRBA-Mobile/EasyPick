@@ -27,6 +27,7 @@ class ProfileFragment: BaseAuthFragment() {
         super.onViewCreated(view, savedInstanceState)
         buttonLoginWithFacebook.fragment = this
         buttonLoginWithFacebook.setReadPermissions("email", "public_profile")
+        listener?.selectTab("ProfileFragment")
 
         buttonLoginWithFacebook.registerCallback(callbackManager, object :
             FacebookCallback<LoginResult> {

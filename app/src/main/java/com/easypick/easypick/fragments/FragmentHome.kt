@@ -60,6 +60,7 @@ class FragmentHome : Fragment(){
     // populate the views now that the layout has been inflated
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        listener?.selectTab("FragmentHome")
         // RecyclerView node initialized here
         RecyLocales.apply {
             // set a LinearLayoutManager to handle Android
@@ -141,6 +142,7 @@ class FragmentHome : Fragment(){
 
     interface OnFragmentInteractionListener {
         fun showFragment(fragment: Fragment, name: String)
+        fun selectTab(fragmentName: String)
     }
 
 }
