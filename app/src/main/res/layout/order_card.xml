@@ -3,58 +3,66 @@
     android:id="@+id/orderCard"
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/orderPicture"
-            android:layout_width="120dp"
-            android:layout_height="80dp"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
             android:src="@drawable/fb"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:civ_border_color="@color/orderComplete"
             app:civ_border_width="3dp"
-            app:civ_border_color="#008C15"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/orderLocal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:fontFamily="@font/montserratsemibold"
             android:text="Orden"
-            android:textSize="@dimen/fragment_title_middle"
+            android:textSize="@dimen/event_content"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.1"
-            app:layout_constraintStart_toEndOf="@+id/orderPicture"
+
+            app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/orderFecha"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/montserratregular"
             android:text="Fecha"
             android:textSize="@dimen/event_time"
-            android:fontFamily="@font/montserratregular"
-            app:layout_constraintHorizontal_bias="0.2"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/orderPrice"
-            app:layout_constraintStart_toEndOf="@+id/orderPicture"
+            app:layout_constraintStart_toStartOf="@+id/guideline"
             app:layout_constraintTop_toBottomOf="@+id/orderLocal" />
 
         <TextView
             android:id="@+id/orderPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="28dp"
+            android:gravity="center"
             android:text="$0"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/fragment_info"
-            android:textColor="@color/toolbarRed"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.645"
-            app:layout_constraintStart_toEndOf="@+id/orderLocal" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.509" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="100dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

@@ -17,6 +17,7 @@ import com.easypick.easypick.model.*
 import com.easypick.easypick.viewModels.LocalViewModel
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_orden.*
+import kotlin.math.round
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -118,12 +119,21 @@ class FragmentOrdenEliminacion : Fragment() {
     private fun crearOrden(){
         val items: ArrayList<Item> = ArrayList<Item>()
         for (producto: ItemOrder in productosSeleccionados){
-            items.add(Item(title=producto.description, quantity=1, unit_price=producto.importe))
+            items.add(Item(title=producto.description, quantity=1, unit_price=producto.importe,
+                imageURL = producto.image))
         }
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         val user = firebaseUser?.email?.let {
             firebaseUser.displayName?.let { it1 -> User(it, it1, firebaseUser.uid) } }
-        val order = Order(payer=user, items=items, costo=viewModel.precioTotal)
+
+        fun Double.round(decimals: Int): Double {
+            var multiplier = 1.0
+            repeat(decimals) { multiplier *= 10 }
+            return round(this * multiplier) / multiplier
+        }
+
+        val order = Order(payer=user, items=items, costo=viewModel.precioTotal.round(2),
+            local=viewModel.local.titulo)
         viewModel.precioTotal = 0.0
         viewModel.productosSeleccionados.clear()
         listener?.showFragment(ForceAuthFragment.newInstance(order), "intentoDePago")
