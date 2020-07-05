@@ -17,7 +17,6 @@ import com.easypick.easypick.model.Order
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 import com.easypick.easypick.fragments.*
-import com.google.android.material.tabs.TabItem
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_principal.*
 
@@ -64,15 +63,15 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
     }
 
     override fun selectTab(fragmentName: String) {
-        var tabIndex = 0;
+        var tabIndex = 0
         if (fragmentName == "ProfileFragment"){
-            tabIndex = 1;
+            tabIndex = 1
         }
         else if (fragmentName == "OrderHistoryFragment"){
-            tabIndex = 2;
+            tabIndex = 2
         }
         val tabLayout: TabLayout = findViewById(R.id.tabs)
-        tabLayout.getTabAt(tabIndex)?.select()
+        tabLayout.setScrollPosition(tabIndex, 0.0F, true)
     }
 
     override fun onStart() {

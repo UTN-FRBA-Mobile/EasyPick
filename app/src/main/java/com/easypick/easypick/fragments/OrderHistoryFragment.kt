@@ -62,12 +62,12 @@ class OrderHistoryFragment: Fragment() {
                             loadingOrders.visibility = View.GONE
                             ordersRecycler.visibility = View.VISIBLE
                         }
+                        listener?.selectTab("OrderHistoryFragment")
                     }
                     else{
                         showNoOrdersMessage()
                     }
                 }
-                listener?.selectTab("OrderHistoryFragment")
         }
         else {
             showNoOrdersMessage()
