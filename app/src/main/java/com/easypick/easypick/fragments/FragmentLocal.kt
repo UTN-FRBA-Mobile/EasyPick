@@ -32,7 +32,7 @@ private const val ARG_PARAM2 = "param2"
 
 class FragmentLocal() : Fragment() {
 
-    private var listener: FragmentLocal.OnFragmentInteractionListener? = null
+    private var listener: OnFragmentInteractionListener? = null
 
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -64,7 +64,7 @@ class FragmentLocal() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         flag = false
-
+        listener?.selectTab("FragmentHome")
         // RecyclerView node initialized here
         recyclerViewCategories.apply {
             // set a LinearLayoutManager to handle Android
@@ -134,7 +134,7 @@ class FragmentLocal() : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is FragmentLocal.OnFragmentInteractionListener) {
+        if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
             throw RuntimeException("$context must implement OnFragmentInteractionListener")
@@ -160,6 +160,7 @@ class FragmentLocal() : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun showFragment(fragment: Fragment, name: String)
+        fun selectTab(fragmentName: String)
     }
 
 

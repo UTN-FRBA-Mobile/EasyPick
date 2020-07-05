@@ -47,6 +47,7 @@ class PagoFragment : Fragment(), OnBackPressedInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        listener?.selectTab("FragmentHome")
         order.id = UUID.randomUUID().toString().toUpperCase();
         val service = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
@@ -109,6 +110,7 @@ class PagoFragment : Fragment(), OnBackPressedInterface {
 
     interface OnFragmentInteractionListener {
         fun showFragment(fragment: Fragment, name: String)
+        fun selectTab(fragmentName: String)
     }
 
     companion object {

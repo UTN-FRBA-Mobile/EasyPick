@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_orden.*
 import kotlin.math.round
 
 class FragmentOrden : Fragment() {
-    private var listener: FragmentOrden.OnFragmentInteractionListener? = null
+    private var listener: OnFragmentInteractionListener? = null
     private var productosSeleccionados = ArrayList<ItemOrder>()
 
 
@@ -41,6 +41,7 @@ class FragmentOrden : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        listener?.selectTab("FragmentHome")
         listaProductosCarrito.apply {
             layoutManager = LinearLayoutManager(activity)
             viewModel = ViewModelProvider(activity!!).get(LocalViewModel::class.java)
@@ -116,6 +117,7 @@ class FragmentOrden : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun showFragment(fragment: Fragment, name: String)
+        fun selectTab(fragmentName: String)
     }
 
 }

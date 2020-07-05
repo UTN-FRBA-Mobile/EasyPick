@@ -73,6 +73,7 @@ class FragmentProducto : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         // RecyclerView node initialized here
+        listener?.selectTab("FragmentHome")
         listaProductos.apply {
             // set a LinearLayoutManager to handle Android
             // RecyclerView behavior
@@ -151,6 +152,7 @@ class FragmentProducto : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun showFragment(fragment: Fragment, name: String)
+        fun selectTab(fragmentName: String)
     }
 
     companion object {

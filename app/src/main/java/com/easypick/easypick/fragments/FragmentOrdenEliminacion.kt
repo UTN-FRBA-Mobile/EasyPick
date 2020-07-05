@@ -33,7 +33,7 @@ class FragmentOrdenEliminacion : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private var listener: FragmentOrdenEliminacion.OnFragmentInteractionListener? = null
+    private var listener: OnFragmentInteractionListener? = null
     private var productosSeleccionados = ArrayList<ItemOrder>()
     private lateinit var viewModel: LocalViewModel
     var importeTotal: TextView?= null
@@ -161,5 +161,6 @@ class FragmentOrdenEliminacion : Fragment() {
 
     interface OnFragmentInteractionListener {
         fun showFragment(fragment: Fragment, name: String)
+        fun selectTab(fragmentName: String)
     }
 }
