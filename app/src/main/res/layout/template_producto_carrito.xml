@@ -82,7 +82,6 @@
             android:layout_height="46dp"
             android:editable="false"
             android:ems="10"
-            android:inputType="number"
             android:text="2"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"

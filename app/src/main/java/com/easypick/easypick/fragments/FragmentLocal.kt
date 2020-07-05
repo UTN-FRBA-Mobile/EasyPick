@@ -45,6 +45,7 @@ class FragmentLocal() : Fragment() {
 
     var flag: Boolean = false
 
+
     private lateinit var categories : List<Category>;
 
     public lateinit var store: Locales;
@@ -66,6 +67,7 @@ class FragmentLocal() : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         flag = false
+
         // RecyclerView node initialized here
         recyclerViewCategories.apply {
             // set a LinearLayoutManager to handle Android
@@ -73,14 +75,17 @@ class FragmentLocal() : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
             viewModel = ViewModelProvider(activity!!).get(LocalViewModel::class.java)
-
+            val idStore = store.id
             val retroFitApiConsume = RetroFitApiConsume();
             val request = retroFitApiConsume.getRetrofit().create(Gateway::class.java);
-            val call = request.getCategoryByStoreId(store.id);
+            val call = request.getCategoryByStoreId(idStore);
+            viewModel.idStore = idStore
 
-            Handler().post {
-                recyclerViewCategories.visibility = View.GONE
-                loadingCategories.visibility = View.VISIBLE
+            if(!viewModel.storeVigente){
+                Handler().post {
+                    recyclerViewCategories.visibility = View.GONE
+                    loadingCategories.visibility = View.VISIBLE
+                }
             }
 
             call.enqueue(object : Callback<List<Category>> {
@@ -95,16 +100,19 @@ class FragmentLocal() : Fragment() {
                         adapter = CategoryAdapter(categories, object : ClickListener {
                             override fun onCLick(vista: View, index: Int) {
                                 flag = true
-                                viewModel.categoria = categories?.get(index).name
+                                viewModel.nameCatSelect = categories.get(index).name
+                                viewModel.catSelect = index +1
                                 listener?.showFragment(FragmentProducto(), "")
                             }
                         })
 
-                        Handler().post {
-                            recyclerViewCategories.visibility = View.VISIBLE
-                            loadingCategories.visibility = View.GONE
+                        if(!viewModel.storeVigente){
+                            Handler().post {
+                                recyclerViewCategories.visibility = View.VISIBLE
+                                loadingCategories.visibility = View.GONE
+                                viewModel.storeVigente = true
+                            }
                         }
-
                     }
                 }
 
@@ -140,11 +148,13 @@ class FragmentLocal() : Fragment() {
     }
 
 
+
     override fun onDestroy() {
         super.onDestroy()
         if (!flag) {
             viewModel.precioTotal = 0.0
             viewModel.productosSeleccionados.clear()
+            viewModel.idStore = 0
             listener?.showFragment(FragmentHome(), "")
         }
     }
@@ -180,3 +190,4 @@ class FragmentLocal() : Fragment() {
     }
 
 }
+

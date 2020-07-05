@@ -1,19 +1,22 @@
 package com.easypick.easypick.adapters
 
+import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.R
 import com.easypick.easypick.model.Order
+import com.squareup.picasso.Picasso
+import de.hdodenhof.circleimageview.CircleImageView
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
-class OrdersAdapter(var orders: List<Order>, var listener: ClickListener):
+class OrdersAdapter(var orders: List<Order>, var context: Context, var listener: ClickListener):
     RecyclerView.Adapter<OrdersAdapter.ViewHolder>() {
     override fun getItemCount(): Int {
         return orders.size
@@ -26,7 +29,7 @@ class OrdersAdapter(var orders: List<Order>, var listener: ClickListener):
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bindItem(orders[position])
+        holder.bindItem(orders[position], this.context)
     }
 
     class ViewHolder(view: View, listener: ClickListener): RecyclerView.ViewHolder(view),
@@ -38,23 +41,25 @@ class OrdersAdapter(var orders: List<Order>, var listener: ClickListener):
             view.setOnClickListener(this)
         }
 
-        fun bindItem(order: Order) {
+        fun bindItem(order: Order, context: Context) {
             val titulo: TextView = itemView.findViewById(R.id.orderLocal)
             val fecha: TextView = itemView.findViewById(R.id.orderFecha)
             val precio: TextView = itemView.findViewById(R.id.orderPrice)
-            val foto: ImageView = itemView.findViewById(R.id.orderPicture)
+            val foto: CircleImageView = itemView.findViewById(R.id.orderPicture)
 
-            titulo.text = "Local"  //order.local.titulo
+            titulo.text = order.local
             if (order.timestamp != null){
-                fecha.text = SimpleDateFormat("dd/MM/yy K:m a ", Locale.ENGLISH).format(
+                fecha.text = SimpleDateFormat("dd/MM/yy", Locale.ENGLISH).format(
                     order.timestamp)
             }
             else{
                 fecha.text = ""
             }
-            precio.text = "$" + order.getPrecio().toString()
-                                            // data.local.foto
-            Glide.with(itemView.context).load(R.drawable.resto1).into(foto)
+            precio.text = context.resources.getString(R.string.costo_solo,
+                NumberFormat.getNumberInstance(Locale.GERMAN).format(order.costo))
+            Picasso.get().load(Uri.parse(order.items?.first()?.imageURL)).
+                resize(120,0).error(R.drawable.hamb_fritas).into(foto)
+            foto.borderColor = order.statusColor(context)
 
             itemView.setOnClickListener{
                 listener?.onCLick(it!!, adapterPosition)

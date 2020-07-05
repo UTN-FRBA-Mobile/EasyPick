@@ -15,10 +15,12 @@ import com.easypick.easypick.model.*
 import com.easypick.easypick.viewModels.LocalViewModel
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_orden.*
+import kotlin.math.round
 
 class FragmentOrden : Fragment() {
     private var listener: FragmentOrden.OnFragmentInteractionListener? = null
     private var productosSeleccionados = ArrayList<ItemOrder>()
+
 
     private lateinit var viewModel: LocalViewModel
     var importeTotal: TextView?= null
@@ -54,11 +56,11 @@ class FragmentOrden : Fragment() {
                     if(productosSeleccionados.get(index).cantidad >1){
                         productosSeleccionados.get(index).cantidad -= 1
                         productosSeleccionados.get(index).importe = productosSeleccionados.get(index).precioUnitario * productosSeleccionados.get(index).cantidad
-                        Toast.makeText(activity, "Quedan ${productosSeleccionados.get(index).cantidad} de ${productosSeleccionados.get(index).descripcion} en la orden", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "Quedan ${productosSeleccionados.get(index).cantidad} de ${productosSeleccionados.get(index).description} en la orden", Toast.LENGTH_SHORT).show()
                     } else {
                         val i : ItemOrder
                         i = productosSeleccionados.get(index)
-                        Toast.makeText(activity, "Se ha eliminado ${productosSeleccionados.get(index).descripcion} de la orden", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(activity, "Se ha eliminado ${productosSeleccionados.get(index).description} de la orden", Toast.LENGTH_SHORT).show()
                         viewModel.productosSeleccionados.remove(i)
                     }
                     listener?.showFragment(FragmentOrdenEliminacion(), "")
@@ -89,12 +91,19 @@ class FragmentOrden : Fragment() {
     private fun crearOrden(){
         val items: ArrayList<Item> = ArrayList<Item>()
         for (producto: ItemOrder in productosSeleccionados){
-            items.add(Item(title=producto.descripcion, quantity=1, unit_price=producto.importe))
+            items.add(Item(title=producto.description, quantity=1, unit_price=producto.importe,
+                imageURL = producto.image))
         }
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         val user = firebaseUser?.email?.let {
             firebaseUser.displayName?.let { it1 -> User(it, it1, firebaseUser.uid) } }
-        val order = Order(payer=user, items=items, costo=viewModel.precioTotal)
+        fun Double.round(decimals: Int): Double {
+            var multiplier = 1.0
+            repeat(decimals) { multiplier *= 10 }
+            return round(this * multiplier) / multiplier
+        }
+        val order = Order(payer=user, items=items, costo=viewModel.precioTotal.round(2),
+            local=viewModel.local.titulo)
         viewModel.precioTotal = 0.0
         viewModel.productosSeleccionados.clear()
         listener?.showFragment(ForceAuthFragment.newInstance(order), "intentoDePago")

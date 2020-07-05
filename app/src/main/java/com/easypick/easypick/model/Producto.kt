@@ -1,4 +1,8 @@
 package com.easypick.easypick.model
 
-class Producto (var descripcion: String, var precio: Double, var foto: Int, var comentarios: String){
+import android.net.Uri
+import java.net.URI
+import java.net.URL
+
+data class Producto (val Code: Long, val price: Double, val image: String, val description: String, val coments: String) {
 }

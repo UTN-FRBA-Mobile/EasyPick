@@ -1,4 +1,8 @@
 package com.easypick.easypick.model
 
-class ItemOrder(var descripcion: String, var precioUnitario: Double, var foto: Int, var importe: Double, var cantidad: Int) {
+import android.net.Uri
+import java.net.URI
+import java.net.URL
+
+class ItemOrder(var Code: Long, var description: String, var precioUnitario: Double, var image: String, var cantidad: Int, var importe: Double) {
 }

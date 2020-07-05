@@ -11,7 +11,7 @@ import com.easypick.easypick.Interfaz.OnBackPressedInterface
 import com.easypick.easypick.firebase.FirebaseToken
 import com.easypick.easypick.fragments.ForceAuthFragment
 import com.easypick.easypick.fragments.FragmentHome
-import com.easypick.easypick.fragments.FragmentLocal
+//import com.easypick.easypick.fragments.FragmentLocal
 import com.easypick.easypick.fragments.ResumenOrdenFragment
 import com.easypick.easypick.model.Order
 import com.google.android.gms.tasks.Task

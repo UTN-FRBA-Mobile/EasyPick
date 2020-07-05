@@ -9,4 +9,5 @@
     <color name="facebookBlue">#1778F2</color>
     <color name="materialGrey500">#9E9E9E</color>
     <color name="toolbarRed">#F44336</color>
+    <color name="orderComplete">#2D9700</color>
 </resources>

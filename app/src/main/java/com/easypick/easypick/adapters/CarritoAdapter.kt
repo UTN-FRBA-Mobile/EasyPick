@@ -4,16 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.R
 import com.easypick.easypick.model.ItemOrder
-import com.easypick.easypick.model.Producto
+import com.squareup.picasso.Picasso
 
-class CarritoAdapter(var items: List<ItemOrder>, var ClickListener: ClickListener): RecyclerView.Adapter<CarritoAdapter.ViewHolder>() {
+class CarritoAdapter(var items: ArrayList<ItemOrder>, var ClickListener: ClickListener): RecyclerView.Adapter<CarritoAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val vista =
             LayoutInflater.from(parent?.context).inflate(R.layout.template_producto_carrito, parent, false)
@@ -27,10 +26,13 @@ class CarritoAdapter(var items: List<ItemOrder>, var ClickListener: ClickListene
 
     override fun onBindViewHolder(holder: CarritoAdapter.ViewHolder, position: Int) {
         val item = items?.get(position)
-        holder.foto?.setImageResource(item?.foto!!)
-        holder.descripcion?.text =item?.descripcion
+        val urlImage = item?.image
+       // holder.foto?.setImageResource(item?.foto!!)
+        holder.descripcion?.text =item?.description
         holder.importe?.text = item?.importe.toString()
         holder.cantidad?.text = item?.cantidad.toString()
+
+        Picasso.get().load(urlImage).resize(120,0).error(R.drawable.hamb_fritas).into(holder.foto!!)
     }
 
 

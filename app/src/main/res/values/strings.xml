@@ -53,6 +53,7 @@
     <string name="profile_title_text">Perfil</string>
     <string name="conectado_como">Conectado como %1s (%2s)</string>
     <string name="costo">Costo: $%1s</string>
+    <string name="costo_solo">$%1s</string>
     <string name="orden_id">N° de orden: %1s</string>
     <string name="comida">comida</string>
     <string name="auth_text">Estas a un paso de tu comida</string>
@@ -61,4 +62,5 @@
     <string name="precio">precio</string>
     <string name="mis_ordenes">Mis ordenes</string>
     <string name="estimated">Tiempo estimado: %1s min</string>
+    <string name="no_orders">No tenes ordenes todavia</string>
 </resources>

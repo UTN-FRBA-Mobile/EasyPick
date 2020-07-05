@@ -19,6 +19,7 @@ import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.android.synthetic.main.fragment_resumen_orden.*
 import kotlinx.android.synthetic.main.fragment_resumen_orden.view.*
 import java.text.DateFormat
+import java.text.NumberFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -45,7 +46,8 @@ class ResumenOrdenFragment: Fragment(), OnBackPressedInterface {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        view.costo.text = getString(R.string.costo, order.costo.toString())
+        view.costo.text = getString(R.string.costo, NumberFormat.getNumberInstance(Locale.GERMAN).
+            format(order.costo))
         view.order_id.text = getString(R.string.orden_id, order.id)
         if (order.timestamp == null){
             view.fecha.text = DateFormat.getDateInstance(DateFormat.LONG,

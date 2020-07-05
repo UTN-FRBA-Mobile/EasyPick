@@ -1,17 +1,21 @@
 package com.easypick.easypick.adapters
 
 import android.content.Context
+import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.R
 import com.easypick.easypick.model.Producto
+import com.google.zxing.client.result.URIResultParser
+import com.squareup.picasso.Picasso
+import java.net.URI
 
 class ProductAdapter(var items: List<Producto>, var listener: ClickListener): RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
 
@@ -26,25 +30,32 @@ class ProductAdapter(var items: List<Producto>, var listener: ClickListener): Re
         return items.size
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return super.getItemViewType(position)
+    }
+
     override fun onBindViewHolder(holder: ProductAdapter.ViewHolder, position: Int) {
     val item = items?.get(position)
-    holder.foto?.setImageResource(item?.foto!!)
-    holder.descripcion?.text =item?.descripcion
-    holder.precio?.text = item?.precio.toString()
+    val urlImage = item?.image
+
+
+    holder.comentario?.text =item?.description
+    holder.precio?.text = item?.price.toString()
+    Picasso.get().load(Uri.parse(urlImage)).resize(120,0).error(R.drawable.hamb_fritas).into(holder.imagen)
     }
 
     class ViewHolder(vista: View, listener: ClickListener) : RecyclerView.ViewHolder(vista), View.OnClickListener{
         var vista = vista
-        var foto:ImageView?= null
-        var descripcion: TextView?= null
         var precio: TextView?= null
+        var imagen:ImageView?= null
+        var comentario: TextView?= null
         var boton: Button?= null
         var listener:ClickListener?= null
 
         init {
-            foto= vista.findViewById(R.id.iProducto)
-            descripcion = vista.findViewById(R.id.descripcion)
             precio = vista.findViewById(R.id.precio)
+            this.imagen= vista.findViewById(R.id.iProducto)
+            comentario = vista.findViewById(R.id.descripcion)
             boton = vista.findViewById(R.id.btn_agregar)
             this.listener = listener
 

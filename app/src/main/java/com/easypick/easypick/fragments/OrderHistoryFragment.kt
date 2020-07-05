@@ -31,15 +31,7 @@ class OrderHistoryFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         ordersRecycler.apply {
             layoutManager = LinearLayoutManager(activity)
-            adapter = OrdersAdapter(orders, object: ClickListener {
-                override fun onCLick(vista: View, index: Int) {
-                    val order = orders[index]
-                    listener?.showFragment(ResumenOrdenFragment.newInstance(order), "")
-                }
-            })
-        }.apply {
-            layoutManager = LinearLayoutManager(activity)
-            adapter = OrdersAdapter(orders, object: ClickListener {
+            adapter = OrdersAdapter(orders, context, object: ClickListener {
                 override fun onCLick(vista: View, index: Int) {
                     val order = orders[index]
                     listener?.showFragment(ResumenOrdenFragment.newInstance(order), "")
@@ -52,21 +44,40 @@ class OrderHistoryFragment: Fragment() {
         super.onStart()
         ordersRecycler.addItemDecoration(MarginItemDecoration(
             resources.getDimension(R.dimen.default_padding).toInt()))
-        Handler().post {
-            ordersRecycler.visibility = View.GONE
-            loadingOrders.visibility = View.VISIBLE
-        }
         val firebaseUser = FirebaseAuth.getInstance().currentUser
-        firebaseUser?.uid?.let { DatabaseAPI().getOrders(it) }
-            ?.addOnSuccessListener { dbOrders ->
-                for (dbOrder in dbOrders){
-                    orders.add(dbOrder.toObject(Order::class.java))
-                }
-                Handler().post {
-                    loadingOrders.visibility = View.GONE
-                    ordersRecycler.visibility = View.VISIBLE
+        if (firebaseUser != null){
+            Handler().post {
+                ordersRecycler.visibility = View.GONE
+                loadingOrders.visibility = View.VISIBLE
+                noOrders.visibility = View.GONE
+            }
+            firebaseUser.uid.let { DatabaseAPI().getOrders(it) }
+                .addOnSuccessListener { dbOrders ->
+                    orders.clear()
+                    for (dbOrder in dbOrders){
+                        orders.add(dbOrder.toObject(Order::class.java))
+                    }
+                    if (orders.size != 0){
+                        Handler().post {
+                            loadingOrders.visibility = View.GONE
+                            ordersRecycler.visibility = View.VISIBLE
+                        }
+                    }
+                    else{
+                        showNoOrdersMessage()
+                    }
                 }
                 listener?.selectTab("OrderHistoryFragment")
+        }
+        else {
+            showNoOrdersMessage()
+        }
+    }
+
+    private fun showNoOrdersMessage() {
+        Handler().post {
+            ordersRecycler.visibility = View.GONE
+            noOrders.visibility = View.VISIBLE
         }
     }
 
