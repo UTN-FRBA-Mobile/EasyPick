@@ -11,14 +11,13 @@ import com.easypick.easypick.Interfaz.OnBackPressedInterface
 import com.easypick.easypick.firebase.FirebaseToken
 import com.easypick.easypick.fragments.ForceAuthFragment
 import com.easypick.easypick.fragments.FragmentHome
-//import com.easypick.easypick.fragments.FragmentLocal
 import com.easypick.easypick.fragments.ResumenOrdenFragment
 import com.easypick.easypick.model.Order
 import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.DocumentSnapshot
 import com.easypick.easypick.fragments.*
-import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.activity_principal.*
+import kotlinx.android.synthetic.main.fragment_menu.*
 
 
 class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
@@ -70,8 +69,7 @@ class Principal :  BaseActivity(), FragmentHome.OnFragmentInteractionListener,
         else if (fragmentName == "OrderHistoryFragment"){
             tabIndex = 2
         }
-        val tabLayout: TabLayout = findViewById(R.id.tabs)
-        tabLayout.setScrollPosition(tabIndex, 0.0F, true)
+        tabs.setScrollPosition(tabIndex, 0.0F, true)
     }
 
     override fun onStart() {
