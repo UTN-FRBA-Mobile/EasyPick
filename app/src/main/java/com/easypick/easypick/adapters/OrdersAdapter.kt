@@ -59,12 +59,7 @@ class OrdersAdapter(var orders: List<Order>, var context: Context, var listener:
                 NumberFormat.getNumberInstance(Locale.GERMAN).format(order.costo))
             Picasso.get().load(Uri.parse(order.items?.first()?.imageURL)).
                 resize(120,0).error(R.drawable.hamb_fritas).into(foto)
-            if (order.completed){
-                foto.borderColor = context.resources.getColor(R.color.orderComplete)
-            }
-            else {
-                foto.borderColor = context.resources.getColor(R.color.button_color)
-            }
+            foto.borderColor = order.statusColor(context)
 
             itemView.setOnClickListener{
                 listener?.onCLick(it!!, adapterPosition)

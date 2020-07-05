@@ -1,9 +1,10 @@
 package com.easypick.easypick.model
 
+import android.content.Context
 import android.os.Parcelable
+import com.easypick.easypick.R
 import com.google.firebase.firestore.ServerTimestamp
 import kotlinx.android.parcel.Parcelize
-import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -25,11 +26,11 @@ data class Order(
     val local: String = "",
     val completed: Boolean = false,
     @ServerTimestamp val timestamp:Date? = null) : Parcelable {
-    fun getPrecio(): Double? {
-        return if (this.items != null){
-            this.items.sumByDouble { it.unit_price }
-        } else{
-            0.0
+    fun statusColor(context: Context): Int {
+        return if (this.completed){
+            context.resources.getColor(R.color.orderComplete)
+        } else {
+            context.resources.getColor(R.color.button_color)
         }
     }
 }
