@@ -2,7 +2,6 @@ package com.easypick.easypick.fragments
 
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -26,8 +25,6 @@ import kotlinx.android.synthetic.main.fragment_local.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.http.Url
-import java.net.URL
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -93,9 +90,6 @@ class FragmentLocal() : Fragment() {
                     if (response.isSuccessful) {
                         categories = response.body()!!
 
-                        for (category in categories){
-                            category.image = R.drawable.hamburguesa;
-                        }
 
                         adapter = CategoryAdapter(categories, object : ClickListener {
                             override fun onCLick(vista: View, index: Int) {

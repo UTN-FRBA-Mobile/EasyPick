@@ -41,7 +41,7 @@ class ProductAdapter(var items: List<Producto>, var listener: ClickListener): Re
 
     holder.comentario?.text =item?.description
     holder.precio?.text = item?.price.toString()
-    Picasso.get().load(Uri.parse(urlImage)).resize(120,0).error(R.drawable.hamb_fritas).into(holder.imagen)
+    Picasso.get().load(Uri.parse(urlImage)).resize(120,0).error(R.drawable.no_food_image).into(holder.imagen)
     }
 
     class ViewHolder(vista: View, listener: ClickListener) : RecyclerView.ViewHolder(vista), View.OnClickListener{
