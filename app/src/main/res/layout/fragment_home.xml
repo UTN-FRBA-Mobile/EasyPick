@@ -33,7 +33,8 @@
             android:text="@string/cam_texto"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
+            android:textSize="@dimen/main_title"
+            android:fontFamily="@font/montserratregular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +49,8 @@
             android:text="@string/cam_locales"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="24sp"
+            android:textSize="@dimen/main_title"
+            android:fontFamily="@font/montserratregular"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_cam" />
