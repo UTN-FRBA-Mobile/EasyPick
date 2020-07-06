@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class RetroFitApiConsume {
 
     private var retrofit: Retrofit = Retrofit.Builder()
-        .baseUrl("https://36f52c82-1e21-4f33-a359-1914068f7489.mock.pstmn.io"gi)
+        .baseUrl("https://36f52c82-1e21-4f33-a359-1914068f7489.mock.pstmn.io")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build();
