@@ -38,7 +38,7 @@ class FragmentOrdenEliminacion : Fragment() {
     private lateinit var viewModel: LocalViewModel
     var importeTotal: TextView?= null
     var bandera: Boolean = false
-
+    var storeName: TextView?= null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
@@ -60,7 +60,9 @@ class FragmentOrdenEliminacion : Fragment() {
             viewModel = ViewModelProvider(activity!!).get(LocalViewModel::class.java)
             productosSeleccionados = viewModel.productosSeleccionados
             importeTotal = view.findViewById(R.id.precioTotal)
+            storeName = view.findViewById(R.id.idStoreName)
             importeTotal?.text = viewModel.precioTotal.toString()
+            storeName?.text = viewModel.tituloStore
             var importeApagar: Double = viewModel.precioTotal
             adapter = CarritoAdapter(productosSeleccionados, object : ClickListener{
                 override fun onCLick(v: View, index: Int) {

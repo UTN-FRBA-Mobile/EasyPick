@@ -13,4 +13,6 @@ class LocalViewModel: ViewModel() {
     var precioTotal: Double = 0.0
     lateinit var local: Locales
     var storeVigente: Boolean = false
+    var tituloStore: String = ""
+    var detalleStore: String = ""
 }

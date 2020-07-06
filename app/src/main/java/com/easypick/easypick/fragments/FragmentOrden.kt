@@ -15,16 +15,16 @@ import com.easypick.easypick.model.*
 import com.easypick.easypick.viewModels.LocalViewModel
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.fragment_orden.*
+import kotlinx.android.synthetic.main.fragment_producto.view.*
 import kotlin.math.round
 
 class FragmentOrden : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
     private var productosSeleccionados = ArrayList<ItemOrder>()
-
-
     private lateinit var viewModel: LocalViewModel
     var importeTotal: TextView?= null
-
+    var storeName: TextView?= null
+    var storeDescription: TextView?= null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,6 +47,10 @@ class FragmentOrden : Fragment() {
             viewModel = ViewModelProvider(activity!!).get(LocalViewModel::class.java)
             productosSeleccionados = viewModel.productosSeleccionados
             importeTotal = view.findViewById(R.id.precioTotal)
+            storeName = view.findViewById(R.id.idStoreName)
+            storeDescription = view.findViewById(R.id.idCategoryName)
+            storeName?.text = viewModel.tituloStore
+            storeDescription?.text = viewModel.detalleStore
             importeTotal?.text = viewModel.precioTotal.toString()
             var importeApagar: Double = viewModel.precioTotal
             adapter = CarritoAdapter(productosSeleccionados, object : ClickListener{

@@ -77,7 +77,8 @@ class FragmentLocal() : Fragment() {
             val request = retroFitApiConsume.getRetrofit().create(Gateway::class.java);
             val call = request.getCategoryByStoreId(idStore);
             viewModel.idStore = idStore
-
+            viewModel.tituloStore = store.titulo
+            viewModel.detalleStore = store.detalle
             if(!viewModel.storeVigente){
                 Handler().post {
                     recyclerViewCategories.visibility = View.GONE
