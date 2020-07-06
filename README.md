@@ -12,6 +12,10 @@ En el contexto de la pandemia mundial, muchos servicios de comida empiezan a mig
 
 ##### Pantalla principal
 ![Pantalla principal](/screenshots/main.png?raw=true)
+
+##### Categorías
+![Categorias](/screenshots/categorias.png?raw=true)
+
 #### Mis ordenes
 ![Mis ordenes](/screenshots/ordenes.png?raw=true)
 
