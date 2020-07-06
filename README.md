@@ -10,7 +10,7 @@ En el contexto de la pandemia mundial, muchos servicios de comida empiezan a mig
 
 ### Capturas
 
-![Alt text](/screenshots/main.png?raw=true "Pantalla principal")
+![Alt text](/screenshots/mainresized.png?raw=true "Pantalla principal")
 
 ![Alt text](/screenshots/ordenes.png?raw=true "Mis ordenes")
 
