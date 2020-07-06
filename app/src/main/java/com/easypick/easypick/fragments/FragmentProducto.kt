@@ -89,7 +89,7 @@ class FragmentProducto : Fragment() {
             val retroFitApiConsume = RetrofitApiConsumeGardinia()
             val request = retroFitApiConsume.getRetrofit().create(Gateway::class.java)
             val idStore: Long = viewModel.idStore
-            val idCategory: Int = viewModel.catSelect
+            val idCategory: Long = viewModel.catSelect
             val call = request.getProductoByCategoryId(idStore, idCategory)
 
 

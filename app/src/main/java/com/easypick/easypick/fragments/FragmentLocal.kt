@@ -95,7 +95,7 @@ class FragmentLocal() : Fragment() {
                             override fun onCLick(vista: View, index: Int) {
                                 flag = true
                                 viewModel.nameCatSelect = categories.get(index).name
-                                viewModel.catSelect = index + 1
+                                viewModel.catSelect = categories.get(index).id
                                 listener?.showFragment(FragmentProducto(), "")
 
                                 var productFragment = FragmentProducto();
