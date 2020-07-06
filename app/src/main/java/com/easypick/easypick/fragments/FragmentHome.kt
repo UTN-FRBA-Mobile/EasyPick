@@ -19,16 +19,10 @@ import com.easypick.easypick.R.drawable
 import com.easypick.easypick.R.layout
 import com.easypick.easypick.adapters.AdaptadorLocales
 import com.easypick.easypick.viewModels.LocalViewModel
-import com.google.api.AnnotationsProto.http
 import com.google.zxing.integration.android.IntentIntegrator
-import kotlinx.android.synthetic.main.card_locales.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
-import me.dm7.barcodescanner.zxing.ZXingScannerView.ResultHandler
 import java.io.File
-import java.net.URI
-import java.net.URL
-import javax.xml.transform.URIResolver
 
 
 class FragmentHome : Fragment(){
@@ -40,9 +34,6 @@ class FragmentHome : Fragment(){
     var imageFile: File?= null
     private lateinit var viewModel: LocalViewModel
 
-    //val apiResponse = URL("http://gardinia.online/api/get_catalogo_id.php?id=1").readText()
-
-
     private val locales = listOf(
         Locales(titulo = "Pizzeria", detalle = "Pizzeria Vegana, más de 14 sabores", foto= drawable.resto1,  id = 1) ,
         Locales(titulo = "Sarkis", detalle = "Comida armenia hecha por nosotros", foto = drawable.resto2, id = 2),
@@ -50,8 +41,6 @@ class FragmentHome : Fragment(){
         Locales(titulo = "Zakura", detalle = "Comida japonesa, más de 8 platos orientales", foto = drawable.resto4, id = 4),
         Locales(titulo = "Blur", detalle = "Cerveza Artenal, contamos con 14 tipos de cervezas.", foto = drawable.resto5, id = 5),
         Locales(titulo = "MilaPlus", detalle = "Milanesas de lujo, carne, pollo, cerdo, cordero.", foto = drawable.resto6, id = 6))
-
-
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
