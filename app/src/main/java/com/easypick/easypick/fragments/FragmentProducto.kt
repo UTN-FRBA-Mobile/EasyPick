@@ -50,8 +50,8 @@ class FragmentProducto : Fragment() {
     private lateinit var fragmentProducto: Fragment
     private lateinit var fragmentOrden: Fragment
 
-    var itemStoreName: String? = null
-    var itemStoreDescription: String? = null
+    var itemStoreName: TextView? = null
+    var itemStoreDescription: TextView? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,8 +79,12 @@ class FragmentProducto : Fragment() {
             layoutManager = LinearLayoutManager(activity)
             // set the custom adapter to the RecyclerView
             viewModel = ViewModelProvider(activity!!).get(LocalViewModel::class.java)
+            itemStoreName = view.findViewById(R.id.itemsStoreName)
+            itemStoreDescription = view.findViewById(R.id.itemsStoreDescription)
             categoria = view.findViewById(R.id.categoria)
             categoria?.text = viewModel.nameCatSelect
+            itemStoreName?.text = viewModel.tituloStore
+            itemStoreDescription?.text = viewModel.detalleStore
             btn_carrito.setOnClickListener {
                 listener?.showFragment(fragmentOrden, "")
             }
@@ -129,7 +133,7 @@ class FragmentProducto : Fragment() {
                     Toast.makeText(activity, "Error obteniendo productos", Toast.LENGTH_SHORT).show()
                 }
             })
-            initializeStore(view, itemStoreName, itemStoreDescription);
+            //initializeStore(view, itemStoreName, itemStoreDescription);
 
         }
 
@@ -151,6 +155,8 @@ class FragmentProducto : Fragment() {
             throw RuntimeException("$context must implement OnFragmentInteractionListener")
         }
     }
+
+
 
     override fun onDetach() {
         super.onDetach()

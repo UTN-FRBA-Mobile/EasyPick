@@ -26,7 +26,6 @@ class FragmentOrden : Fragment() {
     var storeName: TextView?= null
     var storeDescription: TextView?= null
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         retainInstance = true
@@ -87,6 +86,7 @@ class FragmentOrden : Fragment() {
             throw RuntimeException("$context must implement OnFragmentInteractionListener")
         }
     }
+
 
     override fun onDetach() {
         super.onDetach()
