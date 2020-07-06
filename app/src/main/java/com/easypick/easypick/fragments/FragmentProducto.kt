@@ -1,13 +1,12 @@
 package com.easypick.easypick.fragments
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -20,18 +19,12 @@ import com.easypick.easypick.adapters.ProductAdapter
 import com.easypick.easypick.model.ItemOrder
 import com.easypick.easypick.model.Producto
 import com.easypick.easypick.retroFit.Gateway
-import com.easypick.easypick.retroFit.RetroFitApiConsume
 import com.easypick.easypick.retroFit.RetrofitApiConsumeGardinia
 import com.easypick.easypick.viewModels.LocalViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_producto.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
-import retrofit2.converter.gson.GsonConverterFactory
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -56,6 +49,10 @@ class FragmentProducto : Fragment() {
     private var catSeleccionada: String? = null
     private lateinit var fragmentProducto: Fragment
     private lateinit var fragmentOrden: Fragment
+
+    var itemStoreName: String? = null
+    var itemStoreDescription: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -132,7 +129,18 @@ class FragmentProducto : Fragment() {
                     Toast.makeText(activity, "Error obteniendo productos", Toast.LENGTH_SHORT).show()
                 }
             })
+            initializeStore(view, itemStoreName, itemStoreDescription);
+
         }
+
+    }
+
+    private fun initializeStore(view: View, name: String?, description: String?) {
+        val storeName: TextView? = view.findViewById(R.id.itemsStoreName)
+        storeName?.text = name;
+
+        val storeDescription: TextView? = view.findViewById(R.id.itemsStoreDescription)
+        storeDescription?.text = description;
     }
 
     override fun onAttach(context: Context) {
