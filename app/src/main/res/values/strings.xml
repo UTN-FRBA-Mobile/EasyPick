@@ -33,8 +33,8 @@
     <string name="Config_menu">Configuración</string>
     <string name="nav_alert">Avisos</string>
     <string name="nav_session">Cerrar Sesión</string>
-    <string name="cam_texto">Escaneé el código QR</string>
-    <string name="cam_locales">Buscar locales cercanos</string>
+    <string name="cam_texto">Escaneé el código QR para conocer la carta del local</string>
+    <string name="cam_locales">Locales disponibles</string>
     <string name="pagar">Confirmar Pago</string>
     <string name="nombre">Nombre y Apellido Del titular</string>
     <string name="numero_tarjeta">Número de tarjeta</string>

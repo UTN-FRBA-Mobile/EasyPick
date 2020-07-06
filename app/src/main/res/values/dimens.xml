@@ -7,6 +7,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="fragment_title">35sp</dimen>
     <dimen name="fragment_title_middle">25sp</dimen>
+    <dimen name="main_title">24sp</dimen>
     <dimen name="fragment_title_smaller">20sp</dimen>
     <dimen name="fragment_info">20sp</dimen>
     <dimen name="event_time">16sp</dimen>
