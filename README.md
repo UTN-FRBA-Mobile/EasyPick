@@ -9,11 +9,11 @@ En el contexto de la pandemia mundial, muchos servicios de comida empiezan a mig
 * Recibi las notificaciones del avance de tu pedido y retiralo cuando este listo
 
 ### Capturas
-Pantalla principal
-![Pantalla principal](/screenshots/main.png?raw=true "Pantalla principal")
 
-Mis ordenes
-![Mis ordenes](/screenshots/ordenes.png?raw=true "Mis ordenes")
+##### Pantalla principal
+![Pantalla principal](/screenshots/main.png?raw=true)
+#### Mis ordenes
+![Mis ordenes](/screenshots/ordenes.png?raw=true)
 
-Resumen de orden
+#### Resumen de orden
 ![Resumen de orden](/screenshots/resumenOrden.png?raw=true "Resumen de orden")
