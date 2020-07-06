@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="fragmentContainer" type="id" />
+    <item name="fragment_camera" type="id" />
+    <item name="fragment_locales_cercanos" type="id" />
+
+</resources>
