@@ -48,7 +48,7 @@ class ResumenOrdenFragment: Fragment(), OnBackPressedInterface {
         super.onViewCreated(view, savedInstanceState)
         view.costo.text = getString(R.string.costo, NumberFormat.getNumberInstance(Locale.GERMAN).
             format(order.costo))
-        view.order_id.text = getString(R.string.orden_id, order.id)
+        view.order_id.text = getString(R.string.orden_id, order.id.take(5))
         if (order.timestamp == null){
             view.fecha.text = DateFormat.getDateInstance(DateFormat.LONG,
                 Locale("es", "ES")).format(Calendar.getInstance().time)
