@@ -11,8 +11,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.easypick.easypick.Interfaz.ClickListener
 import com.easypick.easypick.Locales
+import com.easypick.easypick.R
 import com.easypick.easypick.R.drawable
 import com.easypick.easypick.R.layout
 import com.easypick.easypick.adapters.AdaptadorLocales
@@ -61,6 +63,8 @@ class FragmentHome : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         listener?.selectTab("FragmentHome")
+        context?.let { Glide.with(it).asGif().placeholder(R.drawable.qr_).
+            load(R.drawable.qrscan).into(btn_cam) }
         // RecyclerView node initialized here
         RecyLocales.apply {
             // set a LinearLayoutManager to handle Android
