@@ -34,16 +34,6 @@
                 android:textColor="@android:color/background_light"
                 android:textSize="18sp"
                 android:textStyle="bold"></TextView>
-
-            <TextView
-                android:id="@+id/idCategoryName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textColor="@android:color/background_light"
-                android:textSize="10dp"></TextView>
-
         </LinearLayout>
 
     </LinearLayout>
@@ -84,7 +74,7 @@
             android:layout_height="wrap_content"
             android:text="Importe a pagar"
             android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:textColor="#9C27B0"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -98,7 +88,7 @@
             android:layout_height="17dp"
             android:text="$ 500"
             android:textAlignment="center"
-            android:textColor="#9C27B0"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

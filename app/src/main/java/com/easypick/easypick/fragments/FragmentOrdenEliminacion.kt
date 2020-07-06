@@ -62,10 +62,8 @@ class FragmentOrdenEliminacion : Fragment() {
             productosSeleccionados = viewModel.productosSeleccionados
             importeTotal = view.findViewById(R.id.precioTotal)
             storeName = view.findViewById(R.id.idStoreName)
-            storeDescription = view.findViewById(R.id.idCategoryName)
             importeTotal?.text = viewModel.precioTotal.toString()
             storeName?.text = viewModel.tituloStore
-            storeDescription?.text = viewModel.detalleStore
             var importeApagar: Double = viewModel.precioTotal
             adapter = CarritoAdapter(productosSeleccionados, object : ClickListener{
                 override fun onCLick(v: View, index: Int) {

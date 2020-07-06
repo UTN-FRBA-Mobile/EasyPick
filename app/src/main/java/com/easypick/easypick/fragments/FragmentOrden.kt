@@ -47,9 +47,7 @@ class FragmentOrden : Fragment() {
             productosSeleccionados = viewModel.productosSeleccionados
             importeTotal = view.findViewById(R.id.precioTotal)
             storeName = view.findViewById(R.id.idStoreName)
-            storeDescription = view.findViewById(R.id.idCategoryName)
             storeName?.text = viewModel.tituloStore
-            storeDescription?.text = viewModel.detalleStore
             importeTotal?.text = viewModel.precioTotal.toString()
             var importeApagar: Double = viewModel.precioTotal
             adapter = CarritoAdapter(productosSeleccionados, object : ClickListener{
