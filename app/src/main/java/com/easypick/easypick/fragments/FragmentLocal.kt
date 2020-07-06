@@ -96,7 +96,12 @@ class FragmentLocal() : Fragment() {
                                 flag = true
                                 viewModel.nameCatSelect = categories.get(index).name
                                 viewModel.catSelect = index +1
-                                listener?.showFragment(FragmentProducto(), "")
+
+                                var productFragment = FragmentProducto();
+                                productFragment.itemStoreDescription = store.detalle;
+                                productFragment.itemStoreName = store.titulo;
+
+                                listener?.showFragment(productFragment, "")
                             }
                         })
 
